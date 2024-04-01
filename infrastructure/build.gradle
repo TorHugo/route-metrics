@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-core:8.5.10'
+        classpath 'org.postgresql:postgresql:42.2.24'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.flywaydb.flyway' version '8.5.10'
+}
+
+group = 'com.dev.torhugo'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Internal
+    implementation(project(":domain"))
+    implementation(project(":application"))
+
+    // External
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation('com.h2database:h2')
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.flywaydb:flyway-core')
+}
+
+flyway {
+    url = System.getenv('FLYWAY_DB') ?: 'jdbc:postgresql://localhost:5435/postgres'
+    user = System.getenv('PG_USER_ROUTE_METRICS') ?: 'root'
+    password = System.getenv('PG_PASSWORD_ROUTE_METRICS') ?: '123456'
+}
+
+test {
+    useJUnitPlatform()
+}

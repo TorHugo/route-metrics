@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### PG-DATA ###
+/postgres-data/
+
+### MQ-DATA ###
+/data/
