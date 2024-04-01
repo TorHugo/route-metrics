@@ -1,0 +1,25 @@
+##############
+## DATABASE ##
+##############
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5435/postgres
+    username: admin
+    password: 17122020
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true

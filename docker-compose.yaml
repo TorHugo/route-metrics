@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_DB: route_metrics
-      POSTGRES_USER: ${PG_ADMIN_USER}
+      POSTGRES_USER: admin
       POSTGRES_PASSWORD: ${PG_ADMIN_PASSWORD}
     ports:
       - "5435:5432"
