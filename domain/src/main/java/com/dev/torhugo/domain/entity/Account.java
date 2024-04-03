@@ -61,11 +61,11 @@ public class Account {
     }
 
     public Account inactive(final UUID accountId,
-                                   final String name,
-                                   final String email,
-                                   final String password,
-                                   final boolean isAdmin,
-                                   final LocalDateTime createdAt){
+                            final String name,
+                            final String email,
+                            final String password,
+                            final boolean isAdmin,
+                            final LocalDateTime createdAt){
         if(!this.active) throw new InvalidArgumentError("This account is already inactive.");
         final var isActive = false;
         final var dateNow = LocalDateTime.now();

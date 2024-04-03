@@ -1,7 +1,7 @@
 package com.dev.torhugo.api.controller;
 
-import com.dev.torhugo.CreateAccountUseCase;
-import com.dev.torhugo.FindAccountUseCase;
+import com.dev.torhugo.usecase.CreateAccountUseCase;
+import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.api.AccountAPI;
 import com.dev.torhugo.api.mappers.AccountMapper;
 import com.dev.torhugo.api.models.response.AccountCreateResponse;
@@ -21,7 +21,11 @@ public class AccountController implements AccountAPI {
     private final AccountMapper accountMapper;
     @Override
     public AccountCreateResponse createAccount(final BasicAccountRequest request) {
-        final var input = new AccountDTO(request.name(), request.email(), request.password());
+        final var input = new AccountDTO(
+                request.name(),
+                request.email(),
+                request.password()
+        );
         return new AccountCreateResponse(createAccountUseCase.execute(input));
     }
     @Override

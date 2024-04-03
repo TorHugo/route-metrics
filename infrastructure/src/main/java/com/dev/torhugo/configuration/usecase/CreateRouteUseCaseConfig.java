@@ -1,19 +1,19 @@
 package com.dev.torhugo.configuration.usecase;
 
-import com.dev.torhugo.usecase.CreateAccountUseCase;
-import com.dev.torhugo.messaging.QueueProducer;
 import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.repository.RouteRepository;
+import com.dev.torhugo.usecase.CreateRouteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class CreateAccountUseCaseConfig {
+public class CreateRouteUseCaseConfig {
+    private final RouteRepository routeRepository;
     private final AccountRepository accountRepository;
-    private final QueueProducer queueProducer;
     @Bean
-    public CreateAccountUseCase createAccountUseCase(){
-        return new CreateAccountUseCase(accountRepository, queueProducer);
+    public CreateRouteUseCase createRouteUseCase(){
+        return new CreateRouteUseCase(accountRepository, routeRepository);
     }
 }

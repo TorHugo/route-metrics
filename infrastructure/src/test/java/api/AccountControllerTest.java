@@ -1,7 +1,7 @@
 package api;
 
-import com.dev.torhugo.CreateAccountUseCase;
-import com.dev.torhugo.FindAccountUseCase;
+import com.dev.torhugo.usecase.CreateAccountUseCase;
+import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
 import com.dev.torhugo.models.AccountDTO;
 import com.dev.torhugo.models.BasicAccountDTO;

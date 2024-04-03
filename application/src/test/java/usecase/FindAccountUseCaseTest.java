@@ -1,4 +1,8 @@
-import com.dev.torhugo.FindAccountUseCase;
+package usecase;
+
+import com.dev.torhugo.mapper.AccountMapper;
+import com.dev.torhugo.models.BasicAccountDTO;
+import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
 import com.dev.torhugo.repository.AccountRepository;
@@ -11,6 +15,7 @@ import util.MessageUtil;
 
 import java.util.UUID;
 
+import static mock.AccountMock.createBasicAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -20,6 +25,8 @@ class FindAccountUseCaseTest extends MessageUtil {
     FindAccountUseCase useCase;
     @Mock
     AccountRepository accountRepository;
+    @Mock
+    AccountMapper accountMapper;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -33,12 +40,13 @@ class FindAccountUseCaseTest extends MessageUtil {
         final var expectedPassword = "Password@";
         final var account = Account.create(expectedName, expectedEmail, expectedPassword);
         when(accountRepository.findByAccountId(any())).thenReturn(account);
+        when(accountMapper.mapperToBasic(account)).thenReturn(createBasicAccount());
 
         // When
         final var result = useCase.execute(account.getAccountId());
 
         // Then
-        assertNotNull(result, messageNotNull);
+        assertNotNull(result, MESSAGE_NOT_NULL);
         verify(accountRepository, times(1)).findByAccountId(any());
     }
 
@@ -47,14 +55,15 @@ class FindAccountUseCaseTest extends MessageUtil {
         // Given
         final var expectedException = "Account not found!";
         final var expectedAccountId = UUID.randomUUID();
-        when(accountRepository.findByAccountId(any())).thenReturn(null);
+        when(accountRepository.findByAccountId(any()))
+                .thenThrow(new RepositoryNotFoundError(ACCOUNT_NOT_FOUND));
 
         // When
         final var exception = assertThrows(RepositoryNotFoundError.class, () ->
                 useCase.execute(expectedAccountId));
 
         // Then
-        assertEquals(expectedException, exception.getMessage(), messageToEqual);
+        assertEquals(expectedException, exception.getMessage(), MESSAGE_TO_EQUAL);
         verify(accountRepository, times(1)).findByAccountId(any());
     }
 }

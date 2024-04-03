@@ -1,12 +1,10 @@
-package com.dev.torhugo;
+package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
-import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
 import com.dev.torhugo.mapper.AccountMapper;
 import com.dev.torhugo.models.BasicAccountDTO;
 import com.dev.torhugo.repository.AccountRepository;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class FindAccountUseCase extends DefaultUseCase {
@@ -19,8 +17,6 @@ public class FindAccountUseCase extends DefaultUseCase {
     }
     public BasicAccountDTO execute(final UUID accountId){
         final var account = accountRepository.findByAccountId(accountId);
-        if(Objects.isNull(account))
-            throw new RepositoryNotFoundError("Account not found!");
         return accountMapper.mapperToBasic(account);
     }
 }

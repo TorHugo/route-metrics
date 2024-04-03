@@ -1,5 +1,8 @@
+package entity;
+
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
+import util.MessageUtil;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -7,7 +10,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountTest extends MessageTest {
+class AccountTest extends MessageUtil {
     @Test
     void shouldInstantiateAccountWhenValidParameters(){
         // Given
@@ -23,15 +26,15 @@ class AccountTest extends MessageTest {
         );
 
         // Then
-        assertNotNull(result.getAccountId(), messageNotNull);
-        assertEquals(expectedName, result.getName(), messageToEqual);
-        assertEquals(expectedEmail, result.getEmail(), messageToEqual);
-        assertEquals(expectedPassword, result.getPassword(), messageToEqual);
-        assertTrue(result.isActive(), messageTrue);
-        assertFalse(result.isAdmin(), messageFalse);
-        assertNotNull(result.getLastAccess(), messageNotNull);
-        assertNotNull(result.getCreatedAt(), messageNotNull);
-        assertNull(result.getUpdatedAt(), messageNull);
+        assertNotNull(result.getAccountId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
+        assertTrue(result.isActive(), MESSAGE_TRUE);
+        assertFalse(result.isAdmin(), MESSAGE_FALSE);
+        assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNull(result.getUpdatedAt(), MESSAGE_NULL);
     }
 
     @Test
@@ -60,15 +63,15 @@ class AccountTest extends MessageTest {
         );
 
         // Then
-        assertEquals(expectedAccountId, result.getAccountId(), messageToEqual);
-        assertEquals(expectedName, result.getName(), messageToEqual);
-        assertEquals(expectedEmail, result.getEmail(), messageToEqual);
-        assertEquals(expectedPassword, result.getPassword(), messageToEqual);
-        assertFalse(result.isActive(), messageTrue);
-        assertFalse(result.isAdmin(), messageFalse);
-        assertNotNull(result.getLastAccess(), messageNotNull);
-        assertNotNull(result.getCreatedAt(), messageNotNull);
-        assertNotNull(result.getUpdatedAt(), messageNotNull);
+        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
+        assertFalse(result.isActive(), MESSAGE_TRUE);
+        assertFalse(result.isAdmin(), MESSAGE_FALSE);
+        assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
     }
 
     @Test
@@ -97,15 +100,15 @@ class AccountTest extends MessageTest {
         );
 
         // Then
-        assertEquals(expectedAccountId, result.getAccountId(), messageToEqual);
-        assertEquals(expectedName, result.getName(), messageToEqual);
-        assertEquals(expectedEmail, result.getEmail(), messageToEqual);
-        assertEquals(expectedPassword, result.getPassword(), messageToEqual);
-        assertEquals(expectedActive, result.isActive(), messageToEqual);
-        assertEquals(expectedAdmin, result.isAdmin(), messageToEqual);
-        assertEquals(expectedLastAccess, result.getLastAccess(), messageToEqual);
-        assertEquals(expectedCreatedAt, result.getCreatedAt(), messageToEqual);
-        assertNull(result.getUpdatedAt(), messageNull);
+        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedActive, result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAdmin, result.isAdmin(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedLastAccess, result.getLastAccess(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
+        assertNull(result.getUpdatedAt(), MESSAGE_NULL);
     }
 
     @Test
@@ -126,7 +129,7 @@ class AccountTest extends MessageTest {
         });
 
         // Then
-        assertEquals(expectedErrorMessage, exception.getMessage(), messageToEqual);
+        assertEquals(expectedErrorMessage, exception.getMessage(), MESSAGE_TO_EQUAL);
     }
 
     @Test
@@ -146,7 +149,7 @@ class AccountTest extends MessageTest {
         ));
 
         // Then
-        assertEquals(expectedErrorMessage, exception.getMessage(), messageToEqual);
+        assertEquals(expectedErrorMessage, exception.getMessage(), MESSAGE_TO_EQUAL);
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.dev.torhugo;
+package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Account;
@@ -17,7 +17,6 @@ public class CreateAccountUseCase extends DefaultUseCase {
     private final QueueProducer queueProducer;
     public CreateAccountUseCase(final AccountRepository accountRepository,
                                 final QueueProducer queueProducer) {
-        super();
         this.accountRepository = accountRepository;
         this.queueProducer = queueProducer;
     }

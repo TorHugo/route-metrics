@@ -1,4 +1,6 @@
-import com.dev.torhugo.CreateAccountUseCase;
+package usecase;
+
+import com.dev.torhugo.usecase.CreateAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
 import com.dev.torhugo.messaging.QueueProducer;
@@ -45,7 +47,7 @@ class CreateAccountUseCaseTest extends MessageUtil {
         final var result = useCase.execute(input);
 
         // Then
-        assertNotNull(result, messageNotNull);
+        assertNotNull(result, MESSAGE_NOT_NULL);
         verify(accountRepository, times(1)).findByEmail(any());
         verify(queueProducer, times(1)).sendMessage(any(), any());
         verify(accountRepository, times(1)).save(argThat(account ->
@@ -84,7 +86,7 @@ class CreateAccountUseCaseTest extends MessageUtil {
         );
 
         // Then
-        assertEquals(expectedMessageError, exception.getMessage(), messageToEqual);
+        assertEquals(expectedMessageError, exception.getMessage(), MESSAGE_TO_EQUAL);
         verify(accountRepository, times(1)).findByEmail(any());
         verify(queueProducer, times(0)).sendMessage(any(), any());
         verify(accountRepository, times(0)).save(any());
