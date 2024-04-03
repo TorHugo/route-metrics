@@ -1,4 +1,4 @@
-package com.dev.torhugo.api.models;
+package com.dev.torhugo.api.models.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

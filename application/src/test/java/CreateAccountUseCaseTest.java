@@ -2,7 +2,7 @@ import com.dev.torhugo.CreateAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
 import com.dev.torhugo.messaging.QueueProducer;
-import com.dev.torhugo.models.AccountInput;
+import com.dev.torhugo.models.AccountDTO;
 import com.dev.torhugo.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class CreateAccountUseCaseTest extends MessageUtil {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountInput(expectedName, expectedEmail, expectedPassword);
+        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
         when(accountRepository.findByEmail(expectedEmail)).thenReturn(null);
         doNothing().when(accountRepository).save(any());
         doNothing().when(queueProducer).sendMessage(any(), any());
@@ -73,7 +73,7 @@ class CreateAccountUseCaseTest extends MessageUtil {
                 expectedEmail,
                 expectedPassword
         );
-        final var input = new AccountInput(expectedName, expectedEmail, expectedPassword);
+        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
         when(accountRepository.findByEmail(expectedEmail)).thenReturn(expectedAccount);
         doNothing().when(accountRepository).save(any());
         doNothing().when(queueProducer).sendMessage(any(), any());

@@ -1,7 +1,8 @@
 package integration;
 
 import com.dev.torhugo.CreateAccountUseCase;
-import com.dev.torhugo.models.AccountInput;
+import com.dev.torhugo.FindAccountUseCase;
+import com.dev.torhugo.models.AccountDTO;
 import com.dev.torhugo.repository.AccountJpaRepository;
 import config.AnnotationDefaultIT;
 import org.junit.jupiter.api.Test;
@@ -14,9 +15,9 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
     @Autowired
     private CreateAccountUseCase createAccountUseCase;
     @Autowired
+    private FindAccountUseCase findAccountUseCase;
+    @Autowired
     private AccountJpaRepository accountJpaRepository;
-
-
     @Test
     @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldCreateAccountWhenValidParams(){
@@ -24,7 +25,7 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountInput(expectedName, expectedEmail, expectedPassword);
+        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
 
         // When
         final var accountId = createAccountUseCase.execute(input);
@@ -42,5 +43,31 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
         assertNull(actualAccount.getUpdatedAt(), messageNull);
         assertTrue(actualAccount.isActive(), messageTrue);
         assertFalse(actualAccount.isAdmin(), messageFalse);
+    }
+
+    @Test
+    @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void shouldFindAccountWithSuccess(){
+        // Given
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
+
+        // When
+        final var accountId = createAccountUseCase.execute(input);
+        assertNotNull(accountId, messageNotNull);
+        final var savedAccount = findAccountUseCase.execute(accountId);
+        assertNotNull(savedAccount, messageNotNull);
+
+        // Then
+        assertEquals(accountId, savedAccount.accountId(), messageToEqual);
+        assertEquals(expectedName, savedAccount.name(), messageToEqual);
+        assertEquals(expectedEmail, savedAccount.email(), messageToEqual);
+        assertNotNull(savedAccount.lastAccess(), messageNotNull);
+        assertNotNull(savedAccount.createdAt(), messageNotNull);
+        assertNull(savedAccount.updatedAt(), messageNull);
+        assertTrue(savedAccount.active(), messageTrue);
+        assertFalse(savedAccount.admin(), messageFalse);
     }
 }

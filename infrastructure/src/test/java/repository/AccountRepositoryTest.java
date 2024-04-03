@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountRepositoryTest extends AnnotationDefaultIT {
@@ -38,5 +40,53 @@ class AccountRepositoryTest extends AnnotationDefaultIT {
         assertNotNull(account.getLastAccess(), messageNotNull);
         assertNotNull(account.getCreatedAt(), messageNotNull);
         assertNull(account.getUpdatedAt(), messageNull);
+    }
+
+    @Test
+    @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void shouldFindAccountByEmailWithSuccess(){
+        // Given
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var expectedAccount = Account.create(expectedName, expectedEmail, expectedPassword);
+
+        // When
+        accountRepository.save(expectedAccount);
+        final var account = accountRepository.findByEmail(expectedEmail);
+
+        // Then
+        assertNotNull(account, messageNotNull);
+        assertEquals(expectedAccount.getAccountId(), account.getAccountId(), messageToEqual);
+        assertEquals(expectedAccount.getName(), account.getName(), messageToEqual);
+        assertEquals(expectedAccount.getEmail(), account.getEmail(), messageToEqual);
+        assertEquals(expectedAccount.getPassword(), account.getPassword(), messageToEqual);
+        assertEquals(expectedAccount.isActive(), account.isActive(), messageToEqual);
+        assertEquals(expectedAccount.isAdmin(), account.isAdmin(), messageToEqual);
+        assertNotNull(account.getLastAccess(), messageNotNull);
+        assertNotNull(account.getCreatedAt(), messageNotNull);
+        assertNull(account.getUpdatedAt(), messageNull);
+    }
+
+    @Test
+    @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void notShouldFindAccountByEmailWhenAccountIsNotSaved(){
+        // Given && When
+        final var expectedEmail = "";
+        final var account = accountRepository.findByEmail(expectedEmail);
+
+        // Then
+        assertNull(account, messageNull);
+    }
+
+    @Test
+    @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void notShouldFindAccountByIdWhenAccountIsNotSaved(){
+        // Given && When
+        final var expectedAccountId = UUID.randomUUID();
+        final var account = accountRepository.findByAccountId(expectedAccountId);
+
+        // Then
+        assertNull(account, messageNull);
     }
 }

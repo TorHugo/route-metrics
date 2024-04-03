@@ -91,9 +91,9 @@ class AccountTest extends MessageTest {
                 expectedPassword,
                 expectedActive,
                 expectedAdmin,
+                expectedLastAccess,
                 expectedCreatedAt,
-                null,
-                expectedLastAccess
+                null
         );
 
         // Then
@@ -104,7 +104,7 @@ class AccountTest extends MessageTest {
         assertEquals(expectedActive, result.isActive(), messageToEqual);
         assertEquals(expectedAdmin, result.isAdmin(), messageToEqual);
         assertEquals(expectedLastAccess, result.getLastAccess(), messageToEqual);
-        assertEquals(expectedCreatedAt, result.getCreatedAt(), messageNotNull);
+        assertEquals(expectedCreatedAt, result.getCreatedAt(), messageToEqual);
         assertNull(result.getUpdatedAt(), messageNull);
     }
 

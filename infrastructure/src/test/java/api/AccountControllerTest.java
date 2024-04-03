@@ -1,9 +1,10 @@
 package api;
 
 import com.dev.torhugo.CreateAccountUseCase;
+import com.dev.torhugo.FindAccountUseCase;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
-import com.dev.torhugo.models.AccountInput;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.dev.torhugo.models.AccountDTO;
+import com.dev.torhugo.models.BasicAccountDTO;
 import config.ControllerDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -23,6 +25,8 @@ class AccountControllerTest extends ControllerDefaultIT {
 
     @MockBean
     private CreateAccountUseCase createAccountUseCase;
+    @MockBean
+    private FindAccountUseCase findAccountUseCase;
 
     @Test
     void shouldCreatedAccountWithSuccess() throws Exception {
@@ -31,7 +35,7 @@ class AccountControllerTest extends ControllerDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountInput(expectedName, expectedEmail, expectedPassword);
+        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
         when(createAccountUseCase.execute(any())).thenReturn(expectedAccountId);
 
         // When
@@ -56,7 +60,7 @@ class AccountControllerTest extends ControllerDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test_dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountInput(expectedName, expectedEmail, expectedPassword);
+        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
         when(createAccountUseCase.execute(any()))
                 .thenThrow(new InvalidArgumentError("Invalid email!"));
 
@@ -73,5 +77,35 @@ class AccountControllerTest extends ControllerDefaultIT {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", equalTo(expectedError)));
         verify(createAccountUseCase, times(1)).execute(any());
+    }
+
+
+    @Test
+    void shouldFindAccountWithSuccess() throws Exception {
+        // Given
+        final var expectedAccountId = UUID.randomUUID();
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedDateNow = LocalDateTime.now();
+        final var basicAccount = new BasicAccountDTO(expectedAccountId, expectedName, expectedEmail, true, false, expectedDateNow, expectedDateNow, null);
+        when(findAccountUseCase.execute(any())).thenReturn(basicAccount);
+
+        // When
+        final var request = MockMvcRequestBuilders
+                .get("/account/find/{accountId}", expectedAccountId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+
+        final var response = super.mvc.perform(request).andDo(MockMvcResultHandlers.log());
+
+        // Then
+        response
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.account_id", equalTo(expectedAccountId.toString())))
+                .andExpect(jsonPath("$.name", equalTo(expectedName)))
+                .andExpect(jsonPath("$.email", equalTo(expectedEmail)))
+                .andExpect(jsonPath("$.in_active", equalTo(true)))
+                .andExpect(jsonPath("$.in_admin", equalTo(false)));
+        verify(findAccountUseCase, times(1)).execute(any());
     }
 }

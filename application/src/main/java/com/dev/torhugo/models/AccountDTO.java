@@ -1,6 +1,6 @@
 package com.dev.torhugo.models;
 
-public record AccountInput(
+public record AccountDTO(
         String name,
         String email,
         String password
