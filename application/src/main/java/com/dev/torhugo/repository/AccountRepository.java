@@ -2,7 +2,6 @@ package com.dev.torhugo.repository;
 
 import com.dev.torhugo.domain.entity.Account;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface AccountRepository {

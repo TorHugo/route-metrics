@@ -30,16 +30,16 @@ class AccountRepositoryTest extends AnnotationDefaultIT {
         final var account = accountRepository.findByAccountId(expectedAccount.getAccountId());
 
         // Then
-        assertNotNull(account, messageNotNull);
-        assertEquals(expectedAccount.getAccountId(), account.getAccountId(), messageToEqual);
-        assertEquals(expectedAccount.getName(), account.getName(), messageToEqual);
-        assertEquals(expectedAccount.getEmail(), account.getEmail(), messageToEqual);
-        assertEquals(expectedAccount.getPassword(), account.getPassword(), messageToEqual);
-        assertEquals(expectedAccount.isActive(), account.isActive(), messageToEqual);
-        assertEquals(expectedAccount.isAdmin(), account.isAdmin(), messageToEqual);
-        assertNotNull(account.getLastAccess(), messageNotNull);
-        assertNotNull(account.getCreatedAt(), messageNotNull);
-        assertNull(account.getUpdatedAt(), messageNull);
+        assertNotNull(account, MESSAGE_NOT_NULL);
+        assertEquals(expectedAccount.getAccountId(), account.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.getName(), account.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.getEmail(), account.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.getPassword(), account.getPassword(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.isActive(), account.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.isAdmin(), account.isAdmin(), MESSAGE_TO_EQUAL);
+        assertNotNull(account.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(account.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNull(account.getUpdatedAt(), MESSAGE_NULL);
     }
 
     @Test
@@ -56,16 +56,16 @@ class AccountRepositoryTest extends AnnotationDefaultIT {
         final var account = accountRepository.findByEmail(expectedEmail);
 
         // Then
-        assertNotNull(account, messageNotNull);
-        assertEquals(expectedAccount.getAccountId(), account.getAccountId(), messageToEqual);
-        assertEquals(expectedAccount.getName(), account.getName(), messageToEqual);
-        assertEquals(expectedAccount.getEmail(), account.getEmail(), messageToEqual);
-        assertEquals(expectedAccount.getPassword(), account.getPassword(), messageToEqual);
-        assertEquals(expectedAccount.isActive(), account.isActive(), messageToEqual);
-        assertEquals(expectedAccount.isAdmin(), account.isAdmin(), messageToEqual);
-        assertNotNull(account.getLastAccess(), messageNotNull);
-        assertNotNull(account.getCreatedAt(), messageNotNull);
-        assertNull(account.getUpdatedAt(), messageNull);
+        assertNotNull(account, MESSAGE_NOT_NULL);
+        assertEquals(expectedAccount.getAccountId(), account.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.getName(), account.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.getEmail(), account.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.getPassword(), account.getPassword(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.isActive(), account.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAccount.isAdmin(), account.isAdmin(), MESSAGE_TO_EQUAL);
+        assertNotNull(account.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(account.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNull(account.getUpdatedAt(), MESSAGE_NULL);
     }
 
     @Test
@@ -76,7 +76,7 @@ class AccountRepositoryTest extends AnnotationDefaultIT {
         final var account = accountRepository.findByEmail(expectedEmail);
 
         // Then
-        assertNull(account, messageNull);
+        assertNull(account, MESSAGE_NULL);
     }
 
     @Test
@@ -87,6 +87,6 @@ class AccountRepositoryTest extends AnnotationDefaultIT {
         final var account = accountRepository.findByAccountId(expectedAccountId);
 
         // Then
-        assertNull(account, messageNull);
+        assertNull(account, MESSAGE_NULL);
     }
 }

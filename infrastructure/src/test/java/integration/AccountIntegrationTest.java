@@ -29,20 +29,20 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
 
         // When
         final var accountId = createAccountUseCase.execute(input);
-        assertNotNull(accountId, messageNotNull);
+        assertNotNull(accountId, MESSAGE_NOT_NULL);
         final var actualAccount = accountJpaRepository.findById(accountId).orElse(null);
-        assertNotNull(actualAccount, messageNotNull);
+        assertNotNull(actualAccount, MESSAGE_NOT_NULL);
 
         // Then
-        assertEquals(accountId, actualAccount.getAccountId(), messageToEqual);
-        assertEquals(expectedName, actualAccount.getName(), messageToEqual);
-        assertEquals(expectedEmail, actualAccount.getEmail(), messageToEqual);
-        assertEquals(expectedPassword, actualAccount.getPassword(), messageToEqual);
-        assertNotNull(actualAccount.getLastAccess(), messageNotNull);
-        assertNotNull(actualAccount.getCreatedAt(), messageNotNull);
-        assertNull(actualAccount.getUpdatedAt(), messageNull);
-        assertTrue(actualAccount.isActive(), messageTrue);
-        assertFalse(actualAccount.isAdmin(), messageFalse);
+        assertEquals(accountId, actualAccount.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, actualAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, actualAccount.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, actualAccount.getPassword(), MESSAGE_TO_EQUAL);
+        assertNotNull(actualAccount.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(actualAccount.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNull(actualAccount.getUpdatedAt(), MESSAGE_NULL);
+        assertTrue(actualAccount.isActive(), MESSAGE_TRUE);
+        assertFalse(actualAccount.isAdmin(), MESSAGE_FALSE);
     }
 
     @Test
@@ -56,18 +56,18 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
 
         // When
         final var accountId = createAccountUseCase.execute(input);
-        assertNotNull(accountId, messageNotNull);
+        assertNotNull(accountId, MESSAGE_NOT_NULL);
         final var savedAccount = findAccountUseCase.execute(accountId);
-        assertNotNull(savedAccount, messageNotNull);
+        assertNotNull(savedAccount, MESSAGE_NOT_NULL);
 
         // Then
-        assertEquals(accountId, savedAccount.accountId(), messageToEqual);
-        assertEquals(expectedName, savedAccount.name(), messageToEqual);
-        assertEquals(expectedEmail, savedAccount.email(), messageToEqual);
-        assertNotNull(savedAccount.lastAccess(), messageNotNull);
-        assertNotNull(savedAccount.createdAt(), messageNotNull);
-        assertNull(savedAccount.updatedAt(), messageNull);
-        assertTrue(savedAccount.active(), messageTrue);
-        assertFalse(savedAccount.admin(), messageFalse);
+        assertEquals(accountId, savedAccount.accountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, savedAccount.name(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, savedAccount.email(), MESSAGE_TO_EQUAL);
+        assertNotNull(savedAccount.lastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(savedAccount.createdAt(), MESSAGE_NOT_NULL);
+        assertNull(savedAccount.updatedAt(), MESSAGE_NULL);
+        assertTrue(savedAccount.active(), MESSAGE_TRUE);
+        assertFalse(savedAccount.admin(), MESSAGE_FALSE);
     }
 }

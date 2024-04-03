@@ -47,4 +47,20 @@ public class RouteEntity {
                 route.getUpdatedAt()
         );
     }
+
+    public static Route toAggregate(final RouteEntity entity) {
+        return Route.restore(
+                entity.routeId,
+                entity.accountId,
+                entity.distance,
+                entity.status,
+                entity.initialLatitude,
+                entity.initialLongitude,
+                entity.lastLatitude,
+                entity.lastLongitude,
+                entity.active,
+                entity.createdAt,
+                entity.updatedAt
+        );
+    }
 }
