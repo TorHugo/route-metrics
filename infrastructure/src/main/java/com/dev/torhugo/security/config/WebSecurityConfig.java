@@ -23,7 +23,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private static final String PUBLIC = "/auth/**";
+    private static final String[] PUBLIC = {"/auth/**", "/account/public/**"};
     private final AuthFilter authenticationJwtTokenFilter;
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {

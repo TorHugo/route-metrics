@@ -9,6 +9,7 @@ import com.dev.torhugo.api.models.request.BasicAccountRequest;
 import com.dev.torhugo.api.models.response.BasicAccountResponse;
 import com.dev.torhugo.models.AccountDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -19,13 +20,10 @@ public class AccountController implements AccountAPI {
     private final CreateAccountUseCase createAccountUseCase;
     private final FindAccountUseCase findAccountUseCase;
     private final AccountMapper accountMapper;
+    private final PasswordEncoder passwordEncoder;
     @Override
     public AccountCreateResponse createAccount(final BasicAccountRequest request) {
-        final var input = new AccountDTO(
-                request.name(),
-                request.email(),
-                request.password()
-        );
+        final var input = new AccountDTO(request.name(), request.email(), passwordEncoder.encode(request.password()));
         return new AccountCreateResponse(createAccountUseCase.execute(input));
     }
     @Override

@@ -3,6 +3,7 @@ package com.dev.torhugo.api;
 import com.dev.torhugo.api.models.response.AccountCreateResponse;
 import com.dev.torhugo.api.models.request.BasicAccountRequest;
 import com.dev.torhugo.api.models.response.BasicAccountResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,10 @@ import java.util.UUID;
 public interface AccountAPI {
 
     @PostMapping(
-            "/create"
+            "/public/create"
     )
     @ResponseStatus(HttpStatus.CREATED)
-    AccountCreateResponse createAccount(final @RequestBody BasicAccountRequest request);
+    AccountCreateResponse createAccount(final @Valid @RequestBody BasicAccountRequest request);
     @GetMapping(
             "/find/{accountId}"
     )
