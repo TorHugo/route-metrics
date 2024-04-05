@@ -3,14 +3,13 @@ package com.dev.torhugo.models;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record BasicRouteDTO(
-        UUID routeId,
+public record UcBasicAccountDTO(
         UUID accountId,
-        Double distance,
-        String status,
+        String name,
+        String email,
         boolean active,
-        CoordinateDTO initialCoord,
-        CoordinateDTO lastCoord,
+        boolean admin,
+        LocalDateTime lastAccess,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {

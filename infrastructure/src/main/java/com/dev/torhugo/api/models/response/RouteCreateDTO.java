@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-public record RouteCreateResponse(
+public record RouteCreateDTO(
         @JsonProperty("route_id") UUID routeId
 ) {
 }

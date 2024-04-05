@@ -1,7 +1,7 @@
 package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.mapper.RouteMapper;
-import com.dev.torhugo.models.BasicRouteDTO;
+import com.dev.torhugo.models.UcBasicRouteDTO;
 import com.dev.torhugo.repository.RouteRepository;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class FindRouteUseCase {
         this.routeMapper = routeMapper;
     }
 
-    public BasicRouteDTO execute(final UUID routeId) {
+    public UcBasicRouteDTO execute(final UUID routeId) {
         final var existingRoute = routeRepository.findByRouteId(routeId);
         return routeMapper.mappingToBasic(existingRoute);
     }

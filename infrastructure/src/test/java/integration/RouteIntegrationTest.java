@@ -1,7 +1,7 @@
 package integration;
 
-import com.dev.torhugo.models.AccountDTO;
-import com.dev.torhugo.models.RouteDTO;
+import com.dev.torhugo.models.UcAccountDTO;
+import com.dev.torhugo.models.UcRouteDTO;
 import com.dev.torhugo.usecase.CreateAccountUseCase;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
 import com.dev.torhugo.usecase.FindRouteUseCase;
@@ -27,7 +27,7 @@ class RouteIntegrationTest extends AnnotationDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var expectedAccount = new AccountDTO(expectedName, expectedEmail, expectedPassword);
+        final var expectedAccount = new UcAccountDTO(expectedName, expectedEmail, expectedPassword);
         final var expectedAccountId = createAccountUseCase.execute(expectedAccount);
         assertNotNull(expectedAccountId, MESSAGE_NOT_NULL);
 
@@ -35,7 +35,7 @@ class RouteIntegrationTest extends AnnotationDefaultIT {
         final var expectedLongitude = Math.random();
         final var expectedStatus = "REQUESTED";
         final var expectedActive = true;
-        final var input = new RouteDTO(expectedAccountId, expectedLatitude, expectedLongitude);
+        final var input = new UcRouteDTO(expectedAccountId, expectedLatitude, expectedLongitude);
 
         // When
         final var routeId = createRouteUseCase.execute(input);

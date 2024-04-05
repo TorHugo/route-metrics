@@ -1,7 +1,8 @@
 package com.dev.torhugo.security.service;
 
-import com.dev.torhugo.api.models.request.LoginRequest;
+import com.dev.torhugo.api.models.request.LoginDTO;
 import com.dev.torhugo.security.jwt.TokenUtils;
+import com.dev.torhugo.usecase.UpdateLastAccessUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoginService {
     private final AuthenticationManager authenticationManager;
+    private final UpdateLastAccessUseCase updateLastAccessUseCase;
     private final TokenUtils tokenUtils;
 
-    public ResponseCookie login(final LoginRequest request){
+    public ResponseCookie login(final LoginDTO request){
+        updateLastAccessUseCase.execute(request.username());
         final var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.username(),

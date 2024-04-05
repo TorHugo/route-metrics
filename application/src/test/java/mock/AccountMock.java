@@ -1,7 +1,7 @@
 package mock;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.models.BasicAccountDTO;
+import com.dev.torhugo.models.UcBasicAccountDTO;
 
 public class AccountMock {
 
@@ -16,9 +16,9 @@ public class AccountMock {
         );
     }
 
-    public static BasicAccountDTO createBasicAccount(){
+    public static UcBasicAccountDTO createBasicAccount(){
         final var account = createAccount();
-        return new BasicAccountDTO(
+        return new UcBasicAccountDTO(
                 account.getAccountId(),
                 account.getName(),
                 account.getEmail(),

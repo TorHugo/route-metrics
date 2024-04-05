@@ -2,7 +2,7 @@ package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Route;
-import com.dev.torhugo.models.RouteDTO;
+import com.dev.torhugo.models.UcRouteDTO;
 import com.dev.torhugo.repository.AccountRepository;
 import com.dev.torhugo.repository.RouteRepository;
 
@@ -17,7 +17,7 @@ public class CreateRouteUseCase extends DefaultUseCase {
         this.routeRepository = routeRepository;
     }
 
-    public UUID execute(final RouteDTO input){
+    public UUID execute(final UcRouteDTO input){
         logger.info("Executing use-case: CreateRoute.");
         final var account = this.accountRepository.findByAccountId(input.accountId());
         final var actualRoute = Route.create(

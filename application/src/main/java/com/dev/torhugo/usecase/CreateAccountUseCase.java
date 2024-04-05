@@ -5,7 +5,7 @@ import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
 import com.dev.torhugo.messaging.Queue;
 import com.dev.torhugo.messaging.QueueProducer;
-import com.dev.torhugo.models.AccountDTO;
+import com.dev.torhugo.models.UcAccountDTO;
 import com.dev.torhugo.repository.AccountRepository;
 
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class CreateAccountUseCase extends DefaultUseCase {
         this.accountRepository = accountRepository;
         this.queueProducer = queueProducer;
     }
-    public UUID execute(final AccountDTO input){
+    public UUID execute(final UcAccountDTO input){
         logger.info("Executing use-case: CreateAccount.");
         final var existisAccount = this.accountRepository.findByEmail(input.email());
         if(Objects.nonNull(existisAccount))

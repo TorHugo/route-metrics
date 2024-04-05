@@ -2,10 +2,8 @@ package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.mapper.AccountMapper;
-import com.dev.torhugo.models.BasicAccountDTO;
+import com.dev.torhugo.models.UcBasicAccountDTO;
 import com.dev.torhugo.repository.AccountRepository;
-
-import java.util.UUID;
 
 public class FindAccountUseCase extends DefaultUseCase {
     private final AccountRepository accountRepository;
@@ -15,8 +13,8 @@ public class FindAccountUseCase extends DefaultUseCase {
         this.accountRepository = accountRepository;
         this.accountMapper = accountMapper;
     }
-    public BasicAccountDTO execute(final UUID accountId){
-        final var account = accountRepository.findByAccountId(accountId);
+    public UcBasicAccountDTO execute(final String email){
+        final var account = accountRepository.findByEmailWithThrow(email);
         return accountMapper.mapperToBasic(account);
     }
 }

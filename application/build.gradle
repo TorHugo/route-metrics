@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.dev.torhugo'
+group = 'com.dev.torhugo.application'
 version = '0.0.1-SNAPSHOT'
 
 repositories {

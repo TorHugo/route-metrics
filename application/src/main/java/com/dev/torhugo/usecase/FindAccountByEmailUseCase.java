@@ -2,7 +2,11 @@ package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Account;
+import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
+import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
 import com.dev.torhugo.repository.AccountRepository;
+
+import java.util.Objects;
 
 public class FindAccountByEmailUseCase extends DefaultUseCase {
     private final AccountRepository accountRepository;
@@ -10,6 +14,6 @@ public class FindAccountByEmailUseCase extends DefaultUseCase {
         this.accountRepository = accountRepository;
     }
     public Account execute(final String email){
-        return accountRepository.findByEmail(email);
+        return accountRepository.findByEmailWithThrow(email);
     }
 }

@@ -1,10 +1,8 @@
 package api;
 
 import com.dev.torhugo.api.models.CoordinateDTO;
-import com.dev.torhugo.api.models.request.BasicRouteRequest;
-import com.dev.torhugo.domain.entity.Route;
+import com.dev.torhugo.api.models.request.BasicRouteDTO;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import config.ControllerDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -31,7 +29,7 @@ class RouteControllerTest extends ControllerDefaultIT {
         final var expectedAccountId = UUID.randomUUID();
         final var expectedLatitude = Math.random();
         final var expectedLongitude = Math.random();
-        final var input = new BasicRouteRequest(expectedAccountId, new CoordinateDTO(expectedLatitude, expectedLongitude));
+        final var input = new BasicRouteDTO(expectedAccountId, new CoordinateDTO(expectedLatitude, expectedLongitude));
         when(createRouteUseCase.execute(any())).thenReturn(expectedRouteId);
 
         // When

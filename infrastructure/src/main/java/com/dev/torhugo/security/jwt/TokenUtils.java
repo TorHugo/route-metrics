@@ -29,7 +29,7 @@ public class TokenUtils {
     private static final String COOKIE = "token";
     @Value("${api.app.secret}")
     private String secret;
-    @Value("${api.jwt.expirationMs}")
+    @Value("${api.jwt.expiration-token}")
     private Integer expiration;
 
     public String getTokenFromCookie(final HttpServletRequest request) {
@@ -76,7 +76,6 @@ public class TokenUtils {
                 .httpOnly(true)
                 .build();
     }
-
     private String generateTokenFromUser(final UserDetailsImpl user) {
         if (!user.isActive())
             throw new AccessDeniedException("Account Expired!");

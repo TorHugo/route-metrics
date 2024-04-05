@@ -3,8 +3,8 @@ package api;
 import com.dev.torhugo.usecase.CreateAccountUseCase;
 import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
-import com.dev.torhugo.models.AccountDTO;
-import com.dev.torhugo.models.BasicAccountDTO;
+import com.dev.torhugo.models.UcAccountDTO;
+import com.dev.torhugo.models.UcBasicAccountDTO;
 import config.ControllerDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -35,7 +35,7 @@ class AccountControllerTest extends ControllerDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
+        final var input = new UcAccountDTO(expectedName, expectedEmail, expectedPassword);
         when(createAccountUseCase.execute(any())).thenReturn(expectedAccountId);
 
         // When
@@ -60,7 +60,7 @@ class AccountControllerTest extends ControllerDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test_dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
+        final var input = new UcAccountDTO(expectedName, expectedEmail, expectedPassword);
         when(createAccountUseCase.execute(any()))
                 .thenThrow(new InvalidArgumentError("Invalid email!"));
 
@@ -87,7 +87,7 @@ class AccountControllerTest extends ControllerDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedDateNow = LocalDateTime.now();
-        final var basicAccount = new BasicAccountDTO(expectedAccountId, expectedName, expectedEmail, true, false, expectedDateNow, expectedDateNow, null);
+        final var basicAccount = new UcBasicAccountDTO(expectedAccountId, expectedName, expectedEmail, true, false, expectedDateNow, expectedDateNow, null);
         when(findAccountUseCase.execute(any())).thenReturn(basicAccount);
 
         // When

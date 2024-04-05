@@ -60,6 +60,26 @@ public class Account {
         );
     }
 
+    public static Account create(final String name,
+                                 final String email,
+                                 final String password,
+                                 final boolean active,
+                                 final boolean admin){
+        final var accountId = UUID.randomUUID();
+        final var dateNow = LocalDateTime.now();
+        return new Account(
+                accountId,
+                name,
+                email,
+                password,
+                active,
+                admin,
+                dateNow,
+                dateNow,
+                null
+        );
+    }
+
     public Account inactive(final UUID accountId,
                             final String name,
                             final String email,
@@ -102,6 +122,49 @@ public class Account {
                 lastAccess,
                 createdAt,
                 updatedAt
+        );
+    }
+
+    public static Account update(final UUID accountId,
+                                 final String name,
+                                 final String email,
+                                 final String password,
+                                 final boolean active,
+                                 final boolean admin,
+                                 final LocalDateTime lastAccess,
+                                 final LocalDateTime createdAt){
+        final var dateNow = LocalDateTime.now();
+        return new Account(
+                accountId,
+                name,
+                email,
+                password,
+                active,
+                admin,
+                lastAccess,
+                createdAt,
+                dateNow
+        );
+    }
+
+    public static Account updateLastAccess(final UUID accountId,
+                                           final String name,
+                                           final String email,
+                                           final String password,
+                                           final boolean active,
+                                           final boolean admin,
+                                           final LocalDateTime createdAt){
+        final var dateNow = LocalDateTime.now();
+        return new Account(
+                accountId,
+                name,
+                email,
+                password,
+                active,
+                admin,
+                dateNow,
+                createdAt,
+                dateNow
         );
     }
 

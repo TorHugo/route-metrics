@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-public record AccountCreateResponse(
+public record AccountCreateDTO(
         @JsonProperty("account_id") UUID accountId
 ) {
 

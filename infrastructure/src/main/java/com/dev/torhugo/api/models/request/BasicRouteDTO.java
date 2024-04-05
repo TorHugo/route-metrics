@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-public record BasicRouteRequest(
+public record BasicRouteDTO(
         @JsonProperty("account_id") UUID accountId,
         @JsonProperty("initial_coord") CoordinateDTO coordinate
 ) {

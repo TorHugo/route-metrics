@@ -1,6 +1,6 @@
 package com.dev.torhugo.api;
 
-import com.dev.torhugo.api.models.request.LoginRequest;
+import com.dev.torhugo.api.models.request.LoginDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,5 +12,5 @@ public interface AuthAPI {
     @PostMapping(
             "/login"
     )
-    ResponseEntity<?> login(final @Valid @RequestBody LoginRequest request);
+    ResponseEntity<?> login(final @Valid @RequestBody LoginDTO request);
 }

@@ -2,7 +2,7 @@ package com.dev.torhugo.api.models.request;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record LoginRequest(
+public record LoginDTO(
         @NotBlank
         String username,
         @NotBlank

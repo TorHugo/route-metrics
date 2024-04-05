@@ -1,7 +1,6 @@
 package usecase;
 
 import com.dev.torhugo.mapper.AccountMapper;
-import com.dev.torhugo.models.BasicAccountDTO;
 import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
@@ -12,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
-
-import java.util.UUID;
 
 import static mock.AccountMock.createBasicAccount;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,11 +36,11 @@ class FindAccountUseCaseTest extends MessageUtil {
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
         final var account = Account.create(expectedName, expectedEmail, expectedPassword);
-        when(accountRepository.findByAccountId(any())).thenReturn(account);
+        when(accountRepository.findByEmail(any())).thenReturn(account);
         when(accountMapper.mapperToBasic(account)).thenReturn(createBasicAccount());
 
         // When
-        final var result = useCase.execute(account.getAccountId());
+        final var result = useCase.execute(account.getEmail());
 
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
@@ -54,13 +51,13 @@ class FindAccountUseCaseTest extends MessageUtil {
     void shouldThrowExceptionWhenAccountNotFound(){
         // Given
         final var expectedException = "Account not found!";
-        final var expectedAccountId = UUID.randomUUID();
-        when(accountRepository.findByAccountId(any()))
+        final var expectedAccountEmail = "email@gmail.com";
+        when(accountRepository.findByEmailWithThrow(any()))
                 .thenThrow(new RepositoryNotFoundError(ACCOUNT_NOT_FOUND));
 
         // When
         final var exception = assertThrows(RepositoryNotFoundError.class, () ->
-                useCase.execute(expectedAccountId));
+                useCase.execute(expectedAccountEmail));
 
         // Then
         assertEquals(expectedException, exception.getMessage(), MESSAGE_TO_EQUAL);

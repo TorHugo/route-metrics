@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
-public record BasicAccountResponse(
+public record BasicAccountDTO(
         @JsonProperty("account_id") UUID accountId,
-        String name,
-        String email,
+        @JsonProperty("name") String name,
+        @JsonProperty("email") String email,
         @JsonProperty("in_active") boolean active,
         @JsonProperty("in_admin") boolean admin,
         @JsonProperty("last_access")

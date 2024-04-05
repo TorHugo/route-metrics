@@ -2,7 +2,7 @@ package integration;
 
 import com.dev.torhugo.usecase.CreateAccountUseCase;
 import com.dev.torhugo.usecase.FindAccountUseCase;
-import com.dev.torhugo.models.AccountDTO;
+import com.dev.torhugo.models.UcAccountDTO;
 import com.dev.torhugo.repository.AccountJpaRepository;
 import config.AnnotationDefaultIT;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
+        final var input = new UcAccountDTO(expectedName, expectedEmail, expectedPassword);
 
         // When
         final var accountId = createAccountUseCase.execute(input);
@@ -52,7 +52,7 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var input = new AccountDTO(expectedName, expectedEmail, expectedPassword);
+        final var input = new UcAccountDTO(expectedName, expectedEmail, expectedPassword);
 
         // When
         final var accountId = createAccountUseCase.execute(input);
