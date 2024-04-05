@@ -1,7 +1,7 @@
 package com.dev.torhugo.repository;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
+import com.dev.torhugo.domain.exception.RepositoryException;
 import com.dev.torhugo.ports.repository.AccountRepository;
 import com.dev.torhugo.repository.models.AccountEntity;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Account findByEmailWithThrow(final String email) {
         final var accountEntity = repository.findByEmail(email);
         return accountEntity.map(AccountEntity::toAggregate)
-                .orElseThrow(() -> new RepositoryNotFoundError("Account not found!"));
+                .orElseThrow(() -> new RepositoryException("Account not found!"));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Account findByAccountId(final UUID accountId) {
         final var accountEntity = repository.findById(accountId);
         return accountEntity.map(AccountEntity::toAggregate)
-                .orElseThrow(() -> new RepositoryNotFoundError("Account not found!"));
+                .orElseThrow(() -> new RepositoryException("Account not found!"));
     }
 
     @Override

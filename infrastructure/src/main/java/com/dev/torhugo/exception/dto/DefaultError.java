@@ -1,18 +1,18 @@
-package com.dev.torhugo.error.exception;
+package com.dev.torhugo.exception.dto;
 
 import lombok.Getter;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 public abstract class DefaultError {
-    private final Instant timestamp;
+    private final LocalDateTime timestamp;
     private final Integer status;
     private final String error;
     private final String message;
     private final String path;
 
-    protected DefaultError(final Instant timestamp,
+    protected DefaultError(final LocalDateTime timestamp,
                            final Integer status,
                            final String error,
                            final String message,

@@ -1,6 +1,6 @@
 package com.dev.torhugo.usecase;
 
-import com.dev.torhugo.dtos.UcBasicRouteDTO;
+import com.dev.torhugo.dto.UcBasicRouteDTO;
 import com.dev.torhugo.ports.repository.RouteRepository;
 
 import java.util.UUID;

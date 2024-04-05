@@ -1,8 +1,8 @@
 package com.dev.torhugo.mappers;
 
 import com.dev.torhugo.domain.entity.Route;
-import com.dev.torhugo.dtos.UcBasicRouteDTO;
-import com.dev.torhugo.dtos.UcCoordinateDTO;
+import com.dev.torhugo.dto.UcBasicRouteDTO;
+import com.dev.torhugo.dto.UcCoordinateDTO;
 
 public class RouteMapper {
     public static UcBasicRouteDTO mappingToBasic(final Route route) {

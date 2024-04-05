@@ -1,7 +1,7 @@
 package integration;
 
-import com.dev.torhugo.dtos.UcAccountDTO;
-import com.dev.torhugo.dtos.UcRouteDTO;
+import com.dev.torhugo.dto.UcAccountDTO;
+import com.dev.torhugo.dto.UcRouteDTO;
 import com.dev.torhugo.usecase.CreateAccountUseCase;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
 import com.dev.torhugo.usecase.FindRouteUseCase;

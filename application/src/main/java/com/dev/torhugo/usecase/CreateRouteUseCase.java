@@ -2,7 +2,7 @@ package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Route;
-import com.dev.torhugo.dtos.UcRouteDTO;
+import com.dev.torhugo.dto.UcRouteDTO;
 import com.dev.torhugo.ports.repository.AccountRepository;
 import com.dev.torhugo.ports.repository.RouteRepository;
 

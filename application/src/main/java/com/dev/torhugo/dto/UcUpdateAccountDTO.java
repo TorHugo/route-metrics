@@ -1,6 +1,9 @@
-package com.dev.torhugo.dtos;
+package com.dev.torhugo.dto;
 
-public record UcAccountAdminDTO(
+import java.util.UUID;
+
+public record UcUpdateAccountDTO(
+        UUID accountId,
         String name,
         String email,
         String password,

@@ -1,6 +1,6 @@
 package com.dev.torhugo.domain.entity;
 
-import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
+import com.dev.torhugo.domain.exception.InvalidArgumentException;
 import com.dev.torhugo.domain.vo.Coordinate;
 
 import java.time.LocalDateTime;
@@ -73,7 +73,7 @@ public class Route {
                           final Double lastLong,
                           final LocalDateTime createdAt
                           ){
-        if(!this.active) throw new InvalidArgumentError("This account is already inactive.");
+        if(!this.active) throw new InvalidArgumentException("This account is already inactive.");
         final var isActive = false;
         final var dateNow = LocalDateTime.now();
         return new Route(

@@ -1,7 +1,7 @@
 package com.dev.torhugo.repository;
 
 import com.dev.torhugo.domain.entity.Route;
-import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
+import com.dev.torhugo.domain.exception.RepositoryException;
 import com.dev.torhugo.ports.repository.RouteRepository;
 import com.dev.torhugo.repository.models.RouteEntity;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +25,6 @@ public class RouteRepositoryImpl implements RouteRepository {
     public Route findByRouteId(final UUID routeId) {
         final var routeEntity = routeJpaRepository.findById(routeId);
         return routeEntity.map(RouteEntity::toAggregate)
-                .orElseThrow(() -> new RepositoryNotFoundError("Account not found!"));
+                .orElseThrow(() -> new RepositoryException("Account not found!"));
     }
 }

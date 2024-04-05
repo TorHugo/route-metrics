@@ -3,7 +3,7 @@ package com.dev.torhugo.api.controller;
 import com.dev.torhugo.api.RouteAPI;
 import com.dev.torhugo.api.models.request.BasicRouteDTO;
 import com.dev.torhugo.api.models.response.RouteCreateDTO;
-import com.dev.torhugo.dtos.UcRouteDTO;
+import com.dev.torhugo.dto.UcRouteDTO;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;

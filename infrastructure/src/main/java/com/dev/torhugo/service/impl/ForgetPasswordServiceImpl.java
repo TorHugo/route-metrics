@@ -1,6 +1,6 @@
 package com.dev.torhugo.service.impl;
 
-import com.dev.torhugo.api.models.ForgetPasswordDTO;
+import com.dev.torhugo.api.models.request.ForgetPasswordDTO;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.ports.messaging.QueueProducer;
 import com.dev.torhugo.ports.repository.AccountRepository;
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.Objects;
 
 import static com.dev.torhugo.service.util.HashUtils.generateUniqueHash;
 import static com.dev.torhugo.service.util.IdentifierUtils.generateIdentifier;
@@ -46,7 +46,7 @@ public class ForgetPasswordServiceImpl implements ForgetPasswordService {
         do {
             hashCode = generateUniqueHash(HASH_SIZE);
             final var existsForget = forgetPasswordRepository.findByHashCodeIgnoreCaseAndActiveTrue(hashCode);
-            hashExists = existsForget.isPresent();
+            hashExists = Objects.nonNull(existsForget);
         } while (hashExists);
 
         return hashCode;

@@ -1,4 +1,4 @@
-package com.dev.torhugo.dtos;
+package com.dev.torhugo.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

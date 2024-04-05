@@ -2,8 +2,8 @@ package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
-import com.dev.torhugo.dtos.UcAccountAdminDTO;
+import com.dev.torhugo.domain.exception.InvalidArgumentException;
+import com.dev.torhugo.dto.UcAccountAdminDTO;
 import com.dev.torhugo.ports.repository.AccountRepository;
 
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class CreateAccountAdminUseCase extends DefaultUseCase {
         logger.info("Executing use-case: CreateAccountAdmin.");
         final var existisAccount = accountRepository.findByEmail(input.email());
         if(Objects.nonNull(existisAccount))
-            throw new InvalidArgumentError("Account already exists!");
+            throw new InvalidArgumentException("Account already exists!");
         final var account = Account.create(
                 input.name(),
                 input.email(),

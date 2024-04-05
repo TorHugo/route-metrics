@@ -1,7 +1,7 @@
 package usecase;
 
-import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
-import com.dev.torhugo.dtos.UcRouteDTO;
+import com.dev.torhugo.domain.exception.RepositoryException;
+import com.dev.torhugo.dto.UcRouteDTO;
 import com.dev.torhugo.ports.repository.AccountRepository;
 import com.dev.torhugo.ports.repository.RouteRepository;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
@@ -60,10 +60,10 @@ class CreateRouteUseCaseTest extends MessageUtil {
         final var expectedLongitude = Math.random();
         final var input = new UcRouteDTO(expectedAccountId, expectedLatitude, expectedLongitude);
         when(accountRepository.findByAccountId(any()))
-                .thenThrow(new RepositoryNotFoundError(ACCOUNT_NOT_FOUND));
+                .thenThrow(new RepositoryException(ACCOUNT_NOT_FOUND));
 
         // When
-        final var result = assertThrows(RepositoryNotFoundError.class, () -> useCase.execute(input));
+        final var result = assertThrows(RepositoryException.class, () -> useCase.execute(input));
 
         // Then
         assertEquals(ACCOUNT_NOT_FOUND, result.getMessage(), MESSAGE_TO_EQUAL);

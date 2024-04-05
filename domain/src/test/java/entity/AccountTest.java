@@ -1,7 +1,7 @@
 package entity;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
+import com.dev.torhugo.domain.exception.InvalidArgumentException;
 import util.MessageUtil;
 import org.junit.jupiter.api.Test;
 
@@ -120,7 +120,7 @@ class AccountTest extends MessageUtil {
         final var expectedErrorMessage = "Invalid email!";
 
         // When
-        final var exception = assertThrows(InvalidArgumentError.class, () -> {
+        final var exception = assertThrows(InvalidArgumentException.class, () -> {
             Account.create(
                     expectedName,
                     expectedEmail,
@@ -141,7 +141,7 @@ class AccountTest extends MessageUtil {
         final var expectedErrorMessage = "Invalid password!";
 
         // When
-        final var exception = assertThrows(InvalidArgumentError.class, () ->
+        final var exception = assertThrows(InvalidArgumentException.class, () ->
                 Account.create(
                 expectedName,
                 expectedEmail,
@@ -177,7 +177,7 @@ class AccountTest extends MessageUtil {
         );
 
         // When
-        final var exception = assertThrows(InvalidArgumentError.class, () ->
+        final var exception = assertThrows(InvalidArgumentException.class, () ->
                 expectedInactiveAccount.inactive(
                 expectedAccountId,
                 expectedName,

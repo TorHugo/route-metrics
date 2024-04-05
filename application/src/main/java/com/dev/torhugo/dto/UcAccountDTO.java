@@ -1,4 +1,4 @@
-package com.dev.torhugo.dtos;
+package com.dev.torhugo.dto;
 
 public record UcAccountDTO(
         String name,

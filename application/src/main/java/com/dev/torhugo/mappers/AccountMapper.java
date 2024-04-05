@@ -1,7 +1,7 @@
 package com.dev.torhugo.mappers;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.dtos.UcBasicAccountDTO;
+import com.dev.torhugo.dto.UcBasicAccountDTO;
 
 import java.util.List;
 

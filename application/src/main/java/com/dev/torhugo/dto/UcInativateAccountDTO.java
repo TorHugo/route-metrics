@@ -1,4 +1,4 @@
-package com.dev.torhugo.dtos;
+package com.dev.torhugo.dto;
 
 import java.util.List;
 import java.util.UUID;

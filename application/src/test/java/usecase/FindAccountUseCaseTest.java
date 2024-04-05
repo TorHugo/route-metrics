@@ -2,7 +2,7 @@ package usecase;
 
 import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
+import com.dev.torhugo.domain.exception.RepositoryException;
 import com.dev.torhugo.ports.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
 
-import static mock.AccountMock.createBasicAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -49,10 +48,10 @@ class FindAccountUseCaseTest extends MessageUtil {
         final var expectedException = "Account not found!";
         final var expectedAccountEmail = "email@gmail.com";
         when(accountRepository.findByEmailWithThrow(any()))
-                .thenThrow(new RepositoryNotFoundError(ACCOUNT_NOT_FOUND));
+                .thenThrow(new RepositoryException(ACCOUNT_NOT_FOUND));
 
         // When
-        final var exception = assertThrows(RepositoryNotFoundError.class, () ->
+        final var exception = assertThrows(RepositoryException.class, () ->
                 useCase.execute(expectedAccountEmail));
 
         // Then
