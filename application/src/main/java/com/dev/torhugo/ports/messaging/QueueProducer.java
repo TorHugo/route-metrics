@@ -1,4 +1,4 @@
-package com.dev.torhugo.messaging;
+package com.dev.torhugo.ports.messaging;
 
 public interface QueueProducer {
     void sendMessage(final String queue,

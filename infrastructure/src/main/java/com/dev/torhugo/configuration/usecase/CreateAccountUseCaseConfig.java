@@ -1,8 +1,8 @@
 package com.dev.torhugo.configuration.usecase;
 
 import com.dev.torhugo.usecase.CreateAccountUseCase;
-import com.dev.torhugo.messaging.QueueProducer;
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.ports.messaging.QueueProducer;
+import com.dev.torhugo.ports.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

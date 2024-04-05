@@ -2,6 +2,7 @@ package com.dev.torhugo.repository;
 
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
+import com.dev.torhugo.ports.repository.AccountRepository;
 import com.dev.torhugo.repository.models.AccountEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

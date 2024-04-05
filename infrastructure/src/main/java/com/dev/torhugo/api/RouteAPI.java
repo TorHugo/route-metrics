@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/route")
 public interface RouteAPI {
 
-    @PostMapping(
-            "/create"
-    )
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     RouteCreateDTO createAccount(final @RequestBody BasicRouteDTO request);
 }

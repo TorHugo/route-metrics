@@ -1,15 +1,12 @@
-package com.dev.torhugo.mapper;
+package com.dev.torhugo.mappers;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.models.UcBasicAccountDTO;
-import org.springframework.stereotype.Component;
+import com.dev.torhugo.dtos.UcBasicAccountDTO;
 
 import java.util.List;
 
-@Component
-public class AccountMapperImpl implements AccountMapper {
-    @Override
-    public UcBasicAccountDTO mapperToBasic(final Account account) {
+public class AccountMapper {
+    public static UcBasicAccountDTO mapperToBasic(final Account account) {
         return new UcBasicAccountDTO(
                 account.getAccountId(),
                 account.getName(),
@@ -22,8 +19,7 @@ public class AccountMapperImpl implements AccountMapper {
         );
     }
 
-    @Override
-    public List<UcBasicAccountDTO> mapperToListBasic(final List<Account> accounts) {
+    public static List<UcBasicAccountDTO> mapperToListBasic(final List<Account> accounts) {
         return accounts.stream().map(account ->
                 new UcBasicAccountDTO(
                     account.getAccountId(),

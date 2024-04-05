@@ -3,16 +3,15 @@ package com.dev.torhugo.usecase;
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
-import com.dev.torhugo.messaging.Queue;
-import com.dev.torhugo.messaging.QueueProducer;
-import com.dev.torhugo.models.UcAccountDTO;
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.ports.messaging.QueueProducer;
+import com.dev.torhugo.dtos.UcAccountDTO;
+import com.dev.torhugo.ports.repository.AccountRepository;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public class CreateAccountUseCase extends DefaultUseCase {
-    private static final String QUEUE_WELCOME = Queue.WELCOME.getName();
+    private static final String QUEUE_WELCOME = "QUEUE_WELCOME_ACCOUNT";
     private final AccountRepository accountRepository;
     private final QueueProducer queueProducer;
     public CreateAccountUseCase(final AccountRepository accountRepository,

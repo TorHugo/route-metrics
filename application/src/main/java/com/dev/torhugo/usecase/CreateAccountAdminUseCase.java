@@ -3,8 +3,8 @@ package com.dev.torhugo.usecase;
 import com.dev.torhugo.config.DefaultUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.InvalidArgumentError;
-import com.dev.torhugo.models.UcAccountAdminDTO;
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.dtos.UcAccountAdminDTO;
+import com.dev.torhugo.ports.repository.AccountRepository;
 
 import java.util.Objects;
 import java.util.UUID;

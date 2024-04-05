@@ -1,9 +1,9 @@
 package usecase;
 
 import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
-import com.dev.torhugo.models.UcRouteDTO;
-import com.dev.torhugo.repository.AccountRepository;
-import com.dev.torhugo.repository.RouteRepository;
+import com.dev.torhugo.dtos.UcRouteDTO;
+import com.dev.torhugo.ports.repository.AccountRepository;
+import com.dev.torhugo.ports.repository.RouteRepository;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

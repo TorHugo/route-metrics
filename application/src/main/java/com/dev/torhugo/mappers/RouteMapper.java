@@ -1,14 +1,11 @@
-package com.dev.torhugo.mapper;
+package com.dev.torhugo.mappers;
 
 import com.dev.torhugo.domain.entity.Route;
-import com.dev.torhugo.models.UcBasicRouteDTO;
-import com.dev.torhugo.models.UcCoordinateDTO;
-import org.springframework.stereotype.Component;
+import com.dev.torhugo.dtos.UcBasicRouteDTO;
+import com.dev.torhugo.dtos.UcCoordinateDTO;
 
-@Component
-public class RouteMapperImpl implements RouteMapper {
-    @Override
-    public UcBasicRouteDTO mappingToBasic(final Route route) {
+public class RouteMapper {
+    public static UcBasicRouteDTO mappingToBasic(final Route route) {
         return new UcBasicRouteDTO(
                 route.getRouteId(),
                 route.getAccountId(),

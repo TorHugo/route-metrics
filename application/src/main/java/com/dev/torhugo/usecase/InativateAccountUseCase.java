@@ -1,8 +1,8 @@
 package com.dev.torhugo.usecase;
 
 import com.dev.torhugo.config.DefaultUseCase;
-import com.dev.torhugo.models.UcInativateAccountDTO;
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.dtos.UcInativateAccountDTO;
+import com.dev.torhugo.ports.repository.AccountRepository;
 
 public class InativateAccountUseCase extends DefaultUseCase {
     private final AccountRepository accountRepository;

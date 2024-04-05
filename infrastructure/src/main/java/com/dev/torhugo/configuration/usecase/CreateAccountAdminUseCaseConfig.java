@@ -1,6 +1,6 @@
 package com.dev.torhugo.configuration.usecase;
 
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.ports.repository.AccountRepository;
 import com.dev.torhugo.usecase.CreateAccountAdminUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

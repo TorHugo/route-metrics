@@ -2,6 +2,7 @@ package com.dev.torhugo.repository;
 
 import com.dev.torhugo.domain.entity.Route;
 import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
+import com.dev.torhugo.ports.repository.RouteRepository;
 import com.dev.torhugo.repository.models.RouteEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.dev.torhugo.models;
+package com.dev.torhugo.dtos;
 
 import java.util.UUID;
 

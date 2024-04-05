@@ -1,10 +1,9 @@
 package usecase;
 
-import com.dev.torhugo.mapper.AccountMapper;
 import com.dev.torhugo.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.error.exception.RepositoryNotFoundError;
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.ports.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,8 +21,6 @@ class FindAccountUseCaseTest extends MessageUtil {
     FindAccountUseCase useCase;
     @Mock
     AccountRepository accountRepository;
-    @Mock
-    AccountMapper accountMapper;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -36,15 +33,14 @@ class FindAccountUseCaseTest extends MessageUtil {
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
         final var account = Account.create(expectedName, expectedEmail, expectedPassword);
-        when(accountRepository.findByEmail(any())).thenReturn(account);
-        when(accountMapper.mapperToBasic(account)).thenReturn(createBasicAccount());
+        when(accountRepository.findByEmailWithThrow(any())).thenReturn(account);
 
         // When
         final var result = useCase.execute(account.getEmail());
 
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
-        verify(accountRepository, times(1)).findByAccountId(any());
+        verify(accountRepository, times(1)).findByEmailWithThrow(any());
     }
 
     @Test
@@ -61,6 +57,6 @@ class FindAccountUseCaseTest extends MessageUtil {
 
         // Then
         assertEquals(expectedException, exception.getMessage(), MESSAGE_TO_EQUAL);
-        verify(accountRepository, times(1)).findByAccountId(any());
+        verify(accountRepository, times(1)).findByEmailWithThrow(any());
     }
 }

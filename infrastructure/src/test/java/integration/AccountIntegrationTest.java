@@ -2,7 +2,7 @@ package integration;
 
 import com.dev.torhugo.usecase.CreateAccountUseCase;
 import com.dev.torhugo.usecase.FindAccountUseCase;
-import com.dev.torhugo.models.UcAccountDTO;
+import com.dev.torhugo.dtos.UcAccountDTO;
 import com.dev.torhugo.repository.AccountJpaRepository;
 import config.AnnotationDefaultIT;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ class AccountIntegrationTest extends AnnotationDefaultIT {
         // When
         final var accountId = createAccountUseCase.execute(input);
         assertNotNull(accountId, MESSAGE_NOT_NULL);
-        final var savedAccount = findAccountUseCase.execute(accountId);
+        final var savedAccount = findAccountUseCase.execute(expectedEmail);
         assertNotNull(savedAccount, MESSAGE_NOT_NULL);
 
         // Then

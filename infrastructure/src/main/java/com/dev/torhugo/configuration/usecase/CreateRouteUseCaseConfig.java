@@ -1,7 +1,7 @@
 package com.dev.torhugo.configuration.usecase;
 
-import com.dev.torhugo.repository.AccountRepository;
-import com.dev.torhugo.repository.RouteRepository;
+import com.dev.torhugo.ports.repository.AccountRepository;
+import com.dev.torhugo.ports.repository.RouteRepository;
 import com.dev.torhugo.usecase.CreateRouteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

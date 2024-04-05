@@ -1,4 +1,4 @@
-package com.dev.torhugo.repository;
+package com.dev.torhugo.ports.repository;
 
 import com.dev.torhugo.domain.entity.Route;
 

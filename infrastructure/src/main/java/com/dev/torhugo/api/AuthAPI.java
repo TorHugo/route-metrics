@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping(value = "/auth")
 public interface AuthAPI {
-    @PostMapping(
-            "/login"
-    )
+    @PostMapping("/login")
     ResponseEntity<?> login(final @Valid @RequestBody LoginDTO request);
 }

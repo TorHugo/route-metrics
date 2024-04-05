@@ -1,7 +1,7 @@
 package com.dev.torhugo.api.mappers;
 
 import com.dev.torhugo.api.models.response.BasicAccountDTO;
-import com.dev.torhugo.models.UcBasicAccountDTO;
+import com.dev.torhugo.dtos.UcBasicAccountDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

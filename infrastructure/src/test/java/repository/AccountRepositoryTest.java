@@ -1,7 +1,7 @@
 package repository;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.repository.AccountRepository;
+import com.dev.torhugo.ports.repository.AccountRepository;
 import config.AnnotationDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
