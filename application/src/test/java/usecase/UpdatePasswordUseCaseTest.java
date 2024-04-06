@@ -1,9 +1,11 @@
 package usecase;
 
-import com.dev.torhugo.application.usecase.FindAccountUseCase;
+import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
+import com.dev.torhugo.application.ports.repository.AccountRepository;
+import com.dev.torhugo.application.usecase.UpdateLastAccessUseCase;
+import com.dev.torhugo.application.usecase.UpdatePasswordUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.exception.RepositoryException;
-import com.dev.torhugo.application.ports.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,13 +13,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class FindAccountUseCaseTest extends MessageUtil {
+class UpdatePasswordUseCaseTest extends MessageUtil {
     @InjectMocks
-    FindAccountUseCase useCase;
+    UpdatePasswordUseCase useCase;
     @Mock
     AccountRepository accountRepository;
     @BeforeEach
@@ -26,44 +29,42 @@ class FindAccountUseCaseTest extends MessageUtil {
     }
 
     @Test
-    void shouldFindAccountWhenIsValidAccountId(){
+    void shouldUpdatePasswordWithSuccess(){
         // Given
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
+        final var expectedNewPassword = "12345678";
         final var account = Account.create(expectedName, expectedEmail, expectedPassword);
+        final var input = new UcUpdatePasswordDTO(expectedEmail, expectedNewPassword);
         when(accountRepository.findByEmailWithThrow(any())).thenReturn(account);
+        doNothing().when(accountRepository).save(any());
 
         // When
-        final var result = useCase.execute(account.getEmail());
+        useCase.execute(input);
 
         // Then
-        assertNotNull(result, MESSAGE_NOT_NULL);
-        assertEquals(account.getAccountId(), result.accountId(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getName(), result.name(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getEmail(), result.email(), MESSAGE_TO_EQUAL);
-        assertEquals(account.isActive(), result.active(), MESSAGE_TO_EQUAL);
-        assertEquals(account.isAdmin(), result.admin(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getLastAccess(), result.lastAccess(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getCreatedAt(), result.createdAt(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getUpdatedAt(), result.updatedAt(), MESSAGE_TO_EQUAL);
         verify(accountRepository, times(1)).findByEmailWithThrow(any());
+        verify(accountRepository, times(1)).save(any());
     }
 
     @Test
     void shouldThrowExceptionWhenAccountNotFound(){
         // Given
         final var expectedException = "Account not found!";
-        final var expectedAccountEmail = "email@gmail.com";
+        final var email = "account.test@dev.com.br";
+        final var newPassword = "12345678";
+        final var input = new UcUpdatePasswordDTO(email, newPassword);
         when(accountRepository.findByEmailWithThrow(any()))
                 .thenThrow(new RepositoryException(ACCOUNT_NOT_FOUND));
 
         // When
         final var exception = assertThrows(RepositoryException.class, () ->
-                useCase.execute(expectedAccountEmail));
+                useCase.execute(input));
 
         // Then
         assertEquals(expectedException, exception.getMessage(), MESSAGE_TO_EQUAL);
         verify(accountRepository, times(1)).findByEmailWithThrow(any());
+        verify(accountRepository, times(0)).save(any());
     }
 }

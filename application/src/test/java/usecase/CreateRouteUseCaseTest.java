@@ -34,7 +34,7 @@ class CreateRouteUseCaseTest extends MessageUtil {
     }
 
     @Test
-    void shouldExecuteUseCaseWithSuccess(){
+    void shouldCreateRouteWithIsValidParameters(){
         // Given
         final var expectedAccountId = UUID.randomUUID();
         final var expectedLatitude = Math.random();

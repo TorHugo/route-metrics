@@ -20,7 +20,7 @@ public interface AccountAPI {
     @PostMapping("/admin/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
-    AccountCreateDTO createAccount(final @Valid @RequestBody AccountAdminDTO request);
+    AccountCreateDTO createAdminAccount(final @Valid @RequestBody AccountAdminDTO request);
     @GetMapping("/admin/find-all")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)

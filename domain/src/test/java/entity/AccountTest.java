@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest extends MessageUtil {
     @Test
-    void shouldInstantiateAccountWhenValidParameters(){
+    void shouldCreateAccountWhenIsValidParameters(){
         // Given
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
@@ -32,6 +32,35 @@ class AccountTest extends MessageUtil {
         assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
         assertTrue(result.isActive(), MESSAGE_TRUE);
         assertFalse(result.isAdmin(), MESSAGE_FALSE);
+        assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNull(result.getUpdatedAt(), MESSAGE_NULL);
+    }
+    @Test
+    void shouldCreateAdminAccountWhenIsValidParameters(){
+        // Given
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var expectedActive = false;
+        final var expectedAdmin = true;
+
+        // When
+        final var result = Account.create(
+                expectedName,
+                expectedEmail,
+                expectedPassword,
+                expectedActive,
+                expectedAdmin
+        );
+
+        // Then
+        assertNotNull(result.getAccountId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedActive, result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAdmin, result.isAdmin(), MESSAGE_TO_EQUAL);
         assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
         assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
         assertNull(result.getUpdatedAt(), MESSAGE_NULL);
@@ -109,6 +138,76 @@ class AccountTest extends MessageUtil {
         assertEquals(expectedLastAccess, result.getLastAccess(), MESSAGE_TO_EQUAL);
         assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
         assertNull(result.getUpdatedAt(), MESSAGE_NULL);
+    }
+
+    @Test
+    void shouldUpdateAccountWithSuccess(){
+        // Given
+        final var expectedAccountId = UUID.randomUUID();
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var expectedActive = true;
+        final var expectedAdmin = false;
+        final var expectedLastAccess = LocalDateTime.now();
+        final var expectedCreatedAt = LocalDateTime.now();
+
+        // When
+        final var result = Account.update(
+                expectedAccountId,
+                expectedName,
+                expectedEmail,
+                expectedPassword,
+                expectedActive,
+                expectedAdmin,
+                expectedLastAccess,
+                expectedCreatedAt
+        );
+
+        // Then
+        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedActive, result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAdmin, result.isAdmin(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedLastAccess, result.getLastAccess(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
+        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
+    }
+
+    @Test
+    void shouldUpdateLastAccessAccountWithSuccess(){
+        // Given
+        final var expectedAccountId = UUID.randomUUID();
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var expectedActive = true;
+        final var expectedAdmin = false;
+        final var expectedCreatedAt = LocalDateTime.now();
+
+        // When
+        final var result = Account.updateLastAccess(
+                expectedAccountId,
+                expectedName,
+                expectedEmail,
+                expectedPassword,
+                expectedActive,
+                expectedAdmin,
+                expectedCreatedAt
+        );
+
+        // Then
+        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedActive, result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedAdmin, result.isAdmin(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
+        assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
     }
 
     @Test

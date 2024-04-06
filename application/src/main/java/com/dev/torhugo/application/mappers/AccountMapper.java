@@ -6,6 +6,7 @@ import com.dev.torhugo.domain.entity.Account;
 import java.util.List;
 
 public class AccountMapper {
+    private AccountMapper(){}
     public static UcBasicAccountDTO mapperToBasic(final Account account) {
         return new UcBasicAccountDTO(
                 account.getAccountId(),

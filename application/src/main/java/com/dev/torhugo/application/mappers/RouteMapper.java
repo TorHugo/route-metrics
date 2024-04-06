@@ -5,6 +5,7 @@ import com.dev.torhugo.application.dto.UcCoordinateDTO;
 import com.dev.torhugo.domain.entity.Route;
 
 public class RouteMapper {
+    private RouteMapper(){}
     public static UcBasicRouteDTO mappingToBasic(final Route route) {
         return new UcBasicRouteDTO(
                 route.getRouteId(),

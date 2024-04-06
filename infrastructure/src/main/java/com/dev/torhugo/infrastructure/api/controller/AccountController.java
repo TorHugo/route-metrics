@@ -34,7 +34,7 @@ public class AccountController implements AccountAPI {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public AccountCreateDTO createAccount(final AccountAdminDTO request) {
+    public AccountCreateDTO createAdminAccount(final AccountAdminDTO request) {
         final var input = new UcAccountAdminDTO(request.name(), request.email(), passwordEncoder.encode(request.password()), request.active(), request.admin());
         return new AccountCreateDTO(createAccountAdminUseCase.execute(input));
     }

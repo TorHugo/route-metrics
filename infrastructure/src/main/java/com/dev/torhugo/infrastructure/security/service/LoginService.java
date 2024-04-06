@@ -20,7 +20,6 @@ public class LoginService {
     private final TokenUtils tokenUtils;
 
     public ResponseCookie login(final LoginDTO request){
-        updateLastAccessUseCase.execute(request.username());
         final var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.username(),
@@ -29,6 +28,8 @@ public class LoginService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final var userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        return tokenUtils.generateToken(userDetails);
+        final var cookie = tokenUtils.generateToken(userDetails);
+        updateLastAccessUseCase.execute(request.username());
+        return cookie;
     }
 }
