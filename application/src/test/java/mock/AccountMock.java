@@ -1,7 +1,7 @@
 package mock;
 
 import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.dto.UcBasicAccountDTO;
+import com.dev.torhugo.application.dto.UcBasicAccountDTO;
 
 public class AccountMock {
 

@@ -1,4 +1,4 @@
-import com.dev.torhugo.configuration.WebServerConfig;
+import com.dev.torhugo.infrastructure.configuration.WebServerConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

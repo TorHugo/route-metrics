@@ -1,10 +1,10 @@
 package usecase;
 
 import com.dev.torhugo.domain.exception.RepositoryException;
-import com.dev.torhugo.dto.UcRouteDTO;
-import com.dev.torhugo.ports.repository.AccountRepository;
-import com.dev.torhugo.ports.repository.RouteRepository;
-import com.dev.torhugo.usecase.CreateRouteUseCase;
+import com.dev.torhugo.application.dto.UcRouteDTO;
+import com.dev.torhugo.application.ports.repository.AccountRepository;
+import com.dev.torhugo.application.ports.repository.RouteRepository;
+import com.dev.torhugo.application.usecase.CreateRouteUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,10 +1,10 @@
 package api;
 
-import com.dev.torhugo.usecase.CreateAccountUseCase;
-import com.dev.torhugo.usecase.FindAccountUseCase;
+import com.dev.torhugo.application.usecase.CreateAccountUseCase;
+import com.dev.torhugo.application.usecase.FindAccountUseCase;
 import com.dev.torhugo.domain.exception.InvalidArgumentException;
-import com.dev.torhugo.dto.UcAccountDTO;
-import com.dev.torhugo.dto.UcBasicAccountDTO;
+import com.dev.torhugo.application.dto.UcAccountDTO;
+import com.dev.torhugo.application.dto.UcBasicAccountDTO;
 import config.ControllerDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;

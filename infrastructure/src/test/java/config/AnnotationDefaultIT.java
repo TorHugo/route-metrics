@@ -1,6 +1,6 @@
 package config;
 
-import com.dev.torhugo.configuration.WebServerConfig;
+import com.dev.torhugo.infrastructure.configuration.WebServerConfig;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

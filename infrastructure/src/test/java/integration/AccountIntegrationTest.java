@@ -1,9 +1,9 @@
 package integration;
 
-import com.dev.torhugo.usecase.CreateAccountUseCase;
-import com.dev.torhugo.usecase.FindAccountUseCase;
-import com.dev.torhugo.dto.UcAccountDTO;
-import com.dev.torhugo.repository.AccountJpaRepository;
+import com.dev.torhugo.application.usecase.CreateAccountUseCase;
+import com.dev.torhugo.application.usecase.FindAccountUseCase;
+import com.dev.torhugo.application.dto.UcAccountDTO;
+import com.dev.torhugo.infrastructure.repository.AccountJpaRepository;
 import config.AnnotationDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

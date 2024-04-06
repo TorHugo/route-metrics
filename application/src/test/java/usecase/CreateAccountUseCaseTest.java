@@ -1,11 +1,11 @@
 package usecase;
 
-import com.dev.torhugo.usecase.CreateAccountUseCase;
+import com.dev.torhugo.application.usecase.CreateAccountUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.exception.InvalidArgumentException;
-import com.dev.torhugo.ports.messaging.QueueProducer;
-import com.dev.torhugo.dto.UcAccountDTO;
-import com.dev.torhugo.ports.repository.AccountRepository;
+import com.dev.torhugo.application.ports.messaging.QueueProducer;
+import com.dev.torhugo.application.dto.UcAccountDTO;
+import com.dev.torhugo.application.ports.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

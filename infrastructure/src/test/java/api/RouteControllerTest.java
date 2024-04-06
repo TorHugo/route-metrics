@@ -1,8 +1,8 @@
 package api;
 
-import com.dev.torhugo.api.models.CoordinateDTO;
-import com.dev.torhugo.api.models.request.BasicRouteDTO;
-import com.dev.torhugo.usecase.CreateRouteUseCase;
+import com.dev.torhugo.infrastructure.api.models.CoordinateDTO;
+import com.dev.torhugo.infrastructure.api.models.request.BasicRouteDTO;
+import com.dev.torhugo.application.usecase.CreateRouteUseCase;
 import config.ControllerDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;

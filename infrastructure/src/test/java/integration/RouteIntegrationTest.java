@@ -1,10 +1,10 @@
 package integration;
 
-import com.dev.torhugo.dto.UcAccountDTO;
-import com.dev.torhugo.dto.UcRouteDTO;
-import com.dev.torhugo.usecase.CreateAccountUseCase;
-import com.dev.torhugo.usecase.CreateRouteUseCase;
-import com.dev.torhugo.usecase.FindRouteUseCase;
+import com.dev.torhugo.application.dto.UcAccountDTO;
+import com.dev.torhugo.application.dto.UcRouteDTO;
+import com.dev.torhugo.application.usecase.CreateAccountUseCase;
+import com.dev.torhugo.application.usecase.CreateRouteUseCase;
+import com.dev.torhugo.application.usecase.FindRouteUseCase;
 import config.AnnotationDefaultIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
