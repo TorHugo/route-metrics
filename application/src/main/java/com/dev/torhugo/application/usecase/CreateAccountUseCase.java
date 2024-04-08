@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CreateAccountUseCase extends DefaultUseCase {
-    private static final String QUEUE_WELCOME = "QUEUE_WELCOME_ACCOUNT";
+    private static final String QUEUE_WELCOME = "QUEUE_EMAIL_WELCOME";
     private final AccountRepository accountRepository;
     private final QueueProducer queueProducer;
     public CreateAccountUseCase(final AccountRepository accountRepository,
