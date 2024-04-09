@@ -1,12 +1,10 @@
 package com.dev.torhugo.application.usecase;
 
 import com.dev.torhugo.application.config.DefaultUseCase;
-import com.dev.torhugo.domain.entity.Account;
-import com.dev.torhugo.application.dto.UcBasicAccountDTO;
 import com.dev.torhugo.application.dto.UcUpdateAccountDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
+import com.dev.torhugo.domain.entity.Account;
 
-import static com.dev.torhugo.application.mappers.AccountMapper.mapperToBasic;
 import static com.dev.torhugo.application.util.ValidateUtils.isNullOrEmpty;
 
 public class UpdateAccountUseCase extends DefaultUseCase {
@@ -16,7 +14,7 @@ public class UpdateAccountUseCase extends DefaultUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public UcBasicAccountDTO execute(final UcUpdateAccountDTO input){
+    public Account execute(final UcUpdateAccountDTO input){
         logger.info("Executing use-case: UpdateAccount.");
         final var actualAccount = accountRepository.findByAccountId(input.accountId());
         final var newAccount = Account.update(
@@ -30,6 +28,6 @@ public class UpdateAccountUseCase extends DefaultUseCase {
                 actualAccount.getCreatedAt()
         );
         accountRepository.save(newAccount);
-        return mapperToBasic(newAccount);
+        return newAccount;
     }
 }

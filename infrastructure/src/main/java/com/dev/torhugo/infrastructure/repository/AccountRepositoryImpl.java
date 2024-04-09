@@ -1,11 +1,11 @@
 package com.dev.torhugo.infrastructure.repository;
 
+import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.exception.RepositoryException;
-import com.dev.torhugo.application.ports.repository.AccountRepository;
+import com.dev.torhugo.infrastructure.repository.database.AccountJpaRepository;
 import com.dev.torhugo.infrastructure.repository.models.AccountEntity;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class AccountRepositoryImpl implements AccountRepository {
     private final AccountJpaRepository repository;
     @Override

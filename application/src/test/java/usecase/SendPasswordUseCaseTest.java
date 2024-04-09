@@ -2,8 +2,7 @@ package usecase;
 
 import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
-import com.dev.torhugo.application.usecase.UpdateLastAccessUseCase;
-import com.dev.torhugo.application.usecase.UpdatePasswordUseCase;
+import com.dev.torhugo.application.usecase.SendPasswordUseCase;
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.exception.RepositoryException;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class UpdatePasswordUseCaseTest extends MessageUtil {
+class SendPasswordUseCaseTest extends MessageUtil {
     @InjectMocks
-    UpdatePasswordUseCase useCase;
+    SendPasswordUseCase useCase;
     @Mock
     AccountRepository accountRepository;
     @BeforeEach

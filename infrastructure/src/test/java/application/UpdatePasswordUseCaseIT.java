@@ -5,7 +5,7 @@ import com.dev.torhugo.application.dto.UcAccountAdminDTO;
 import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.usecase.CreateAccountAdminUseCase;
-import com.dev.torhugo.application.usecase.UpdatePasswordUseCase;
+import com.dev.torhugo.application.usecase.SendPasswordUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -16,7 +16,7 @@ import static util.MessageUtils.*;
 @IntegrationTest
 class UpdatePasswordUseCaseIT {
     @Autowired
-    private UpdatePasswordUseCase updatePasswordUseCase;
+    private SendPasswordUseCase updatePasswordUseCase;
     @Autowired
     private CreateAccountAdminUseCase createAccountUseCase;
     @Autowired

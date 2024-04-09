@@ -5,6 +5,7 @@ import com.dev.torhugo.infrastructure.api.models.request.ForgetPasswordDTO;
 import com.dev.torhugo.infrastructure.api.models.request.UpdatePasswordDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,5 +18,6 @@ public interface ForgetPasswordAPI {
     @PostMapping("/confirm-hash")
     ResponseEntity<?> confirmHashCode(final @Valid @RequestBody ConfirmHashDTO request);
     @PutMapping("/update-password")
+    @PreAuthorize("hasRole('USER')")
     void updatePassword(final @Valid @RequestBody UpdatePasswordDTO request);
 }

@@ -1,6 +1,7 @@
 package vo;
 
 import com.dev.torhugo.domain.vo.Email;
+import com.dev.torhugo.domain.vo.HashCode;
 import com.dev.torhugo.domain.vo.Password;
 import org.junit.jupiter.api.Test;
 import util.MessageUtil;
@@ -30,5 +31,16 @@ class ValueObjectTest extends MessageUtil {
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
         assertEquals(expectedPassword, result.value(), MESSAGE_TO_EQUAL);
+    }
+
+    @Test
+    void shouldInitializeHashCodeWhenValidParams(){
+        // Given
+        final var expectedHashCode = "123456";
+        // When
+        final var result = new HashCode(expectedHashCode);
+        // Then
+        assertNotNull(result, MESSAGE_NOT_NULL);
+        assertEquals(expectedHashCode, result.getValue(), MESSAGE_TO_EQUAL);
     }
 }

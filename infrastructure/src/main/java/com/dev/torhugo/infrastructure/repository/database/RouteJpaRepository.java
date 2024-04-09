@@ -1,4 +1,4 @@
-package com.dev.torhugo.infrastructure.repository;
+package com.dev.torhugo.infrastructure.repository.database;
 
 import com.dev.torhugo.infrastructure.repository.models.RouteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

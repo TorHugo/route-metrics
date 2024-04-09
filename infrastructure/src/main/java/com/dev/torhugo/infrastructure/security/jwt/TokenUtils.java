@@ -31,6 +31,8 @@ public class TokenUtils {
     private String secret;
     @Value("${api.jwt.expiration-token}")
     private Integer expiration;
+    @Value("${api.jwt.reset-password}")
+    private Integer expirationUpdatePassword;
 
     public String getTokenFromCookie(final HttpServletRequest request) {
         final var cookie = getCookie(request, COOKIE);
@@ -67,8 +69,9 @@ public class TokenUtils {
                 .getSubject();
     }
 
-    public ResponseCookie generateToken(final UserDetailsImpl user) {
-        final var token = generateTokenFromUser(user);
+    public ResponseCookie generateToken(final UserDetailsImpl user,
+                                        final boolean reset) {
+        final var token = generateTokenFromUser(user, reset);
         return from(COOKIE, token)
                 .path("/")
                 .maxAge(216_000)
@@ -76,10 +79,12 @@ public class TokenUtils {
                 .httpOnly(true)
                 .build();
     }
-    private String generateTokenFromUser(final UserDetailsImpl user) {
+    private String generateTokenFromUser(final UserDetailsImpl user,
+                                         final boolean reset) {
         if (!user.isActive())
             throw new AccessDeniedException("Account Expired!");
         final var dateNow = new Date();
+        final var timeOfExpiration  = reset ?expirationUpdatePassword : expiration;
 
         return builder()
                 .claim("account_id", user.getId())
@@ -87,7 +92,7 @@ public class TokenUtils {
                 .claim("email", user.getEmail())
                 .subject(user.getEmail())
                 .issuedAt(new Date())
-                .expiration(new Date(dateNow.getTime() + expiration))
+                .expiration(new Date(dateNow.getTime() + timeOfExpiration))
                 .signWith(getSigningKey(secret))
                 .compact();
     }

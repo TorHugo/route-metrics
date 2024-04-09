@@ -1,5 +1,6 @@
 package com.dev.torhugo.infrastructure.repository.models;
 
+import com.dev.torhugo.domain.entity.ForgetPassword;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,5 +26,33 @@ public class ForgetPasswordEntity {
     private String hashCode;
     private LocalDateTime expirationAt;
     private boolean active;
+    private boolean confirmed;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    public static ForgetPasswordEntity fromAggregate(final ForgetPassword domain){
+        return new ForgetPasswordEntity(
+                domain.getForgetPasswordId(),
+                domain.getAccountId(),
+                domain.getHashCode(),
+                domain.getExpirationDate(),
+                domain.isActive(),
+                domain.isConfirmed(),
+                domain.getCreatedAt(),
+                domain.getUpdatedAt()
+        );
+    }
+
+    public static ForgetPassword toAggregate(final ForgetPasswordEntity entity){
+        return ForgetPassword.restore(
+                entity.forgetPasswordId,
+                entity.accountId,
+                entity.hashCode,
+                entity.expirationAt,
+                entity.active,
+                entity.confirmed,
+                entity.createdAt,
+                entity.updatedAt
+        );
+    }
 }

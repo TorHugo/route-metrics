@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record ConfirmHashDTO(
-        @JsonProperty("hash_code") @NotNull @NotBlank String hash
+        @JsonProperty("hash_code") @NotNull @NotBlank String hash,
+        @JsonProperty("email")  @NotNull @NotBlank String email
 ) {
 }

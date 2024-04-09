@@ -28,7 +28,7 @@ public class LoginService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final var userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        final var cookie = tokenUtils.generateToken(userDetails);
+        final var cookie = tokenUtils.generateToken(userDetails, false);
         updateLastAccessUseCase.execute(request.username());
         return cookie;
     }
