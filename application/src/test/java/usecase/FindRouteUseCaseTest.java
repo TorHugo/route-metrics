@@ -38,10 +38,10 @@ class FindRouteUseCaseTest extends MessageUtil {
                 expectedLatitude,
                 expectedLongitude
         );
-        when(routeRepository.findByRouteId(any())).thenReturn(route);
+        when(routeRepository.findByIdAndAccount(any(), any())).thenReturn(route);
 
         // When
-        final var result = useCase.execute(route.getRouteId());
+        final var result = useCase.execute(route.getRouteId(), "usr_email@example.com");
 
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
@@ -49,7 +49,7 @@ class FindRouteUseCaseTest extends MessageUtil {
         assertEquals(route.getAccountId(), result.accountId(), MESSAGE_TO_EQUAL);
         assertEquals(route.getDistance(), result.distance(), MESSAGE_TO_EQUAL);
         assertEquals(route.getStatus(), result.status(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getActive(), result.active(), MESSAGE_TO_EQUAL);
+        assertEquals(route.isActive(), result.active(), MESSAGE_TO_EQUAL);
         assertEquals(route.getInitialCoord().latitude(), result.initialCoord().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(route.getInitialCoord().longitude(), result.initialCoord().longitude(), MESSAGE_TO_EQUAL);
         assertEquals(route.getLastCoord().latitude(), result.lastCoord().latitude(), MESSAGE_TO_EQUAL);

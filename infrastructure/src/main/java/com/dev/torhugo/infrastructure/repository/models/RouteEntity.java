@@ -24,6 +24,7 @@ public class RouteEntity {
     private UUID accountId;
     private Double distance;
     private String status;
+    private String name;
     private Double initialLatitude;
     private Double initialLongitude;
     private Double lastLatitude;
@@ -38,11 +39,12 @@ public class RouteEntity {
                 route.getAccountId(),
                 route.getDistance(),
                 route.getStatus(),
+                route.getName(),
                 route.getInitialCoord().latitude(),
                 route.getInitialCoord().longitude(),
                 route.getLastCoord().latitude(),
                 route.getLastCoord().longitude(),
-                route.getActive(),
+                route.isActive(),
                 route.getCreatedAt(),
                 route.getUpdatedAt()
         );
@@ -54,6 +56,7 @@ public class RouteEntity {
                 entity.accountId,
                 entity.distance,
                 entity.status,
+                entity.name,
                 entity.initialLatitude,
                 entity.initialLongitude,
                 entity.lastLatitude,

@@ -4,7 +4,7 @@ import com.dev.torhugo.domain.exception.RepositoryException;
 import com.dev.torhugo.application.dto.UcRouteDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.ports.repository.RouteRepository;
-import com.dev.torhugo.application.usecase.CreateRouteUseCase;
+import com.dev.torhugo.application.usecase.RequestRouteUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.times;
 
 class CreateRouteUseCaseTest extends MessageUtil {
     @InjectMocks
-    CreateRouteUseCase useCase;
+    RequestRouteUseCase useCase;
     @Mock
     RouteRepository routeRepository;
     @Mock

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -18,14 +19,22 @@ public class RouteRepositoryImpl implements RouteRepository {
     private final RouteJpaRepository routeJpaRepository;
     @Override
     public void save(final Route actualRoute) {
-        final var routeEntity = RouteEntity.fromAggregate(actualRoute);
-        routeJpaRepository.save(routeEntity);
+        final var entity = RouteEntity.fromAggregate(actualRoute);
+        routeJpaRepository.save(entity);
     }
 
     @Override
-    public Route findByRouteId(final UUID routeId) {
-        final var routeEntity = routeJpaRepository.findById(routeId);
-        return routeEntity.map(RouteEntity::toAggregate)
+    public Route findByIdAndAccount(final UUID routeId,
+                                    final UUID accountId) {
+        final var entity = routeJpaRepository.findByRouteIdAndAccountId(routeId, accountId);
+        return entity.map(RouteEntity::toAggregate)
                 .orElseThrow(() -> new RepositoryException("Account not found!"));
+    }
+
+    @Override
+    public List<Route> findAllByAccountAndStatus(final UUID accountId,
+                                                 final String status) {
+        final var entitys = routeJpaRepository.findByAccountIdAndDifferentStatus(accountId, status);
+        return entitys.stream().map(RouteEntity::toAggregate).toList();
     }
 }

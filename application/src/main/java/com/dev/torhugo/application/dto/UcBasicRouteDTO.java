@@ -8,6 +8,7 @@ public record UcBasicRouteDTO(
         UUID accountId,
         Double distance,
         String status,
+        String name,
         boolean active,
         UcCoordinateDTO initialCoord,
         UcCoordinateDTO lastCoord,

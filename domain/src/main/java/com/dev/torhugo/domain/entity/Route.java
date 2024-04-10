@@ -2,26 +2,30 @@ package com.dev.torhugo.domain.entity;
 
 import com.dev.torhugo.domain.exception.InvalidArgumentException;
 import com.dev.torhugo.domain.vo.Coordinate;
+import com.dev.torhugo.domain.vo.Status;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Route {
     private final UUID routeId;
     private final UUID accountId;
     private final Double distance;
-    private final String status;
+    private Status status;
+    private final String name;
     private final Coordinate initialCoord;
     private final Coordinate lastCoord;
-    private final boolean active;
+    private boolean active;
     private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     private Route(
             final UUID routeId,
             final UUID accountId,
             final Double distance,
             final String status,
+            final String name,
             final Double initialLatitude,
             final Double initialLongitude,
             final Double lastLatitude,
@@ -33,7 +37,8 @@ public class Route {
         this.routeId = routeId;
         this.accountId = accountId;
         this.distance = distance;
-        this.status = status;
+        this.status = new Status(status);
+        this.name = name;
         this.initialCoord = new Coordinate(initialLatitude, initialLongitude);
         this.lastCoord = new Coordinate(lastLatitude, lastLongitude);
         this.active = active;
@@ -46,13 +51,14 @@ public class Route {
                                final Double longitude){
         final var routeId = UUID.randomUUID();
         final var isActive = true;
-        final var initialStatus = "REQUESTED";
+        final var status = "requested";
         final var dateNow = LocalDateTime.now();
         return new Route(
                 routeId,
                 accountId,
                 null,
-                initialStatus,
+                status,
+                null,
                 latitude,
                 longitude,
                 latitude,
@@ -63,38 +69,23 @@ public class Route {
         );
     }
 
-    public Route inactive(final UUID routeId,
-                          final UUID accountId,
-                          final Double distance,
-                          final String status,
-                          final Double initialLat,
-                          final Double initialLong,
-                          final Double lastLat,
-                          final Double lastLong,
-                          final LocalDateTime createdAt
-                          ){
+    public void inactive(){
         if(!this.active) throw new InvalidArgumentException("This account is already inactive.");
-        final var isActive = false;
-        final var dateNow = LocalDateTime.now();
-        return new Route(
-                routeId,
-                accountId,
-                distance,
-                status,
-                initialLat,
-                initialLong,
-                lastLat,
-                lastLong,
-                isActive,
-                createdAt,
-                dateNow
-        );
+        this.active = false;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void confirm() {
+        if(!Objects.equals(this.status.getValue(), "requested")) throw new InvalidArgumentException("Invalid status! Expected status: requested.");
+        this.status = new Status("confirmed");
+        this.updatedAt = LocalDateTime.now();
     }
 
     public static Route restore(final UUID routeId,
                                 final UUID accountId,
                                 final Double distance,
                                 final String status,
+                                final String name,
                                 final Double initialLat,
                                 final Double initialLong,
                                 final Double lastLat,
@@ -108,6 +99,7 @@ public class Route {
                 accountId,
                 distance,
                 status,
+                name,
                 initialLat,
                 initialLong,
                 lastLat,
@@ -131,7 +123,11 @@ public class Route {
     }
 
     public String getStatus() {
-        return status;
+        return status.getValue();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Coordinate getInitialCoord() {
@@ -142,7 +138,7 @@ public class Route {
         return lastCoord;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 

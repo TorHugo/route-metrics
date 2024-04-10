@@ -16,7 +16,7 @@ class RouteTest extends MessageUtil {
         final var expectedAccountId = UUID.randomUUID();
         final var expectedLatitude = Math.random();
         final var expectedLongitude = Math.random();
-        final var expectedStatus = "REQUESTED";
+        final var expectedStatus = "requested";
 
         // When
         final var result = Route.create(
@@ -29,23 +29,24 @@ class RouteTest extends MessageUtil {
         assertNotNull(result.getRouteId(), MESSAGE_NOT_NULL);
         assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
         assertNull(result.getDistance(), MESSAGE_NULL);
+        assertNull(result.getName(), MESSAGE_NULL);
         assertEquals(expectedStatus, result.getStatus(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLatitude, result.getInitialCoord().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLongitude, result.getInitialCoord().longitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLatitude, result.getLastCoord().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLongitude, result.getLastCoord().longitude(), MESSAGE_TO_EQUAL);
-        assertTrue(result.getActive(), MESSAGE_TRUE);
+        assertTrue(result.isActive(), MESSAGE_TRUE);
         assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
         assertNull(result.getUpdatedAt(), MESSAGE_NULL);
     }
 
     @Test
-    void shouldInactiveAccountWithSuccess(){
+    void shouldInactiveRouteWithSuccess(){
         // Given
         final var expectedAccountId = UUID.randomUUID();
         final var expectedLatitude = Math.random();
         final var expectedLongitude = Math.random();
-        final var expectedStatus = "REQUESTED";
+        final var expectedStatus = "requested";
         final var expectedRoute = Route.create(
                 expectedAccountId,
                 expectedLatitude,
@@ -53,30 +54,21 @@ class RouteTest extends MessageUtil {
         );
 
         // When
-        final var result = expectedRoute.inactive(
-                expectedRoute.getRouteId(),
-                expectedRoute.getAccountId(),
-                expectedRoute.getDistance(),
-                expectedRoute.getStatus(),
-                expectedRoute.getInitialCoord().latitude(),
-                expectedRoute.getInitialCoord().longitude(),
-                expectedRoute.getLastCoord().latitude(),
-                expectedRoute.getLastCoord().longitude(),
-                expectedRoute.getCreatedAt()
-        );
+        expectedRoute.inactive();
 
         // Then
-        assertNotNull(result.getRouteId(), MESSAGE_NOT_NULL);
-        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
-        assertNull(result.getDistance(), MESSAGE_NULL);
-        assertEquals(expectedStatus, result.getStatus(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedLatitude, result.getInitialCoord().latitude(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedLongitude, result.getInitialCoord().longitude(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedLatitude, result.getLastCoord().latitude(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedLongitude, result.getLastCoord().longitude(), MESSAGE_TO_EQUAL);
-        assertFalse(result.getActive(), MESSAGE_FALSE);
-        assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
-        assertNotNull(result.getUpdatedAt(), MESSAGE_NULL);
+        assertNotNull(expectedRoute.getRouteId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedAccountId, expectedRoute.getAccountId(), MESSAGE_TO_EQUAL);
+        assertNull(expectedRoute.getDistance(), MESSAGE_NULL);
+        assertNull(expectedRoute.getName(), MESSAGE_NULL);
+        assertEquals(expectedStatus, expectedRoute.getStatus(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedLatitude, expectedRoute.getInitialCoord().latitude(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedLongitude, expectedRoute.getInitialCoord().longitude(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedLatitude, expectedRoute.getLastCoord().latitude(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedLongitude, expectedRoute.getLastCoord().longitude(), MESSAGE_TO_EQUAL);
+        assertFalse(expectedRoute.isActive(), MESSAGE_FALSE);
+        assertNotNull(expectedRoute.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedRoute.getUpdatedAt(), MESSAGE_NULL);
     }
 
     @Test
@@ -85,7 +77,8 @@ class RouteTest extends MessageUtil {
         final var expectedRouteId = UUID.randomUUID();
         final var expectedAccountId = UUID.randomUUID();
         final var expectedDistance = Math.random();
-        final var expectedStatus = "REQUESTED";
+        final var expectedStatus = "requested";
+        final var expectedName = "test route";
         final var expectedInitialLat = Math.random();
         final var expectedInitialLong = Math.random();
         final var expectedLastLat = Math.random();
@@ -99,6 +92,7 @@ class RouteTest extends MessageUtil {
                 expectedAccountId,
                 expectedDistance,
                 expectedStatus,
+                expectedName,
                 expectedInitialLat,
                 expectedInitialLong,
                 expectedLastLat,
@@ -113,11 +107,12 @@ class RouteTest extends MessageUtil {
         assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
         assertEquals(expectedDistance, result.getDistance(), MESSAGE_TO_EQUAL);
         assertEquals(expectedStatus, result.getStatus(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
         assertEquals(expectedInitialLat, result.getInitialCoord().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedInitialLong, result.getInitialCoord().longitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLastLat, result.getLastCoord().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLastLong, result.getLastCoord().longitude(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedActive, result.getActive(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedActive, result.isActive(), MESSAGE_TO_EQUAL);
         assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
         assertNull(result.getUpdatedAt(), MESSAGE_NULL);
     }

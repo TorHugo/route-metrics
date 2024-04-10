@@ -12,7 +12,8 @@ public class RouteMapper {
                 route.getAccountId(),
                 route.getDistance(),
                 route.getStatus(),
-                route.getActive(),
+                route.getName(),
+                route.isActive(),
                 new UcCoordinateDTO(
                         route.getInitialCoord().latitude(),
                         route.getInitialCoord().longitude()
