@@ -1,11 +1,11 @@
 package com.dev.torhugo.infrastructure.api.controller;
 
-import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
+import com.dev.torhugo.application.dto.UcSendPasswordDTO;
 import com.dev.torhugo.application.usecase.*;
 import com.dev.torhugo.infrastructure.api.ForgetPasswordAPI;
 import com.dev.torhugo.infrastructure.api.models.request.ConfirmHashDTO;
 import com.dev.torhugo.infrastructure.api.models.request.ForgetPasswordDTO;
-import com.dev.torhugo.infrastructure.api.models.request.UpdatePasswordDTO;
+import com.dev.torhugo.infrastructure.api.models.request.SendPasswordDTO;
 import com.dev.torhugo.infrastructure.security.jwt.TokenUtils;
 import com.dev.torhugo.infrastructure.security.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +43,10 @@ public class ForgetPasswordController implements ForgetPasswordAPI {
     }
 
     @Override
-    public void updatePassword(final UpdatePasswordDTO request) {
+    public void updatePassword(final SendPasswordDTO request) {
         final var account = findAccountUseCase.execute(request.email());
         final var newPassword = passwordEncoder.encode(request.password());
-        final var input = new UcUpdatePasswordDTO(request.email(), newPassword);
+        final var input = new UcSendPasswordDTO(request.email(), newPassword);
         updateHashUseCase.execute(request.hash(), account.getAccountId());
         sendPasswordUseCase.execute(input);
     }

@@ -20,8 +20,6 @@ public class ConfirmHashUseCase extends DefaultUseCase {
                         final UUID accountId){
         logger.info("Executing use-case: ConfirmHash().");
         final var existingHashCode = forgetPasswordRepository.findHashConfirmedFalse(hascode, accountId);
-        if (Objects.isNull(existingHashCode))
-            throw new InvalidHashForgetPasswordException("Hash not found!");
         final var dateNow = LocalDateTime.now();
         if (existingHashCode.getExpirationDate().isBefore(dateNow))
             throw new InvalidHashForgetPasswordException("This hash is expired!");

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class UpdateHashUseCaseConfig {
     private final ForgetPasswordRepository forgetPasswordRepository;
     @Bean
-    public UpdateHashUseCase updatePasswordUseCase(){
+    public UpdateHashUseCase updateHashUseCase(){
         return new UpdateHashUseCase(forgetPasswordRepository);
     }
 }

@@ -2,7 +2,7 @@ package com.dev.torhugo.infrastructure.api;
 
 import com.dev.torhugo.infrastructure.api.models.request.ConfirmHashDTO;
 import com.dev.torhugo.infrastructure.api.models.request.ForgetPasswordDTO;
-import com.dev.torhugo.infrastructure.api.models.request.UpdatePasswordDTO;
+import com.dev.torhugo.infrastructure.api.models.request.SendPasswordDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,5 +19,5 @@ public interface ForgetPasswordAPI {
     ResponseEntity<?> confirmHashCode(final @Valid @RequestBody ConfirmHashDTO request);
     @PutMapping("/update-password")
     @PreAuthorize("hasRole('USER')")
-    void updatePassword(final @Valid @RequestBody UpdatePasswordDTO request);
+    void updatePassword(final @Valid @RequestBody SendPasswordDTO request);
 }

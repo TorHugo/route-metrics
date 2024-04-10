@@ -1,18 +1,16 @@
 package com.dev.torhugo.infrastructure.api.controller;
 
+import com.dev.torhugo.application.dto.*;
 import com.dev.torhugo.infrastructure.api.models.admin.AccountAdminDTO;
 import com.dev.torhugo.infrastructure.api.models.admin.InativateAccountDTO;
 import com.dev.torhugo.infrastructure.api.models.admin.UpdateAccountDTO;
 import com.dev.torhugo.infrastructure.api.models.request.CreateAccountDTO;
-import com.dev.torhugo.application.dto.UcAccountAdminDTO;
-import com.dev.torhugo.application.dto.UcInativateAccountDTO;
-import com.dev.torhugo.application.dto.UcUpdateAccountDTO;
 import com.dev.torhugo.application.usecase.*;
 import com.dev.torhugo.infrastructure.api.AccountAPI;
 import com.dev.torhugo.infrastructure.api.mappers.AccountMapper;
+import com.dev.torhugo.infrastructure.api.models.request.UpdatePasswordDTO;
 import com.dev.torhugo.infrastructure.api.models.response.AccountCreateDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicAccountDTO;
-import com.dev.torhugo.application.dto.UcAccountDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +28,7 @@ public class AccountController implements AccountAPI {
     private final FindAccountUseCase findAccountUseCase;
     private final InativateAccountUseCase inativateAccountUseCase;
     private final UpdateAccountUseCase updateAccountUseCase;
+    private final UpdatePasswordUseCase updatePasswordUseCase;
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -66,5 +65,15 @@ public class AccountController implements AccountAPI {
     @Override
     public BasicAccountDTO findAccount(final Principal request) {
         return accountMapper.mapperToBasicAccount(findAccountUseCase.execute(request.getName()));
+    }
+
+    @Override
+    public void updatePassword(final Principal principal,
+                               final UpdatePasswordDTO request) {
+        final var actualAccount = findAccountUseCase.execute(principal.getName());
+        final var newPasswordEncrypt = passwordEncoder.encode(request.newPassword());
+        final boolean comparingPasswords = passwordEncoder.matches(request.oldPassword(), actualAccount.getPassword());
+        final var input = new UcUpdatePasswordDTO(newPasswordEncrypt, comparingPasswords);
+        updatePasswordUseCase.execute(actualAccount, input);
     }
 }

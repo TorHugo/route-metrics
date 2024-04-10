@@ -177,40 +177,6 @@ class AccountTest extends MessageUtil {
     }
 
     @Test
-    void shouldUpdateLastAccessAccountWithSuccess(){
-        // Given
-        final var expectedAccountId = UUID.randomUUID();
-        final var expectedName = "Account Test";
-        final var expectedEmail = "account.test@dev.com.br";
-        final var expectedPassword = "Password@";
-        final var expectedActive = true;
-        final var expectedAdmin = false;
-        final var expectedCreatedAt = LocalDateTime.now();
-
-        // When
-        final var result = Account.updateLastAccess(
-                expectedAccountId,
-                expectedName,
-                expectedEmail,
-                expectedPassword,
-                expectedActive,
-                expectedAdmin,
-                expectedCreatedAt
-        );
-
-        // Then
-        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedActive, result.isActive(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedAdmin, result.isAdmin(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
-        assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
-        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
-    }
-
-    @Test
     void shouldThrowExceptionWhenInvalidEmail(){
         // Given
         final var expectedName = "Account Test";

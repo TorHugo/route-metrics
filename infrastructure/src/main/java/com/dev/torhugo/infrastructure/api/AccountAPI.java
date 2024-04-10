@@ -4,6 +4,7 @@ import com.dev.torhugo.infrastructure.api.models.admin.AccountAdminDTO;
 import com.dev.torhugo.infrastructure.api.models.admin.InativateAccountDTO;
 import com.dev.torhugo.infrastructure.api.models.admin.UpdateAccountDTO;
 import com.dev.torhugo.infrastructure.api.models.request.CreateAccountDTO;
+import com.dev.torhugo.infrastructure.api.models.request.UpdatePasswordDTO;
 import com.dev.torhugo.infrastructure.api.models.response.AccountCreateDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicAccountDTO;
 import jakarta.validation.Valid;
@@ -41,5 +42,11 @@ public interface AccountAPI {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
     BasicAccountDTO findAccount(final Principal request);
+
+    @PutMapping("/public/update-password")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER')")
+    void updatePassword(final Principal principal,
+                        final @Valid @RequestBody UpdatePasswordDTO request);
 
 }

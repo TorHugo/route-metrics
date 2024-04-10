@@ -1,6 +1,6 @@
 package usecase;
 
-import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
+import com.dev.torhugo.application.dto.UcSendPasswordDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.usecase.SendPasswordUseCase;
 import com.dev.torhugo.domain.entity.Account;
@@ -35,7 +35,7 @@ class SendPasswordUseCaseTest extends MessageUtil {
         final var expectedPassword = "Password@";
         final var expectedNewPassword = "12345678";
         final var account = Account.create(expectedName, expectedEmail, expectedPassword);
-        final var input = new UcUpdatePasswordDTO(expectedEmail, expectedNewPassword);
+        final var input = new UcSendPasswordDTO(expectedEmail, expectedNewPassword);
         when(accountRepository.findByEmailWithThrow(any())).thenReturn(account);
         doNothing().when(accountRepository).save(any());
 
@@ -53,7 +53,7 @@ class SendPasswordUseCaseTest extends MessageUtil {
         final var expectedException = "Account not found!";
         final var email = "account.test@dev.com.br";
         final var newPassword = "12345678";
-        final var input = new UcUpdatePasswordDTO(email, newPassword);
+        final var input = new UcSendPasswordDTO(email, newPassword);
         when(accountRepository.findByEmailWithThrow(any()))
                 .thenThrow(new RepositoryException(ACCOUNT_NOT_FOUND));
 

@@ -1,7 +1,7 @@
 package com.dev.torhugo.application.usecase;
 
 import com.dev.torhugo.application.config.DefaultUseCase;
-import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
+import com.dev.torhugo.application.dto.UcSendPasswordDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.domain.entity.Account;
 
@@ -14,7 +14,7 @@ public class SendPasswordUseCase extends DefaultUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public UUID execute(final UcUpdatePasswordDTO input){
+    public UUID execute(final UcSendPasswordDTO input){
         logger.info("Executing use-case: SendPassword().");
         final var account = accountRepository.findByEmailWithThrow(input.email());
         final var updatedAccount = Account.update(

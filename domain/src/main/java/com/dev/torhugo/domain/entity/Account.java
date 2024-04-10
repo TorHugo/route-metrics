@@ -147,27 +147,6 @@ public class Account {
         );
     }
 
-    public static Account updateLastAccess(final UUID accountId,
-                                           final String name,
-                                           final String email,
-                                           final String password,
-                                           final boolean active,
-                                           final boolean admin,
-                                           final LocalDateTime createdAt){
-        final var dateNow = LocalDateTime.now();
-        return new Account(
-                accountId,
-                name,
-                email,
-                password,
-                active,
-                admin,
-                dateNow,
-                createdAt,
-                dateNow
-        );
-    }
-
     public UUID getAccountId() {
         return accountId;
     }

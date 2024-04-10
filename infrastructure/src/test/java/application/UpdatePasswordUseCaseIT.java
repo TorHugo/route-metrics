@@ -2,7 +2,7 @@ package application;
 
 import annotation.IntegrationTest;
 import com.dev.torhugo.application.dto.UcAccountAdminDTO;
-import com.dev.torhugo.application.dto.UcUpdatePasswordDTO;
+import com.dev.torhugo.application.dto.UcSendPasswordDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.usecase.CreateAccountAdminUseCase;
 import com.dev.torhugo.application.usecase.SendPasswordUseCase;
@@ -39,7 +39,7 @@ class UpdatePasswordUseCaseIT {
         final var savedAccount = accountRepository.findByEmailWithThrow(expectedEmail);
         assertNotNull(savedAccount, MESSAGE_NOT_NULL);
 
-        final var input = new UcUpdatePasswordDTO(expectedEmail, newPassword);
+        final var input = new UcSendPasswordDTO(expectedEmail, newPassword);
         updatePasswordUseCase.execute(input);
 
         final var accountWithNewPassword = accountRepository.findByEmailWithThrow(expectedEmail);

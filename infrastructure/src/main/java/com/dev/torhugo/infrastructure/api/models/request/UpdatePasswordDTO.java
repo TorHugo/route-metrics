@@ -5,8 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record UpdatePasswordDTO(
-        @JsonProperty("hash_code") @NotNull @NotBlank String hash,
-        @JsonProperty("email") @NotNull @NotBlank String email,
-        @JsonProperty("password") @NotNull @NotBlank String password
+        @JsonProperty("old_password") @NotBlank @NotNull String oldPassword,
+        @JsonProperty("new_password") @NotBlank @NotNull String newPassword
 ) {
 }

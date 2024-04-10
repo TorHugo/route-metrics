@@ -19,8 +19,6 @@ public class UpdateHashUseCase extends DefaultUseCase {
                         final UUID accountId){
         logger.info("Executing use-case: UpdateHash().");
         final var existsForgetPassword = forgetPasswordRepository.findHashConfirmedTrue(hashcode, accountId);
-        if (Objects.isNull(existsForgetPassword))
-            throw new InvalidHashForgetPasswordException("HashCode not found!");
         if (!existsForgetPassword.isConfirmed())
             throw new InvalidHashForgetPasswordException("HashCode is not confirmed!");
         final var actualForgetPassword = ForgetPassword.inactived(
