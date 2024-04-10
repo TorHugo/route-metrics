@@ -5,9 +5,14 @@ import com.dev.torhugo.infrastructure.api.models.CoordinateDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicRouteDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class RouteMapper {
-    public BasicRouteDTO mapperToBasicRoute(final UcBasicRouteDTO result) {
+    public List<BasicRouteDTO> mapperToBasicRoutes(final List<UcBasicRouteDTO> result){
+        return result.stream().map(RouteMapper::mapperToBasicRoute).toList();
+    }
+    public static BasicRouteDTO mapperToBasicRoute(final UcBasicRouteDTO result) {
         return BasicRouteDTO.builder()
                 .routeId(result.routeId())
                 .accountId(result.accountId())

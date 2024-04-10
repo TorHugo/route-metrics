@@ -4,8 +4,13 @@ import com.dev.torhugo.application.dto.UcBasicRouteDTO;
 import com.dev.torhugo.application.dto.UcCoordinateDTO;
 import com.dev.torhugo.domain.entity.Route;
 
+import java.util.List;
+
 public class RouteMapper {
     private RouteMapper(){}
+    public static List<UcBasicRouteDTO> mappingToBasic(final List<Route> routes){
+        return routes.stream().map(RouteMapper::mappingToBasic).toList();
+    }
     public static UcBasicRouteDTO mappingToBasic(final Route route) {
         return new UcBasicRouteDTO(
                 route.getRouteId(),

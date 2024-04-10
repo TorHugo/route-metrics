@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping(value = "/route")
@@ -29,4 +30,9 @@ public interface RouteAPI {
     @PreAuthorize("hasRole('USER')")
     void confirmRoute(final @PathVariable(name = "routeId") UUID routeId,
                       final Principal principal);
+
+    @GetMapping("/public/find-all")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('USER')")
+    List<BasicRouteDTO> findAllRoutes(final Principal principal);
 }

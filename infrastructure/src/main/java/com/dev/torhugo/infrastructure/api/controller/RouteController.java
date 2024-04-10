@@ -2,6 +2,7 @@ package com.dev.torhugo.infrastructure.api.controller;
 
 import com.dev.torhugo.application.dto.UcRouteDTO;
 import com.dev.torhugo.application.usecase.ConfirmRouteUseCase;
+import com.dev.torhugo.application.usecase.FindAllRouteUseCase;
 import com.dev.torhugo.application.usecase.FindRouteUseCase;
 import com.dev.torhugo.application.usecase.RequestRouteUseCase;
 import com.dev.torhugo.infrastructure.api.RouteAPI;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +23,7 @@ public class RouteController implements RouteAPI {
     private final RequestRouteUseCase requestRouteUseCase;
     private final FindRouteUseCase findRouteUseCase;
     private final ConfirmRouteUseCase confirmRouteUseCase;
+    private final FindAllRouteUseCase findAllRouteUseCase;
     private final RouteMapper routeMapper;
     @Override
     public RouteCreateDTO createAccount(final CreateRouteDTO request) {
@@ -36,12 +39,18 @@ public class RouteController implements RouteAPI {
     public BasicRouteDTO findRoute(final UUID routeId,
                                    final Principal principal) {
         final var result = findRouteUseCase.execute(routeId, principal.getName());
-        return routeMapper.mapperToBasicRoute(result);
+        return RouteMapper.mapperToBasicRoute(result);
     }
 
     @Override
     public void confirmRoute(final UUID routeId,
                              final Principal principal) {
         confirmRouteUseCase.execute(routeId, principal.getName());
+    }
+
+    @Override
+    public List<BasicRouteDTO> findAllRoutes(final Principal principal) {
+        final var result = findAllRouteUseCase.execute(principal.getName());
+        return routeMapper.mapperToBasicRoutes(result);
     }
 }

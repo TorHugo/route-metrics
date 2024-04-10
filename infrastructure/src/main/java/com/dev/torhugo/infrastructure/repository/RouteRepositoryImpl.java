@@ -37,4 +37,10 @@ public class RouteRepositoryImpl implements RouteRepository {
         final var entitys = routeJpaRepository.findByAccountIdAndDifferentStatus(accountId, status);
         return entitys.stream().map(RouteEntity::toAggregate).toList();
     }
+
+    @Override
+    public List<Route> findAllByAccount(final UUID accountId) {
+        final var entitys = routeJpaRepository.findAllByAccountId(accountId);
+        return entitys.stream().map(RouteEntity::toAggregate).toList();
+    }
 }

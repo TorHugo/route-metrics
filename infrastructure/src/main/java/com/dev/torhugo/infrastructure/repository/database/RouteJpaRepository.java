@@ -9,9 +9,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RouteJpaRepository extends JpaRepository<RouteEntity, UUID> {
-    Optional<RouteEntity> findByRouteIdAndAccountId(UUID routeId, UUID accountId);
-
+    Optional<RouteEntity> findByRouteIdAndAccountId(final UUID routeId,
+                                                    final UUID accountId);
+    List<RouteEntity> findAllByAccountId(final UUID accountId);
     @Query("SELECT r FROM route_tb r WHERE r.accountId = ?1 AND r.status <> ?2")
-    List<RouteEntity> findByAccountIdAndDifferentStatus(UUID accountId, String status);
+    List<RouteEntity> findByAccountIdAndDifferentStatus(final UUID accountId,
+                                                        final String status);
 
 }
