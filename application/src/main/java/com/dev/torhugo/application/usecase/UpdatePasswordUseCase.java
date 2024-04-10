@@ -18,16 +18,7 @@ public class UpdatePasswordUseCase extends DefaultUseCase {
         logger.info("Executing use-case: UpdatePassword()");
         if (!input.comparingPassword())
             throw new InvalidArgumentException("The password sent is not the same as the current password!");
-        final var newAccount = Account.update(
-                actualAccount.getAccountId(),
-                actualAccount.getName(),
-                actualAccount.getEmail(),
-                input.newPassword(),
-                actualAccount.isActive(),
-                actualAccount.isAdmin(),
-                actualAccount.getLastAccess(),
-                actualAccount.getCreatedAt()
-        );
-        accountRepository.save(newAccount);
+        actualAccount.updatePassword(input.newPassword());
+        accountRepository.save(actualAccount);
     }
 }

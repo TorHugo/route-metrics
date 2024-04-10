@@ -2,8 +2,8 @@ package entity;
 
 import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.exception.InvalidArgumentException;
-import util.MessageUtil;
 import org.junit.jupiter.api.Test;
+import util.MessageUtil;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -73,8 +73,6 @@ class AccountTest extends MessageUtil {
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var expectedAdmin = false;
-        final var expectedCreatedAt = LocalDateTime.now();
         final var expectedAccount = Account.create(
                 expectedName,
                 expectedEmail,
@@ -82,25 +80,18 @@ class AccountTest extends MessageUtil {
         );
 
         // When
-        final var result = expectedAccount.inactive(
-                expectedAccountId,
-                expectedName,
-                expectedEmail,
-                expectedPassword,
-                expectedAdmin,
-                expectedCreatedAt
-        );
+        expectedAccount.inactive();
 
         // Then
-        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedName, result.getName(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedEmail, result.getEmail(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedPassword, result.getPassword(), MESSAGE_TO_EQUAL);
-        assertFalse(result.isActive(), MESSAGE_TRUE);
-        assertFalse(result.isAdmin(), MESSAGE_FALSE);
-        assertNotNull(result.getLastAccess(), MESSAGE_NOT_NULL);
-        assertNotNull(result.getCreatedAt(), MESSAGE_NOT_NULL);
-        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
+        assertEquals(expectedAccountId, expectedAccount.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, expectedAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, expectedAccount.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, expectedAccount.getPassword(), MESSAGE_TO_EQUAL);
+        assertFalse(expectedAccount.isActive(), MESSAGE_TRUE);
+        assertFalse(expectedAccount.isAdmin(), MESSAGE_FALSE);
+        assertNotNull(expectedAccount.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedAccount.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedAccount.getUpdatedAt(), MESSAGE_NOT_NULL);
     }
 
     @Test
@@ -185,13 +176,12 @@ class AccountTest extends MessageUtil {
         final var expectedErrorMessage = "Invalid email!";
 
         // When
-        final var exception = assertThrows(InvalidArgumentException.class, () -> {
+        final var exception = assertThrows(InvalidArgumentException.class, () ->
             Account.create(
-                    expectedName,
-                    expectedEmail,
-                    expectedPassword
-            );
-        });
+                expectedName,
+                expectedEmail,
+                expectedPassword
+            ));
 
         // Then
         assertEquals(expectedErrorMessage, exception.getMessage(), MESSAGE_TO_EQUAL);
@@ -221,36 +211,18 @@ class AccountTest extends MessageUtil {
     void shouldThrowExceptionWhenInactiveAccount() {
         // Given
         final var expectedErrorMessage = "This account is already inactive.";
-        final var expectedAccountId = UUID.randomUUID();
         final var expectedName = "Account Test";
         final var expectedEmail = "account.test@dev.com.br";
         final var expectedPassword = "Password@";
-        final var expectedAdmin = false;
-        final var expectedCreatedAt = LocalDateTime.now();
         final var expectedAccount = Account.create(
                 expectedName,
                 expectedEmail,
                 expectedPassword
         );
-        final var expectedInactiveAccount = expectedAccount.inactive(
-                expectedAccountId,
-                expectedName,
-                expectedEmail,
-                expectedPassword,
-                expectedAdmin,
-                expectedCreatedAt
-        );
+        expectedAccount.inactive();
 
         // When
-        final var exception = assertThrows(InvalidArgumentException.class, () ->
-                expectedInactiveAccount.inactive(
-                expectedAccountId,
-                expectedName,
-                expectedEmail,
-                expectedPassword,
-                expectedAdmin,
-                expectedCreatedAt
-        ));
+        final var exception = assertThrows(InvalidArgumentException.class, expectedAccount::inactive);
 
         // Then
         assertEquals(expectedErrorMessage, exception.getMessage());

@@ -11,12 +11,12 @@ public class Account {
     private final UUID accountId;
     private final String name;
     private final Email email;
-    private final Password password;
-    private final boolean active;
+    private Password password;
+    private boolean active;
     private final boolean admin;
-    private final LocalDateTime lastAccess;
+    private LocalDateTime lastAccess;
     private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     private Account(
             final UUID accountId,
@@ -80,26 +80,10 @@ public class Account {
         );
     }
 
-    public Account inactive(final UUID accountId,
-                            final String name,
-                            final String email,
-                            final String password,
-                            final boolean isAdmin,
-                            final LocalDateTime createdAt){
+    public void inactive(){
         if(!this.active) throw new InvalidArgumentException("This account is already inactive.");
-        final var isActive = false;
-        final var dateNow = LocalDateTime.now();
-        return new Account(
-                accountId,
-                name,
-                email,
-                password,
-                isActive,
-                isAdmin,
-                createdAt,
-                dateNow,
-                dateNow
-        );
+        this.active = false;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public static Account restore(final UUID accountId,
@@ -145,6 +129,15 @@ public class Account {
                 createdAt,
                 dateNow
         );
+    }
+
+    public void lastAccess(){
+        this.lastAccess = LocalDateTime.now();
+    }
+
+    public void updatePassword(final String newPassword){
+        this.updatedAt = LocalDateTime.now();
+        this.password = new Password(newPassword);
     }
 
     public UUID getAccountId() {
