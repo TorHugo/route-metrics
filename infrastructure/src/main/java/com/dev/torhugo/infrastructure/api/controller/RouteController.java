@@ -20,6 +20,7 @@ import java.util.UUID;
 public class RouteController implements RouteAPI {
     private final RequestRouteUseCase requestRouteUseCase;
     private final FindRouteUseCase findRouteUseCase;
+    private final ConfirmRouteUseCase confirmRouteUseCase;
     private final RouteMapper routeMapper;
     @Override
     public RouteCreateDTO createAccount(final CreateRouteDTO request) {
@@ -38,5 +39,9 @@ public class RouteController implements RouteAPI {
         return routeMapper.mapperToBasicRoute(result);
     }
 
+    @Override
+    public void confirmRoute(final UUID routeId,
+                             final Principal principal) {
+        confirmRouteUseCase.execute(routeId, principal.getName());
     }
 }

@@ -23,4 +23,10 @@ public interface RouteAPI {
     @PreAuthorize("hasRole('USER')")
     BasicRouteDTO findRoute(final @PathVariable(name = "routeId") UUID routeId,
                             final Principal principal);
+
+    @PutMapping("/public/confirm/{routeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER')")
+    void confirmRoute(final @PathVariable(name = "routeId") UUID routeId,
+                      final Principal principal);
 }
