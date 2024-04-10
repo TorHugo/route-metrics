@@ -1,4 +1,4 @@
-package com.dev.torhugo.domain.service;
+package com.dev.torhugo.domain.ds;
 
 import java.util.Random;
 

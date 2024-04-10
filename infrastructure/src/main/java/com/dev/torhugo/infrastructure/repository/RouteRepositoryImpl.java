@@ -28,7 +28,7 @@ public class RouteRepositoryImpl implements RouteRepository {
                                     final UUID accountId) {
         final var entity = routeJpaRepository.findByRouteIdAndAccountId(routeId, accountId);
         return entity.map(RouteEntity::toAggregate)
-                .orElseThrow(() -> new RepositoryException("Account not found!"));
+                .orElseThrow(() -> new RepositoryException("Route not found!"));
     }
 
     @Override
@@ -42,5 +42,12 @@ public class RouteRepositoryImpl implements RouteRepository {
     public List<Route> findAllByAccount(final UUID accountId) {
         final var entitys = routeJpaRepository.findAllByAccountId(accountId);
         return entitys.stream().map(RouteEntity::toAggregate).toList();
+    }
+
+    @Override
+    public Route findById(final UUID routeId) {
+        final var entity = routeJpaRepository.findById(routeId);
+        return entity.map(RouteEntity::toAggregate)
+                .orElseThrow(() -> new RepositoryException("Route not found!"));
     }
 }

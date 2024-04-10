@@ -1,6 +1,6 @@
 package com.dev.torhugo.domain.entity;
 
-import com.dev.torhugo.domain.service.CreateHashCode;
+import com.dev.torhugo.domain.ds.CreateHashCode;
 import com.dev.torhugo.domain.vo.HashCode;
 
 import java.time.LocalDateTime;

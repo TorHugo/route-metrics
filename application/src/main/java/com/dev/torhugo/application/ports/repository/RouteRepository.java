@@ -12,4 +12,5 @@ public interface RouteRepository {
     List<Route> findAllByAccountAndStatus(final UUID accountId,
                                           final String status);
     List<Route> findAllByAccount(final UUID accountId);
+    Route findById(final UUID uuid);
 }

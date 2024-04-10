@@ -15,7 +15,7 @@ public class Route {
     private Status status;
     private final String name;
     private final Coordinate initialCoord;
-    private final Coordinate lastCoord;
+    private Coordinate lastCoord;
     private boolean active;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -78,6 +78,12 @@ public class Route {
     public void confirm() {
         if(!Objects.equals(this.status.getValue(), "requested")) throw new InvalidArgumentException("Invalid status! Expected status: requested.");
         this.status = new Status("confirmed");
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateLastPosition(final Double latitude,
+                                   final Double longitude){
+        this.lastCoord = new Coordinate(latitude, longitude);
         this.updatedAt = LocalDateTime.now();
     }
 
