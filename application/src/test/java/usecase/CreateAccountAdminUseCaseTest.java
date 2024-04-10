@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
 
+import static mock.AccountMock.createAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -57,13 +58,8 @@ class CreateAccountAdminUseCaseTest extends MessageUtil {
         final var expectedPassword = "Password@";
         final var expectedActive = false;
         final var expectedAdmin = true;
-        final var expectedAccount = Account.create(
-                expectedName,
-                expectedEmail,
-                expectedPassword
-        );
         final var input = new UcAccountAdminDTO(expectedName, expectedEmail, expectedPassword, expectedActive, expectedAdmin);
-        when(accountRepository.findByEmail(expectedEmail)).thenReturn(expectedAccount);
+        when(accountRepository.findByEmail(expectedEmail)).thenReturn(createAccount());
         doNothing().when(accountRepository).save(any());
 
         // When

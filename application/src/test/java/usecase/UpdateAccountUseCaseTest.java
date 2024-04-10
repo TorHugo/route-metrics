@@ -3,7 +3,6 @@ package usecase;
 import com.dev.torhugo.application.dto.UcUpdateAccountDTO;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.usecase.UpdateAccountUseCase;
-import com.dev.torhugo.domain.entity.Account;
 import com.dev.torhugo.domain.exception.RepositoryException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,7 @@ import util.MessageUtil;
 
 import java.util.UUID;
 
+import static mock.AccountMock.createAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -31,12 +31,9 @@ class UpdateAccountUseCaseTest extends MessageUtil {
     @Test
     void shouldUpdateAccountWithSuccess(){
         // Given
-        final var expectedName = "Account Test";
-        final var expectedEmail = "account.test@dev.com.br";
-        final var expectedPassword = "Password@";
         final var expectedNewName = "Update Account";
         final var expectedNewEmail = "update.account@dev.com.br";
-        final var account = Account.create(expectedName, expectedEmail, expectedPassword);
+        final var account = createAccount();
         final var input = new UcUpdateAccountDTO(account.getAccountId(), expectedNewName, expectedNewEmail, null, true, false);
         when(accountRepository.findByAccountId(any())).thenReturn(account);
         doNothing().when(accountRepository).save(any());
@@ -46,14 +43,14 @@ class UpdateAccountUseCaseTest extends MessageUtil {
 
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
-        assertEquals(account.getAccountId(), result.accountId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedNewName, result.name(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedNewEmail, result.email(), MESSAGE_TO_EQUAL);
-        assertEquals(account.isActive(), result.active(), MESSAGE_TO_EQUAL);
-        assertEquals(account.isAdmin(), result.admin(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getLastAccess(), result.lastAccess(), MESSAGE_TO_EQUAL);
-        assertEquals(account.getCreatedAt(), result.createdAt(), MESSAGE_TO_EQUAL);
-        assertNotNull(result.updatedAt(), MESSAGE_NOT_NULL);
+        assertEquals(account.getAccountId(), result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedNewName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedNewEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(account.isActive(), result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(account.isAdmin(), result.isAdmin(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getLastAccess(), result.getLastAccess(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getCreatedAt(), result.getCreatedAt(), MESSAGE_TO_EQUAL);
+        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
         verify(accountRepository, times(1)).findByAccountId(any());
         verify(accountRepository, times(1)).save(any());
     }

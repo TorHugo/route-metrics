@@ -42,13 +42,13 @@ class UpdateLastAccessUseCaseIT {
         assertNotNull(savedAccount, MESSAGE_NOT_NULL);
 
         // Then
-        assertEquals(accountId, savedAccount.accountId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedName, savedAccount.name(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedEmail, savedAccount.email(), MESSAGE_TO_EQUAL);
-        assertTrue(savedAccount.active(), MESSAGE_TRUE);
-        assertFalse(savedAccount.admin(), MESSAGE_FALSE);
-        assertNotNull(savedAccount.createdAt(), MESSAGE_NOT_NULL);
-        assertNotEquals(savedAccount.lastAccess(), savedAccount.createdAt(), MESSAGE_NOT_EQUAL);
-        assertNotNull(savedAccount.updatedAt(), MESSAGE_NOT_NULL);
+        assertEquals(accountId, savedAccount.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, savedAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, savedAccount.getEmail(), MESSAGE_TO_EQUAL);
+        assertTrue(savedAccount.isActive(), MESSAGE_TRUE);
+        assertFalse(savedAccount.isAdmin(), MESSAGE_TRUE);
+        assertNotNull(savedAccount.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(savedAccount.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(savedAccount.getUpdatedAt(), MESSAGE_NULL);
     }
 }

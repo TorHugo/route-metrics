@@ -41,8 +41,8 @@ class UpdateAccountUseCaseIT {
         assertNotNull(accountId, MESSAGE_NOT_NULL);
         final var previousAccount = findAccountUseCase.execute(expectedEmail);
         assertNotNull(previousAccount, MESSAGE_NOT_NULL);
-        assertEquals(expectedName, previousAccount.name(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedEmail, previousAccount.email(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedName, previousAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, previousAccount.getEmail(), MESSAGE_TO_EQUAL);
 
         final var inativateAccount = new UcUpdateAccountDTO(accountId, newName, newEmail, newPassword, true, true);
         updateAccountUseCase.execute(inativateAccount);
@@ -50,13 +50,13 @@ class UpdateAccountUseCaseIT {
         assertNotNull(savedAccount, MESSAGE_NOT_NULL);
 
         // Then
-        assertEquals(accountId, savedAccount.accountId(), MESSAGE_TO_EQUAL);
-        assertEquals(newName, savedAccount.name(), MESSAGE_TO_EQUAL);
-        assertEquals(newEmail, savedAccount.email(), MESSAGE_TO_EQUAL);
-        assertTrue(savedAccount.active(), MESSAGE_TRUE);
-        assertTrue(savedAccount.admin(), MESSAGE_TRUE);
-        assertNotNull(savedAccount.createdAt(), MESSAGE_NOT_NULL);
-        assertNotNull(savedAccount.lastAccess(), MESSAGE_NOT_NULL);
-        assertNotNull(savedAccount.updatedAt(), MESSAGE_NOT_NULL);
+        assertEquals(accountId, savedAccount.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(newName, savedAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(newEmail, savedAccount.getEmail(), MESSAGE_TO_EQUAL);
+        assertTrue(savedAccount.isActive(), MESSAGE_TRUE);
+        assertTrue(savedAccount.isAdmin(), MESSAGE_TRUE);
+        assertNotNull(savedAccount.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(savedAccount.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(savedAccount.getUpdatedAt(), MESSAGE_NULL);
     }
 }

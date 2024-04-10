@@ -6,8 +6,7 @@ import com.dev.torhugo.domain.vo.Password;
 import org.junit.jupiter.api.Test;
 import util.MessageUtil;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ValueObjectTest extends MessageUtil {
 
@@ -41,6 +40,6 @@ class ValueObjectTest extends MessageUtil {
         final var result = new HashCode(expectedHashCode);
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
-        assertEquals(expectedHashCode, result.getValue(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedHashCode, result.value(), MESSAGE_TO_EQUAL);
     }
 }

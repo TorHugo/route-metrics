@@ -5,7 +5,6 @@ import com.dev.torhugo.application.ports.repository.ForgetPasswordRepository;
 import com.dev.torhugo.domain.entity.ForgetPassword;
 import com.dev.torhugo.domain.exception.InvalidHashForgetPasswordException;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class UpdateHashUseCase extends DefaultUseCase {

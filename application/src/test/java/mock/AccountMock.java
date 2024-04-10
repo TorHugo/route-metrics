@@ -15,18 +15,4 @@ public class AccountMock {
                 expectedPassword
         );
     }
-
-    public static UcBasicAccountDTO createBasicAccount(){
-        final var account = createAccount();
-        return new UcBasicAccountDTO(
-                account.getAccountId(),
-                account.getName(),
-                account.getEmail(),
-                account.isActive(),
-                account.isAdmin(),
-                account.getLastAccess(),
-                account.getCreatedAt(),
-                account.getUpdatedAt()
-        );
-    }
 }

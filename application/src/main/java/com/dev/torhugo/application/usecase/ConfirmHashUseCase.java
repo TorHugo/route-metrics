@@ -6,7 +6,6 @@ import com.dev.torhugo.domain.entity.ForgetPassword;
 import com.dev.torhugo.domain.exception.InvalidHashForgetPasswordException;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 public class ConfirmHashUseCase extends DefaultUseCase {

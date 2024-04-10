@@ -2,7 +2,6 @@ package usecase;
 
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.usecase.FindAllAccountsUseCase;
-import com.dev.torhugo.domain.entity.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,6 +11,7 @@ import util.MessageUtil;
 
 import java.util.List;
 
+import static mock.AccountMock.createAccount;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -29,10 +29,7 @@ class FindAllAccountsUseCaseTest extends MessageUtil {
     @Test
     void shouldFindAllAccountsWithSuccess(){
         // Given
-        final var expectedName = "Account Test";
-        final var expectedEmail = "account.test@dev.com.br";
-        final var expectedPassword = "Password@";
-        final var account = Account.create(expectedName, expectedEmail, expectedPassword);
+        final var account = createAccount();
         when(accountRepository.findAll()).thenReturn(List.of(account));
 
         // When
