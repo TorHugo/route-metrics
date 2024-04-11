@@ -22,13 +22,11 @@ public class RouteEntity {
     @Id
     private UUID routeId;
     private UUID accountId;
-    private Double distance;
     private String status;
     private String name;
-    private Double initialLatitude;
-    private Double initialLongitude;
-    private Double lastLatitude;
-    private Double lastLongitude;
+    private Double startLatitude;
+    private Double startLongitude;
+    private LocalDateTime startTime;
     private boolean active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -37,13 +35,11 @@ public class RouteEntity {
         return new RouteEntity(
                 route.getRouteId(),
                 route.getAccountId(),
-                route.getDistance(),
                 route.getStatus(),
                 route.getName(),
-                route.getInitialCoord().latitude(),
-                route.getInitialCoord().longitude(),
-                route.getLastCoord().latitude(),
-                route.getLastCoord().longitude(),
+                route.getStartCoordinate().latitude(),
+                route.getStartCoordinate().longitude(),
+                route.getStartCoordinate().time(),
                 route.isActive(),
                 route.getCreatedAt(),
                 route.getUpdatedAt()
@@ -54,13 +50,11 @@ public class RouteEntity {
         return Route.restore(
                 entity.routeId,
                 entity.accountId,
-                entity.distance,
                 entity.status,
                 entity.name,
-                entity.initialLatitude,
-                entity.initialLongitude,
-                entity.lastLatitude,
-                entity.lastLongitude,
+                entity.startLatitude,
+                entity.startLongitude,
+                entity.startTime,
                 entity.active,
                 entity.createdAt,
                 entity.updatedAt

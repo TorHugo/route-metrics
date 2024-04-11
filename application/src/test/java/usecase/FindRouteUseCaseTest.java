@@ -50,8 +50,8 @@ class FindRouteUseCaseTest extends MessageUtil {
         assertEquals(route.getDistance(), result.distance(), MESSAGE_TO_EQUAL);
         assertEquals(route.getStatus(), result.status(), MESSAGE_TO_EQUAL);
         assertEquals(route.isActive(), result.active(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getInitialCoord().latitude(), result.initialCoord().latitude(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getInitialCoord().longitude(), result.initialCoord().longitude(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getStartCoordinate().latitude(), result.initialCoord().latitude(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getStartCoordinate().longitude(), result.initialCoord().longitude(), MESSAGE_TO_EQUAL);
         assertEquals(route.getLastCoord().latitude(), result.lastCoord().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(route.getLastCoord().longitude(), result.lastCoord().longitude(), MESSAGE_TO_EQUAL);
         assertEquals(route.getCreatedAt(), result.createdAt(), MESSAGE_TO_EQUAL);

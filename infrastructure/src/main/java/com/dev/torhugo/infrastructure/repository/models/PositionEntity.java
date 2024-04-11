@@ -22,9 +22,11 @@ public class PositionEntity {
     @Id
     private UUID positionId;
     private UUID routeId;
-    private Double latitude;
-    private Double longitude;
-    private Double velocity;
+    private Double lastLatitude;
+    private Double lastLongitude;
+    private LocalDateTime lastTime;
+    private Double maxVelocity;
+    private Double minVelocity;
     private Double distance;
     private LocalDateTime createdAt;
 
@@ -34,7 +36,9 @@ public class PositionEntity {
                 position.getRouteId(),
                 position.getCoordinate().latitude(),
                 position.getCoordinate().longitude(),
-                position.getVelocity(),
+                position.getCoordinate().time(),
+                position.getMaxVelocity(),
+                position.getMinVelocity(),
                 position.getDistance(),
                 position.getCreatedAt()
         );
@@ -44,9 +48,11 @@ public class PositionEntity {
         return Position.restore(
                 entity.positionId,
                 entity.routeId,
-                entity.latitude,
-                entity.longitude,
-                entity.velocity,
+                entity.lastLatitude,
+                entity.lastLongitude,
+                entity.lastTime,
+                entity.maxVelocity,
+                entity.minVelocity,
                 entity.distance,
                 entity.createdAt
         );

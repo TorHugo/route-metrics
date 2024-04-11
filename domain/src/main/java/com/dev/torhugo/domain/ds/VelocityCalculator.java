@@ -29,8 +29,8 @@ public class VelocityCalculator {
         return calculateAverageSpeed(distance, timeElapsedInSeconds);
     }
 
-    public static double calculateAverageSpeed(final Double distancia,
-                                               final Double tempoDecorrido) {
-        return distancia / (tempoDecorrido / 3600);
+    public static double calculateAverageSpeed(final Double distance,
+                                               final Double time) {
+        return distance / (time / 3600);
     }
 }

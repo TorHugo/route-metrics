@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public record UcUpdatePositionDTO(
         UUID routeId,
-        UcCoordinateDTO coordinate
+        UcCoordinateDTO newPosition
 ) {
 }

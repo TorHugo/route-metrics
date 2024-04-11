@@ -2,6 +2,7 @@ package com.dev.torhugo.infrastructure.repository;
 
 import com.dev.torhugo.application.ports.repository.PositionRepository;
 import com.dev.torhugo.domain.entity.Position;
+import com.dev.torhugo.domain.exception.RepositoryException;
 import com.dev.torhugo.infrastructure.repository.database.PositionJpaRepository;
 import com.dev.torhugo.infrastructure.repository.models.PositionEntity;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PositionRepositoryImpl implements PositionRepository {
     private final PositionJpaRepository positionJpaRepository;
+
     @Override
-    public Position findLastPositionByRouteId(final UUID routeId) {
-        final var entities = positionJpaRepository.findByRouteIdOrderByCreatedAtDesc(routeId);
-        return entities.stream().findFirst().map(PositionEntity::toAggregate)
-                .orElse(null);
+    public Position findPositionByRoute(final UUID routeId) {
+        final var entity = positionJpaRepository.findByRouteId(routeId);
+        return entity.map(PositionEntity::toAggregate)
+                .orElseThrow(() -> new RepositoryException("Position not found!"));
     }
 
     @Override

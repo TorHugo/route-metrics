@@ -5,6 +5,6 @@ import com.dev.torhugo.domain.entity.Position;
 import java.util.UUID;
 
 public interface PositionRepository {
-    Position findLastPositionByRouteId(final UUID routeId);
+    Position findPositionByRoute(final UUID routeId);
     void save(final Position position);
 }
