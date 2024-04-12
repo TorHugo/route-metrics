@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public record Distance(Double value) {
     public Distance {
-        if (Objects.nonNull(value) && validate(value)) throw new InvalidArgumentException("Invalid distance!");
+        if (Objects.isNull(value) || validate(value)) throw new InvalidArgumentException("Invalid distance!");
     }
 
     private boolean validate(final Double value) {

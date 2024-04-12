@@ -15,17 +15,12 @@ public class RouteMapper {
         return new UcBasicRouteDTO(
                 route.getRouteId(),
                 route.getAccountId(),
-                route.getDistance(),
                 route.getStatus(),
                 route.getName(),
                 route.isActive(),
                 new UcCoordinateDTO(
                         route.getStartCoordinate().latitude(),
                         route.getStartCoordinate().longitude()
-                ),
-                new UcCoordinateDTO(
-                        route.getLastCoord().latitude(),
-                        route.getLastCoord().longitude()
                 ),
                 route.getCreatedAt(),
                 route.getUpdatedAt()

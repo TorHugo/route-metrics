@@ -12,15 +12,17 @@ import util.MessageUtil;
 
 import java.util.List;
 
-import static mock.AccountMock.createAccount;
+import static mock.UseCaseMock.createAccount;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class InativateAccountUseCaseTest extends MessageUtil {
     @InjectMocks
     InativateAccountUseCase useCase;
+
     @Mock
     AccountRepository accountRepository;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

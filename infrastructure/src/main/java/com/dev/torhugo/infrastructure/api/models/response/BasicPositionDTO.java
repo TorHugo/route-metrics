@@ -13,7 +13,8 @@ import java.util.UUID;
 public record BasicPositionDTO(
         @JsonProperty("position_id")UUID positionId,
         @JsonProperty("coordinate") CoordinateDTO coordinate,
-        @JsonProperty("velocity") Double velocity,
+        @JsonProperty("max_velocity") Double maxVelocity,
+        @JsonProperty("min_velocity") Double minVelocity,
         @JsonProperty("distance") Double distance,
         @JsonProperty("created_at")
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")

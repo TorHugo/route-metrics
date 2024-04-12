@@ -13,7 +13,9 @@ public class PositionMapper {
                         position.getCoordinate().latitude(),
                         position.getCoordinate().longitude()
                 ),
-                position.getVelocity(),
+                position.getCoordinate().time(),
+                position.getMaxVelocity(),
+                position.getMinVelocity(),
                 position.getDistance(),
                 position.getCreatedAt()
         );

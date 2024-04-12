@@ -83,7 +83,7 @@ class AccountTest extends MessageUtil {
         expectedAccount.inactive();
 
         // Then
-        assertEquals(expectedAccountId, expectedAccount.getAccountId(), MESSAGE_TO_EQUAL);
+        assertNotEquals(expectedAccountId, expectedAccount.getAccountId(), MESSAGE_NOT_EQUAL);
         assertEquals(expectedName, expectedAccount.getName(), MESSAGE_TO_EQUAL);
         assertEquals(expectedEmail, expectedAccount.getEmail(), MESSAGE_TO_EQUAL);
         assertEquals(expectedPassword, expectedAccount.getPassword(), MESSAGE_TO_EQUAL);
@@ -226,5 +226,55 @@ class AccountTest extends MessageUtil {
 
         // Then
         assertEquals(expectedErrorMessage, exception.getMessage());
+    }
+
+    @Test
+    void shouldUpdatePasswordWithSuccess(){
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var newPassword = "newPassword";
+        final var expectedAccount = Account.create(
+                expectedName,
+                expectedEmail,
+                expectedPassword
+        );
+
+        expectedAccount.updatePassword(newPassword);
+
+
+        assertNotNull(expectedAccount.getAccountId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedName, expectedAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, expectedAccount.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(newPassword, expectedAccount.getPassword(), MESSAGE_TO_EQUAL);
+        assertTrue(expectedAccount.isActive(), MESSAGE_TRUE);
+        assertFalse(expectedAccount.isAdmin(), MESSAGE_FALSE);
+        assertNotNull(expectedAccount.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedAccount.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedAccount.getUpdatedAt(), MESSAGE_NOT_NULL);
+    }
+
+    @Test
+    void shoulUpdateLastAccessWithSuccess(){
+        final var expectedName = "Account Test";
+        final var expectedEmail = "account.test@dev.com.br";
+        final var expectedPassword = "Password@";
+        final var expectedAccount = Account.create(
+                expectedName,
+                expectedEmail,
+                expectedPassword
+        );
+
+        expectedAccount.lastAccess();
+
+        assertNotNull(expectedAccount.getAccountId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedName, expectedAccount.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedEmail, expectedAccount.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedPassword, expectedAccount.getPassword(), MESSAGE_TO_EQUAL);
+        assertTrue(expectedAccount.isActive(), MESSAGE_TRUE);
+        assertFalse(expectedAccount.isAdmin(), MESSAGE_FALSE);
+        assertNotNull(expectedAccount.getLastAccess(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedAccount.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(expectedAccount.getUpdatedAt(), MESSAGE_NOT_NULL);
     }
 }

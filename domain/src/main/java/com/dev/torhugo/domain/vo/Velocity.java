@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public record Velocity(Double value) {
     public Velocity {
-        if (Objects.nonNull(value) && validate(value)) throw new InvalidArgumentException("Invalid velocity!");
+        if (Objects.isNull(value) || validate(value)) throw new InvalidArgumentException("Invalid velocity!");
     }
 
     private boolean validate(final Double value) {

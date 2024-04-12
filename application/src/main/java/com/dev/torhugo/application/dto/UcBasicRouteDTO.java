@@ -6,12 +6,10 @@ import java.util.UUID;
 public record UcBasicRouteDTO(
         UUID routeId,
         UUID accountId,
-        Double distance,
         String status,
         String name,
         boolean active,
-        UcCoordinateDTO initialCoord,
-        UcCoordinateDTO lastCoord,
+        UcCoordinateDTO startCoordinate,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
