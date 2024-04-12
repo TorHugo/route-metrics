@@ -13,7 +13,7 @@ import util.MessageUtil;
 
 import java.util.UUID;
 
-import static mock.AccountMock.createAccount;
+import static mock.UseCaseMock.createAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -29,7 +29,7 @@ class UpdateAccountUseCaseTest extends MessageUtil {
     }
 
     @Test
-    void shouldUpdateAccountWithSuccess(){
+    void shouldUpdateAccountWhenGivenParametersIsNull(){
         // Given
         final var expectedNewName = "Update Account";
         final var expectedNewEmail = "update.account@dev.com.br";
@@ -46,6 +46,59 @@ class UpdateAccountUseCaseTest extends MessageUtil {
         assertEquals(account.getAccountId(), result.getAccountId(), MESSAGE_TO_EQUAL);
         assertEquals(expectedNewName, result.getName(), MESSAGE_TO_EQUAL);
         assertEquals(expectedNewEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(account.isActive(), result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(account.isAdmin(), result.isAdmin(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getLastAccess(), result.getLastAccess(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getCreatedAt(), result.getCreatedAt(), MESSAGE_TO_EQUAL);
+        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
+        verify(accountRepository, times(1)).findByAccountId(any());
+        verify(accountRepository, times(1)).save(any());
+    }
+
+    @Test
+    void shouldUpdateAccountWhenValuesOfInputIsNotNull(){
+        // Given
+        final var expectedNewName = "Update Account";
+        final var expectedNewEmail = "update.account@dev.com.br";
+        final var expectedPassword = "password@";
+        final var account = createAccount();
+        final var input = new UcUpdateAccountDTO(account.getAccountId(), expectedNewName, expectedNewEmail, expectedPassword, true, false);
+        when(accountRepository.findByAccountId(any())).thenReturn(account);
+        doNothing().when(accountRepository).save(any());
+
+        // When
+        final var result = useCase.execute(input);
+
+        // Then
+        assertNotNull(result, MESSAGE_NOT_NULL);
+        assertEquals(account.getAccountId(), result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedNewName, result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(expectedNewEmail, result.getEmail(), MESSAGE_TO_EQUAL);
+        assertEquals(account.isActive(), result.isActive(), MESSAGE_TO_EQUAL);
+        assertEquals(account.isAdmin(), result.isAdmin(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getLastAccess(), result.getLastAccess(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getCreatedAt(), result.getCreatedAt(), MESSAGE_TO_EQUAL);
+        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
+        verify(accountRepository, times(1)).findByAccountId(any());
+        verify(accountRepository, times(1)).save(any());
+    }
+
+    @Test
+    void shouldUpdateAccountWhenGivenAllParametersIsNull(){
+        // Given
+        final var account = createAccount();
+        final var input = new UcUpdateAccountDTO(account.getAccountId(), null, null, null, true, false);
+        when(accountRepository.findByAccountId(any())).thenReturn(account);
+        doNothing().when(accountRepository).save(any());
+
+        // When
+        final var result = useCase.execute(input);
+
+        // Then
+        assertNotNull(result, MESSAGE_NOT_NULL);
+        assertEquals(account.getAccountId(), result.getAccountId(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getName(), result.getName(), MESSAGE_TO_EQUAL);
+        assertEquals(account.getEmail(), result.getEmail(), MESSAGE_TO_EQUAL);
         assertEquals(account.isActive(), result.isActive(), MESSAGE_TO_EQUAL);
         assertEquals(account.isAdmin(), result.isAdmin(), MESSAGE_TO_EQUAL);
         assertEquals(account.getLastAccess(), result.getLastAccess(), MESSAGE_TO_EQUAL);

@@ -2,13 +2,15 @@ package usecase;
 
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.ports.repository.RouteRepository;
-import com.dev.torhugo.application.usecase.FindRouteUseCase;
+import com.dev.torhugo.application.usecase.FindAllRouteUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
+
+import java.util.List;
 
 import static mock.UseCaseMock.createAccount;
 import static mock.UseCaseMock.createRoute;
@@ -17,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class FindRouteUseCaseTest extends MessageUtil {
+class FindAllRouteUseCaseTest extends MessageUtil {
     @InjectMocks
-    FindRouteUseCase useCase;
+    FindAllRouteUseCase useCase;
     @Mock
     RouteRepository routeRepository;
     @Mock
@@ -32,25 +34,25 @@ class FindRouteUseCaseTest extends MessageUtil {
 
     @Test
     void shouldFindRouteWithSuccess(){
-        // Given=
+        // Given
         final var route = createRoute();
-        when(routeRepository.findByIdAndAccount(any(), any())).thenReturn(route);
+        when(routeRepository.findAllByAccount(any())).thenReturn(List.of(route));
         when(accountRepository.findByEmailWithThrow(any())).thenReturn(createAccount());
 
         // When
-        final var result = useCase.execute(route.getRouteId(), "usr_email@example.com");
+        final var result = useCase.execute("usr_email@example.com");
 
         // Then
         assertNotNull(result, MESSAGE_NOT_NULL);
-        assertEquals(route.getRouteId(), result.routeId(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getAccountId(), result.accountId(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getStatus(), result.status(), MESSAGE_TO_EQUAL);
-        assertEquals(route.isActive(), result.active(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getStartCoordinate().latitude(), result.startCoordinate().latitude(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getStartCoordinate().longitude(), result.startCoordinate().longitude(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getCreatedAt(), result.createdAt(), MESSAGE_TO_EQUAL);
-        assertEquals(route.getUpdatedAt(), result.updatedAt(), MESSAGE_TO_EQUAL);
-        verify(routeRepository, times(1)).findByIdAndAccount(any(), any());
+        assertEquals(route.getRouteId(), result.get(0).routeId(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getAccountId(), result.get(0).accountId(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getStatus(), result.get(0).status(), MESSAGE_TO_EQUAL);
+        assertEquals(route.isActive(), result.get(0).active(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getStartCoordinate().latitude(), result.get(0).startCoordinate().latitude(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getStartCoordinate().longitude(), result.get(0).startCoordinate().longitude(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getCreatedAt(), result.get(0).createdAt(), MESSAGE_TO_EQUAL);
+        assertEquals(route.getUpdatedAt(), result.get(0).updatedAt(), MESSAGE_TO_EQUAL);
+        verify(routeRepository, times(1)).findAllByAccount(any());
         verify(accountRepository, times(1)).findByEmailWithThrow(any());
     }
 }

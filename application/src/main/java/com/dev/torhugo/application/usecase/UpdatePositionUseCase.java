@@ -3,9 +3,8 @@ package com.dev.torhugo.application.usecase;
 import com.dev.torhugo.application.config.DefaultUseCase;
 import com.dev.torhugo.application.dto.UcBasicPositionDTO;
 import com.dev.torhugo.application.dto.UcUpdatePositionDTO;
-import com.dev.torhugo.application.ports.repository.RouteRepository;
 import com.dev.torhugo.application.ports.repository.PositionRepository;
-import com.dev.torhugo.domain.entity.Position;
+import com.dev.torhugo.application.ports.repository.RouteRepository;
 import com.dev.torhugo.domain.exception.InvalidArgumentException;
 
 import java.util.Objects;
@@ -27,18 +26,11 @@ public class UpdatePositionUseCase extends DefaultUseCase {
         final var route = routeRepository.findById(input.routeId());
         if (!Objects.equals(route.getStatus(), "confirmed"))
             throw new InvalidArgumentException("Invalid route status!");
-        final var lastPosition = positionRepository.findLastPositionByRouteId(route.getRouteId());
-        final var position = Position.create(
-                route.getRouteId(),
-                input.coordinate().latitude(),
-                input.coordinate().longitude(),
-                route.getLastCoord().latitude(),
-                route.getLastCoord().longitude(),
-                Objects.isNull(lastPosition) ? route.getCreatedAt() : lastPosition.getCreatedAt()
-        );
-        route.updateLastPosition(input.coordinate().latitude(), input.coordinate().longitude());
-        positionRepository.save(position);
+        final var position = positionRepository.findPositionByRoute(route.getRouteId());
+        position.calculateDistanceAndVelocity(input.newPosition().latitude(), input.newPosition().longitude());
+        position.updatePosition(input.newPosition().latitude(), input.newPosition().longitude());
         routeRepository.save(route);
+        positionRepository.save(position);
         return mappingToBasic(position);
     }
 }

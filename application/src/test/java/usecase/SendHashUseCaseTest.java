@@ -4,7 +4,6 @@ import com.dev.torhugo.application.ports.messaging.QueueProducer;
 import com.dev.torhugo.application.ports.repository.AccountRepository;
 import com.dev.torhugo.application.ports.repository.ForgetPasswordRepository;
 import com.dev.torhugo.application.usecase.SendHashUseCase;
-import com.dev.torhugo.domain.entity.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
 
-import static mock.AccountMock.createAccount;
+import static mock.UseCaseMock.createAccount;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 

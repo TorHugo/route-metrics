@@ -15,11 +15,8 @@ public record BasicRouteDTO(
         @JsonProperty("account_id") UUID accountId,
         @JsonProperty("name") String name,
         @JsonProperty("status") String status,
-        @JsonProperty("distance") Double distance,
-        @JsonProperty("initial_coord") CoordinateDTO coord,
-        @JsonProperty("last_coord") CoordinateDTO lastCoord,
+        @JsonProperty("start_coord") CoordinateDTO coord,
         @JsonProperty("in_active") boolean active,
-
         @JsonProperty("created_at")
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")
         LocalDateTime createdAt,

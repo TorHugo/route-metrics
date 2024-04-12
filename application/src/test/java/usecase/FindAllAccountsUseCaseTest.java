@@ -11,7 +11,7 @@ import util.MessageUtil;
 
 import java.util.List;
 
-import static mock.AccountMock.createAccount;
+import static mock.UseCaseMock.createAccount;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;

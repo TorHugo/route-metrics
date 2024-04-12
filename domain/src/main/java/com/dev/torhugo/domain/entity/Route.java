@@ -11,11 +11,9 @@ import java.util.UUID;
 public class Route {
     private final UUID routeId;
     private final UUID accountId;
-    private final Double distance;
     private Status status;
     private final String name;
-    private final Coordinate initialCoord;
-    private Coordinate lastCoord;
+    private final Coordinate startCoordinate;
     private boolean active;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -23,24 +21,20 @@ public class Route {
     private Route(
             final UUID routeId,
             final UUID accountId,
-            final Double distance,
             final String status,
             final String name,
-            final Double initialLatitude,
-            final Double initialLongitude,
-            final Double lastLatitude,
-            final Double lastLongitude,
+            final Double startLatitude,
+            final Double startLongitude,
+            final LocalDateTime startTime,
             final boolean active,
             final LocalDateTime createdAt,
             final LocalDateTime updatedAt
     ) {
         this.routeId = routeId;
         this.accountId = accountId;
-        this.distance = distance;
         this.status = new Status(status);
         this.name = name;
-        this.initialCoord = new Coordinate(initialLatitude, initialLongitude);
-        this.lastCoord = new Coordinate(lastLatitude, lastLongitude);
+        this.startCoordinate = new Coordinate(startLatitude, startLongitude, startTime);
         this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -56,13 +50,11 @@ public class Route {
         return new Route(
                 routeId,
                 accountId,
-                null,
                 status,
                 null,
                 latitude,
                 longitude,
-                latitude,
-                longitude,
+                dateNow,
                 isActive,
                 dateNow,
                 null
@@ -81,21 +73,13 @@ public class Route {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void updateLastPosition(final Double latitude,
-                                   final Double longitude){
-        this.lastCoord = new Coordinate(latitude, longitude);
-        this.updatedAt = LocalDateTime.now();
-    }
-
     public static Route restore(final UUID routeId,
                                 final UUID accountId,
-                                final Double distance,
                                 final String status,
                                 final String name,
-                                final Double initialLat,
-                                final Double initialLong,
-                                final Double lastLat,
-                                final Double lastLong,
+                                final Double startLatitude,
+                                final Double startLongitude,
+                                final LocalDateTime startTime,
                                 final boolean active,
                                 final LocalDateTime createdAt,
                                 final LocalDateTime updatedAt
@@ -103,13 +87,11 @@ public class Route {
         return new Route(
                 routeId,
                 accountId,
-                distance,
                 status,
                 name,
-                initialLat,
-                initialLong,
-                lastLat,
-                lastLong,
+                startLatitude,
+                startLongitude,
+                startTime,
                 active,
                 createdAt,
                 updatedAt
@@ -124,10 +106,6 @@ public class Route {
         return accountId;
     }
 
-    public Double getDistance() {
-        return distance;
-    }
-
     public String getStatus() {
         return status.getValue();
     }
@@ -136,14 +114,9 @@ public class Route {
         return name;
     }
 
-    public Coordinate getInitialCoord() {
-        return initialCoord;
+    public Coordinate getStartCoordinate() {
+        return startCoordinate;
     }
-
-    public Coordinate getLastCoord() {
-        return lastCoord;
-    }
-
     public boolean isActive() {
         return active;
     }

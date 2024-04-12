@@ -132,6 +132,7 @@ public class Account {
     }
 
     public void lastAccess(){
+        this.updatedAt = LocalDateTime.now();
         this.lastAccess = LocalDateTime.now();
     }
 
