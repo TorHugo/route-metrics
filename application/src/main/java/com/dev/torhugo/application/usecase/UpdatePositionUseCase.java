@@ -26,6 +26,8 @@ public class UpdatePositionUseCase extends DefaultUseCase {
         final var route = routeRepository.findById(input.routeId());
         if (!Objects.equals(route.getStatus(), "confirmed"))
             throw new InvalidArgumentException("Invalid route status!");
+        if (!route.isActive())
+            throw new InvalidArgumentException("This route is inactive!");
         final var position = positionRepository.findPositionByRoute(route.getRouteId());
         position.calculateDistanceAndVelocity(input.newPosition().latitude(), input.newPosition().longitude());
         position.updatePosition(input.newPosition().latitude(), input.newPosition().longitude());

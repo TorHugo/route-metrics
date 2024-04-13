@@ -62,7 +62,8 @@ public class Route {
     }
 
     public void inactive(){
-        if(!this.active) throw new InvalidArgumentException("This account is already inactive.");
+        if (!Objects.equals(this.status.getValue(), "finished")) throw new InvalidArgumentException("Invalid status!");
+        if (!this.active) throw new InvalidArgumentException("This account is already inactive.");
         this.active = false;
         this.updatedAt = LocalDateTime.now();
     }

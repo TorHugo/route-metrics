@@ -40,7 +40,7 @@ public class RouteRepositoryImpl implements RouteRepository {
 
     @Override
     public List<Route> findAllByAccount(final UUID accountId) {
-        final var entitys = routeJpaRepository.findAllByAccountId(accountId);
+        final var entitys = routeJpaRepository.findByAccountIdAndActiveTrueOrderByCreatedAtAsc(accountId);
         return entitys.stream().map(RouteEntity::toAggregate).toList();
     }
 

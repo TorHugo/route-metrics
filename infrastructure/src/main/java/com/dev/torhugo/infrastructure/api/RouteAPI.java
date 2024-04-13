@@ -35,4 +35,10 @@ public interface RouteAPI {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
     List<BasicRouteDTO> findAllRoutes(final Principal principal);
+
+    @PutMapping("/public/inativate/{routeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER')")
+    void inativate(final Principal principal,
+                   final @PathVariable(name = "routeId") UUID routeId);
 }

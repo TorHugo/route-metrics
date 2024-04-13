@@ -1,10 +1,7 @@
 package com.dev.torhugo.infrastructure.api.controller;
 
 import com.dev.torhugo.application.dto.UcRouteDTO;
-import com.dev.torhugo.application.usecase.ConfirmRouteUseCase;
-import com.dev.torhugo.application.usecase.FindAllRouteUseCase;
-import com.dev.torhugo.application.usecase.FindRouteUseCase;
-import com.dev.torhugo.application.usecase.RequestRouteUseCase;
+import com.dev.torhugo.application.usecase.*;
 import com.dev.torhugo.infrastructure.api.RouteAPI;
 import com.dev.torhugo.infrastructure.api.mappers.RouteMapper;
 import com.dev.torhugo.infrastructure.api.models.request.CreateRouteDTO;
@@ -24,6 +21,7 @@ public class RouteController implements RouteAPI {
     private final FindRouteUseCase findRouteUseCase;
     private final ConfirmRouteUseCase confirmRouteUseCase;
     private final FindAllRouteUseCase findAllRouteUseCase;
+    private final InativateRouteUseCase inativateRouteUseCase;
     private final RouteMapper routeMapper;
     @Override
     public RouteCreateDTO createAccount(final CreateRouteDTO request) {
@@ -52,5 +50,11 @@ public class RouteController implements RouteAPI {
     public List<BasicRouteDTO> findAllRoutes(final Principal principal) {
         final var result = findAllRouteUseCase.execute(principal.getName());
         return routeMapper.mapperToBasicRoutes(result);
+    }
+
+    @Override
+    public void inativate(final Principal principal,
+                          final UUID routeId) {
+        inativateRouteUseCase.execute(principal.getName(), routeId);
     }
 }
