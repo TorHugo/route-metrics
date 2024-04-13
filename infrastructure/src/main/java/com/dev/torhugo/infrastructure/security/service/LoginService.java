@@ -32,4 +32,8 @@ public class LoginService {
         updateLastAccessUseCase.execute(request.username());
         return cookie;
     }
+
+    public ResponseCookie logout(){
+        return tokenUtils.cleanToken();
+    }
 }

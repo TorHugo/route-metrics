@@ -14,9 +14,15 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequiredArgsConstructor
 public class AuthController implements AuthAPI {
     private final LoginService loginService;
+
     @Override
     public ResponseEntity<?> login(final LoginDTO request) {
         final var token = loginService.login(request);
         return ok().header(SET_COOKIE, token.toString()).body(null);
+    }
+
+    @Override
+    public ResponseEntity<?> logout() {
+        return ok().header(SET_COOKIE, loginService.logout().toString()).body(null);
     }
 }

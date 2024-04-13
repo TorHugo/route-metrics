@@ -11,4 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface AuthAPI {
     @PostMapping("/login")
     ResponseEntity<?> login(final @Valid @RequestBody LoginDTO request);
+    @PostMapping("/logout")
+    ResponseEntity<?> logout();
 }

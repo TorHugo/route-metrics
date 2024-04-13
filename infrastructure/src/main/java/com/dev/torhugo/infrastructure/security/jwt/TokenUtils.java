@@ -79,6 +79,16 @@ public class TokenUtils {
                 .httpOnly(true)
                 .build();
     }
+
+    public ResponseCookie cleanToken(){
+        return from(COOKIE, "")
+                .path("/")
+                .maxAge(0)
+                .secure(true)
+                .httpOnly(true)
+                .build();
+    }
+
     private String generateTokenFromUser(final UserDetailsImpl user,
                                          final boolean reset) {
         if (!user.isActive())
