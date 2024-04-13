@@ -1,6 +1,7 @@
 package com.dev.torhugo.domain.entity;
 
 import com.dev.torhugo.domain.ds.CreateHashCode;
+import com.dev.torhugo.domain.exception.InvalidHashForgetPasswordException;
 import com.dev.torhugo.domain.vo.HashCode;
 
 import java.time.LocalDateTime;
@@ -11,10 +12,10 @@ public class ForgetPassword {
     private final UUID accountId;
     private final HashCode hashCode;
     private final LocalDateTime expirationDate;
-    private final boolean active;
-    private final boolean confirmed;
+    private boolean active;
+    private boolean confirmed;
     private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     private ForgetPassword(final UUID forgetPasswordId,
                            final UUID accountId,
@@ -54,46 +55,15 @@ public class ForgetPassword {
         );
     }
 
-
-
-    public static ForgetPassword confirmed(final UUID forgetPasswordId,
-                                           final UUID accountId,
-                                           final String hashCode,
-                                           final boolean active,
-                                           final LocalDateTime expirationDate,
-                                           final LocalDateTime createdAt){
-        final var dateNow = LocalDateTime.now();
-        final var confirmed = true;
-        return new ForgetPassword(
-                forgetPasswordId,
-                accountId,
-                hashCode,
-                expirationDate,
-                active,
-                confirmed,
-                createdAt,
-                dateNow
-        );
+    public void confirmed(){
+        this.updatedAt = LocalDateTime.now();
+        this.confirmed = true;
     }
 
-    public static ForgetPassword inactived(final UUID forgetPasswordId,
-                                           final UUID accountId,
-                                           final String hashCode,
-                                           final boolean confirmed,
-                                           final LocalDateTime expirationDate,
-                                           final LocalDateTime createdAt){
-        final var dateNow = LocalDateTime.now();
-        final var active = false;
-        return new ForgetPassword(
-                forgetPasswordId,
-                accountId,
-                hashCode,
-                expirationDate,
-                active,
-                confirmed,
-                createdAt,
-                dateNow
-        );
+    public void inactived(){
+        if (!this.confirmed) throw new InvalidHashForgetPasswordException("HashCode is not confirmed!");
+        this.updatedAt = LocalDateTime.now();
+        this.active = false;
     }
     public static ForgetPassword restore(final UUID forgetPasswordId,
                                          final UUID accountId,

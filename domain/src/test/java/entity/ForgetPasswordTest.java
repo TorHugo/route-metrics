@@ -68,64 +68,42 @@ class ForgetPasswordTest extends MessageUtil {
     @Test
     void shouldConfirmedForgetPasswordWithSuccess(){
         // Given
-        final var expectedForgetPasswordId = UUID.randomUUID();
         final var expectedAccountId = UUID.randomUUID();
-        final var expectedHashCode = "123456";
-        final var expectedExpirationDate = LocalDateTime.now().plusMinutes(30L);
-        final var expectedActive = true;
-        final var expectedCreatedAt = LocalDateTime.now();
+        final var forgetPassword = ForgetPassword.create(expectedAccountId);
 
         // When
-        final var result = ForgetPassword.confirmed(
-                expectedForgetPasswordId,
-                expectedAccountId,
-                expectedHashCode,
-                expectedActive,
-                expectedExpirationDate,
-                expectedCreatedAt
-        );
+        forgetPassword.confirmed();
 
         // Then
-        assertNotNull(result, MESSAGE_NOT_NULL);
-        assertEquals(expectedForgetPasswordId, result.getForgetPasswordId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedHashCode, result.getHashCode(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedExpirationDate, result.getExpirationDate(), MESSAGE_TO_EQUAL);
-        assertTrue(result.isActive(), MESSAGE_TRUE);
-        assertTrue(result.isConfirmed(), MESSAGE_TRUE);
-        assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
-        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword, MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword.getForgetPasswordId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedAccountId, forgetPassword.getAccountId(), MESSAGE_TO_EQUAL);
+        assertNotNull(forgetPassword.getHashCode(), MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword.getExpirationDate(), MESSAGE_NOT_NULL);
+        assertTrue(forgetPassword.isActive(), MESSAGE_TRUE);
+        assertTrue(forgetPassword.isConfirmed(), MESSAGE_TRUE);
+        assertNotNull(forgetPassword.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword.getUpdatedAt(), MESSAGE_NOT_NULL);
     }
 
     @Test
     void shouldInactivedForgetPasswordWithSuccess(){
         // Given
-        final var expectedForgetPasswordId = UUID.randomUUID();
         final var expectedAccountId = UUID.randomUUID();
-        final var expectedHashCode = "123456";
-        final var expectedExpirationDate = LocalDateTime.now().plusMinutes(30L);
-        final var expectedConfirmed = true;
-        final var expectedCreatedAt = LocalDateTime.now();
+        final var forgetPassword = ForgetPassword.create(expectedAccountId);
 
         // When
-        final var result = ForgetPassword.inactived(
-                expectedForgetPasswordId,
-                expectedAccountId,
-                expectedHashCode,
-                expectedConfirmed,
-                expectedExpirationDate,
-                expectedCreatedAt
-        );
+        forgetPassword.inactived();
 
         // Then
-        assertNotNull(result, MESSAGE_NOT_NULL);
-        assertEquals(expectedForgetPasswordId, result.getForgetPasswordId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedAccountId, result.getAccountId(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedHashCode, result.getHashCode(), MESSAGE_TO_EQUAL);
-        assertEquals(expectedExpirationDate, result.getExpirationDate(), MESSAGE_TO_EQUAL);
-        assertFalse(result.isActive(), MESSAGE_FALSE);
-        assertTrue(result.isConfirmed(), MESSAGE_TRUE);
-        assertEquals(expectedCreatedAt, result.getCreatedAt(), MESSAGE_TO_EQUAL);
-        assertNotNull(result.getUpdatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword, MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword.getForgetPasswordId(), MESSAGE_NOT_NULL);
+        assertEquals(expectedAccountId, forgetPassword.getAccountId(), MESSAGE_TO_EQUAL);
+        assertNotNull(forgetPassword.getHashCode(), MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword.getExpirationDate(), MESSAGE_NOT_NULL);
+        assertFalse(forgetPassword.isActive(), MESSAGE_FALSE);
+        assertTrue(forgetPassword.isConfirmed(), MESSAGE_TRUE);
+        assertNotNull(forgetPassword.getCreatedAt(), MESSAGE_NOT_NULL);
+        assertNotNull(forgetPassword.getUpdatedAt(), MESSAGE_NOT_NULL);
     }
 }

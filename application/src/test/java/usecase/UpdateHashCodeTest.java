@@ -34,15 +34,8 @@ class UpdateHashCodeTest extends MessageUtil {
     void shouldUpdateHashWithSuccess(){
         final var expectedAccountId = UUID.randomUUID();
         final var expectedForgetPassword = ForgetPassword.create(expectedAccountId);
-        final var expectedForgetPasswordConfirmated = ForgetPassword.confirmed(
-                expectedForgetPassword.getForgetPasswordId(),
-                expectedForgetPassword.getAccountId(),
-                expectedForgetPassword.getHashCode(),
-                expectedForgetPassword.isActive(),
-                expectedForgetPassword.getExpirationDate(),
-                expectedForgetPassword.getCreatedAt()
-        );
-        when(forgetPasswordRepository.findHashConfirmedTrue(any(), any())).thenReturn(expectedForgetPasswordConfirmated);
+        expectedForgetPassword.confirmed();
+        when(forgetPasswordRepository.findHashConfirmedTrue(any(), any())).thenReturn(expectedForgetPassword);
         doNothing().when(forgetPasswordRepository).save(any());
 
         updateHashUseCase.execute(expectedForgetPassword.getHashCode(), expectedAccountId);

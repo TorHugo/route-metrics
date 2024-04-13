@@ -8,11 +8,14 @@ import com.dev.torhugo.infrastructure.repository.models.ForgetPasswordEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
 public class ForgetPasswordRepositoryImpl implements ForgetPasswordRepository {
+    private static final String ERROR_HASH_NOT_FOUND = "HashCode not found!";
+
     private final ForgetPasswordJpaRepository repository;
 
     @Override
@@ -26,7 +29,7 @@ public class ForgetPasswordRepositoryImpl implements ForgetPasswordRepository {
                                                 final UUID accountId) {
         final var entity = repository.findByHashCodeAndActiveTrueAndAccountId(hascode, accountId);
         return entity.map(ForgetPasswordEntity::toAggregate)
-                .orElseThrow(() -> new RepositoryException("HashCode not found!"));
+                .orElseThrow(() -> new RepositoryException(ERROR_HASH_NOT_FOUND));
     }
 
     @Override
@@ -34,6 +37,19 @@ public class ForgetPasswordRepositoryImpl implements ForgetPasswordRepository {
                                                  final UUID accountId) {
         final var entity = repository.findByHashCodeAndConfirmedFalseAndActiveTrueAndAccountId(hashcode, accountId);
         return entity.map(ForgetPasswordEntity::toAggregate)
-                .orElseThrow(() -> new RepositoryException("HashCode not found!"));
+                .orElseThrow(() -> new RepositoryException(ERROR_HASH_NOT_FOUND));
+    }
+
+    @Override
+    public ForgetPassword findHashByAccount(final UUID accountId){
+        final var entity = repository.findByAccountId(accountId);
+        return entity.map(ForgetPasswordEntity::toAggregate)
+                .orElseThrow(() -> new RepositoryException(ERROR_HASH_NOT_FOUND));
+    }
+
+    @Override
+    public List<ForgetPassword> findAll() {
+        final var entities = repository.findAll();
+        return entities.stream().map(ForgetPasswordEntity::toAggregate).toList();
     }
 }

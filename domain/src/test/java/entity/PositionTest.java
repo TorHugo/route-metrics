@@ -95,7 +95,7 @@ class PositionTest extends MessageUtil {
     }
 
     @Test
-    void shoudCalculateStartDistance() throws InterruptedException {
+    void shoudCalculateMinVelocity() throws InterruptedException {
         final var route = UUID.randomUUID();
         final var valueZero = 0.0;
         final var startLatitude = -22.9067;

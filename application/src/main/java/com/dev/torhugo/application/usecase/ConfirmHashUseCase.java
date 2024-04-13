@@ -2,7 +2,6 @@ package com.dev.torhugo.application.usecase;
 
 import com.dev.torhugo.application.config.DefaultUseCase;
 import com.dev.torhugo.application.ports.repository.ForgetPasswordRepository;
-import com.dev.torhugo.domain.entity.ForgetPassword;
 import com.dev.torhugo.domain.exception.InvalidHashForgetPasswordException;
 
 import java.time.LocalDateTime;
@@ -18,18 +17,11 @@ public class ConfirmHashUseCase extends DefaultUseCase {
     public void execute(final String hascode,
                         final UUID accountId){
         logger.info("Executing use-case: ConfirmHash().");
-        final var existingHashCode = forgetPasswordRepository.findHashConfirmedFalse(hascode, accountId);
+        final var forgetPassword = forgetPasswordRepository.findHashConfirmedFalse(hascode, accountId);
         final var dateNow = LocalDateTime.now();
-        if (existingHashCode.getExpirationDate().isBefore(dateNow))
+        if (forgetPassword.getExpirationDate().isBefore(dateNow))
             throw new InvalidHashForgetPasswordException("This hash is expired!");
-        final var forgetPassword = ForgetPassword.confirmed(
-                existingHashCode.getForgetPasswordId(),
-                existingHashCode.getAccountId(),
-                existingHashCode.getHashCode(),
-                existingHashCode.isActive(),
-                existingHashCode.getExpirationDate(),
-                existingHashCode.getCreatedAt()
-        );
+        forgetPassword.confirmed();
         forgetPasswordRepository.save(forgetPassword);
     }
 }

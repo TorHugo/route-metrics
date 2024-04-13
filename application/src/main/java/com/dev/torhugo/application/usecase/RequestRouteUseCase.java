@@ -26,7 +26,7 @@ public class RequestRouteUseCase extends DefaultUseCase {
     public UUID execute(final UcRouteDTO input){
         logger.info("Executing use-case: CreateRoute.");
         final var account = accountRepository.findByAccountId(input.accountId());
-        final var routes = routeRepository.findAllByAccountAndStatus(input.accountId(), "requested");
+        final var routes = routeRepository.findAllByAccountAndStatus(input.accountId(), "completed");
         if (!routes.isEmpty())
             throw new InvalidArgumentException("This account has pending routes!");
         final var actualRoute = Route.create(
