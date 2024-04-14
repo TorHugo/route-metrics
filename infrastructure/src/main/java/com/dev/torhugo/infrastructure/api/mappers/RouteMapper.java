@@ -18,7 +18,7 @@ public class RouteMapper {
                 .accountId(result.accountId())
                 .name(result.name())
                 .status(result.status())
-                .coord(new CoordinateDTO(result.startCoordinate().latitude(), result.startCoordinate().longitude()))
+                .coord(new CoordinateDTO(result.startCoordinate().latitude(), result.startCoordinate().longitude(), result.createdAt()))
                 .active(result.active())
                 .createdAt(result.createdAt())
                 .updatedAt(result.updatedAt())

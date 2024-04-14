@@ -20,7 +20,8 @@ public class RouteMapper {
                 route.isActive(),
                 new UcCoordinateDTO(
                         route.getStartCoordinate().latitude(),
-                        route.getStartCoordinate().longitude()
+                        route.getStartCoordinate().longitude(),
+                        route.getCreatedAt()
                 ),
                 route.getCreatedAt(),
                 route.getUpdatedAt()

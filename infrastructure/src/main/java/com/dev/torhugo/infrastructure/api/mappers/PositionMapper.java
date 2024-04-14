@@ -10,7 +10,7 @@ public class PositionMapper {
     public BasicPositionDTO mapperToBasic(final UcBasicPositionDTO result){
         return BasicPositionDTO.builder()
                 .positionId(result.positionId())
-                .coordinate(new CoordinateDTO(result.lastCoordinate().latitude(), result.lastCoordinate().longitude()))
+                .coordinate(new CoordinateDTO(result.lastCoordinate().latitude(), result.lastCoordinate().longitude(), result.lastTime()))
                 .maxVelocity(result.maxVelocity())
                 .minVelocity(result.minVelocity())
                 .distance(result.distance())

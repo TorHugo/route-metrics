@@ -3,9 +3,11 @@ package com.dev.torhugo.infrastructure.api.controller;
 import com.dev.torhugo.application.dto.UcRouteDTO;
 import com.dev.torhugo.application.usecase.*;
 import com.dev.torhugo.infrastructure.api.RouteAPI;
+import com.dev.torhugo.infrastructure.api.mappers.DetailsMapper;
 import com.dev.torhugo.infrastructure.api.mappers.RouteMapper;
 import com.dev.torhugo.infrastructure.api.models.request.CreateRouteDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicRouteDTO;
+import com.dev.torhugo.infrastructure.api.models.response.DetailsDTO;
 import com.dev.torhugo.infrastructure.api.models.response.RouteCreateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +24,9 @@ public class RouteController implements RouteAPI {
     private final ConfirmRouteUseCase confirmRouteUseCase;
     private final FindAllRouteUseCase findAllRouteUseCase;
     private final InativateRouteUseCase inativateRouteUseCase;
+    private final FindDetailsRouteUseCase findDetailsRouteUseCase;
     private final RouteMapper routeMapper;
+    private final DetailsMapper detailsMapper;
     @Override
     public RouteCreateDTO createAccount(final CreateRouteDTO request) {
         final var input = new UcRouteDTO(
@@ -56,5 +60,11 @@ public class RouteController implements RouteAPI {
     public void inativate(final Principal principal,
                           final UUID routeId) {
         inativateRouteUseCase.execute(principal.getName(), routeId);
+    }
+
+    @Override
+    public DetailsDTO findDetailsRoute(final UUID routeId,
+                                       final Principal principal) {
+        return detailsMapper.mapperFromUseCase(findDetailsRouteUseCase.execute(principal.getName(), routeId));
     }
 }

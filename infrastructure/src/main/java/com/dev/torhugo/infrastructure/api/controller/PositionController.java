@@ -17,7 +17,7 @@ public class PositionController implements PositionAPI {
     private final PositionMapper positionMapper;
     @Override
     public BasicPositionDTO updatePosition(final CreatePositionDTO request) {
-        final var input = new UcUpdatePositionDTO(request.routeId(), new UcCoordinateDTO(request.coordinate().latitude(), request.coordinate().longitude()));
+        final var input = new UcUpdatePositionDTO(request.routeId(), new UcCoordinateDTO(request.coordinate().latitude(), request.coordinate().longitude(), null));
         return positionMapper.mapperToBasic(updatePositionUseCase.execute(input));
     }
 }

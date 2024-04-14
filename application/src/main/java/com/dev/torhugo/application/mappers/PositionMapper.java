@@ -11,7 +11,8 @@ public class PositionMapper {
                 position.getPositionId(),
                 new UcCoordinateDTO(
                         position.getCoordinate().latitude(),
-                        position.getCoordinate().longitude()
+                        position.getCoordinate().longitude(),
+                        position.getCreatedAt()
                 ),
                 position.getCoordinate().time(),
                 position.getMaxVelocity(),

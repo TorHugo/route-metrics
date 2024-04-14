@@ -2,6 +2,7 @@ package com.dev.torhugo.infrastructure.api;
 
 import com.dev.torhugo.infrastructure.api.models.request.CreateRouteDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicRouteDTO;
+import com.dev.torhugo.infrastructure.api.models.response.DetailsDTO;
 import com.dev.torhugo.infrastructure.api.models.response.RouteCreateDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,4 +42,10 @@ public interface RouteAPI {
     @PreAuthorize("hasRole('USER')")
     void inativate(final Principal principal,
                    final @PathVariable(name = "routeId") UUID routeId);
+
+    @GetMapping("/public/find/details/{routeId}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('USER')")
+    DetailsDTO findDetailsRoute(final @PathVariable(name = "routeId") UUID routeId,
+                                final Principal principal);
 }
