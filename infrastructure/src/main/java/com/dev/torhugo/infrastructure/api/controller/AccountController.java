@@ -34,37 +34,35 @@ public class AccountController implements AccountAPI {
 
     @Override
     public AccountCreateDTO createAdminAccount(final AccountAdminDTO request) {
-        final var input = new UcAccountAdminDTO(request.name(), request.email(), passwordEncoder.encode(request.password()), request.active(), request.admin());
-        return new AccountCreateDTO(createAccountAdminUseCase.execute(input));
+        return accountMapper.mapperFromUseCase(createAccountAdminUseCase.execute(accountMapper.mapperToUseCase(request)));
     }
 
     @Override
     public List<BasicAccountDTO> findAllAccounts() {
-        return accountMapper.mapperToBasicListAccount(findAllAccountsUseCase.execute());
+        return accountMapper.mapperFromUseCase(findAllAccountsUseCase.execute());
     }
 
     @Override
     public void inativateAccount(final InativateAccountDTO request) {
-        final var input = new UcInativateAccountDTO(request.accouts());
-        inativateAccountUseCase.execute(input);
+        inativateAccountUseCase.execute(accountMapper.mapperToUseCase(request));
     }
 
     @Override
     public BasicAccountDTO updateAccount(final UpdateAccountDTO request,
                                          final UUID accountId) {
-        final var input = new UcUpdateAccountDTO(accountId, request.name(), request.email(), passwordEncoder.encode(request.password()), request.active(), request.admin());
-        return accountMapper.mapperToBasicAccount(updateAccountUseCase.execute(input));
+        final var passwordEncoded = passwordEncoder.encode(request.password());
+        return accountMapper.mapperFromUseCase(updateAccountUseCase.execute(accountMapper.mapperToUseCase(accountId, request, passwordEncoded)));
     }
 
     @Override
     public AccountCreateDTO createAccount(final CreateAccountDTO request) {
-        final var input = new UcAccountDTO(request.name(), request.email(), passwordEncoder.encode(request.password()));
-        return new AccountCreateDTO(createAccountUseCase.execute(input));
+        final var passwordEncoded = passwordEncoder.encode(request.password());
+        return new AccountCreateDTO(createAccountUseCase.execute(accountMapper.mapperToUseCase(request, passwordEncoded)));
     }
 
     @Override
     public BasicAccountDTO findAccount(final Principal request) {
-        return accountMapper.mapperToBasicAccount(findAccountUseCase.execute(request.getName()));
+        return accountMapper.mapperFromUseCase(findAccountUseCase.execute(request.getName()));
     }
 
     @Override
@@ -73,7 +71,6 @@ public class AccountController implements AccountAPI {
         final var actualAccount = findAccountUseCase.execute(principal.getName());
         final var newPasswordEncrypt = passwordEncoder.encode(request.newPassword());
         final boolean comparingPasswords = passwordEncoder.matches(request.oldPassword(), actualAccount.getPassword());
-        final var input = new UcUpdatePasswordDTO(newPasswordEncrypt, comparingPasswords);
-        updatePasswordUseCase.execute(actualAccount, input);
+        updatePasswordUseCase.execute(actualAccount, accountMapper.mapperToUseCase(newPasswordEncrypt, comparingPasswords));
     }
 }

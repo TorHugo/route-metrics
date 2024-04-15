@@ -1,6 +1,7 @@
 package com.dev.torhugo.infrastructure.api;
 
 import com.dev.torhugo.infrastructure.api.models.request.CreateRouteDTO;
+import com.dev.torhugo.infrastructure.api.models.request.FinishRouteDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicRouteDTO;
 import com.dev.torhugo.infrastructure.api.models.response.DetailsDTO;
 import com.dev.torhugo.infrastructure.api.models.response.RouteCreateDTO;
@@ -48,4 +49,10 @@ public interface RouteAPI {
     @PreAuthorize("hasRole('USER')")
     DetailsDTO findDetailsRoute(final @PathVariable(name = "routeId") UUID routeId,
                                 final Principal principal);
+
+    @PutMapping("/public/finish")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER')")
+    void finish(final @RequestBody FinishRouteDTO request,
+                final Principal principal);
 }

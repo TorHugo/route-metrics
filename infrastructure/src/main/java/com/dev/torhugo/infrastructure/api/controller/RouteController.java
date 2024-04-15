@@ -1,11 +1,11 @@
 package com.dev.torhugo.infrastructure.api.controller;
 
-import com.dev.torhugo.application.dto.UcRouteDTO;
 import com.dev.torhugo.application.usecase.*;
 import com.dev.torhugo.infrastructure.api.RouteAPI;
 import com.dev.torhugo.infrastructure.api.mappers.DetailsMapper;
 import com.dev.torhugo.infrastructure.api.mappers.RouteMapper;
 import com.dev.torhugo.infrastructure.api.models.request.CreateRouteDTO;
+import com.dev.torhugo.infrastructure.api.models.request.FinishRouteDTO;
 import com.dev.torhugo.infrastructure.api.models.response.BasicRouteDTO;
 import com.dev.torhugo.infrastructure.api.models.response.DetailsDTO;
 import com.dev.torhugo.infrastructure.api.models.response.RouteCreateDTO;
@@ -25,23 +25,18 @@ public class RouteController implements RouteAPI {
     private final FindAllRouteUseCase findAllRouteUseCase;
     private final InativateRouteUseCase inativateRouteUseCase;
     private final FindDetailsRouteUseCase findDetailsRouteUseCase;
+    private final FinishRouteUseCase finishRouteUseCase;
     private final RouteMapper routeMapper;
     private final DetailsMapper detailsMapper;
     @Override
     public RouteCreateDTO createAccount(final CreateRouteDTO request) {
-        final var input = new UcRouteDTO(
-                request.accountId(),
-                request.coordinate().latitude(),
-                request.coordinate().longitude()
-        );
-        return new RouteCreateDTO(requestRouteUseCase.execute(input));
+        return routeMapper.mapperFromUseCase(requestRouteUseCase.execute(routeMapper.mapperToUseCase(request)));
     }
 
     @Override
     public BasicRouteDTO findRoute(final UUID routeId,
                                    final Principal principal) {
-        final var result = findRouteUseCase.execute(routeId, principal.getName());
-        return RouteMapper.mapperToBasicRoute(result);
+        return routeMapper.mapperFromUseCase(findRouteUseCase.execute(routeId, principal.getName()));
     }
 
     @Override
@@ -52,8 +47,7 @@ public class RouteController implements RouteAPI {
 
     @Override
     public List<BasicRouteDTO> findAllRoutes(final Principal principal) {
-        final var result = findAllRouteUseCase.execute(principal.getName());
-        return routeMapper.mapperToBasicRoutes(result);
+        return routeMapper.mapperFromUseCase(findAllRouteUseCase.execute(principal.getName()));
     }
 
     @Override
@@ -66,5 +60,11 @@ public class RouteController implements RouteAPI {
     public DetailsDTO findDetailsRoute(final UUID routeId,
                                        final Principal principal) {
         return detailsMapper.mapperFromUseCase(findDetailsRouteUseCase.execute(principal.getName(), routeId));
+    }
+
+    @Override
+    public void finish(final FinishRouteDTO request,
+                       final Principal principal) {
+        finishRouteUseCase.execute(principal.getName(), routeMapper.mapperToUseCase(request));
     }
 }

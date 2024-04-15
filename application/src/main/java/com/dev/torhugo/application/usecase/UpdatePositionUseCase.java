@@ -21,6 +21,7 @@ public class UpdatePositionUseCase extends DefaultUseCase {
         this.routeRepository = routeRepository;
     }
 
+    // TODO: Retornar velocidade atual.
     public UcBasicPositionDTO execute(final UcUpdatePositionDTO input){
         logger.info("Executing use-case: UpdatePosition().");
         final var route = routeRepository.findById(input.routeId());

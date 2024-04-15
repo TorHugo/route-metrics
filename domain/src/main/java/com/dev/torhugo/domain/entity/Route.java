@@ -12,7 +12,7 @@ public class Route {
     private final UUID routeId;
     private final UUID accountId;
     private Status status;
-    private final String name;
+    private String name;
     private final Coordinate startCoordinate;
     private boolean active;
     private final LocalDateTime createdAt;
@@ -72,6 +72,13 @@ public class Route {
         if(!Objects.equals(this.status.getValue(), "requested")) throw new InvalidArgumentException("Invalid status! Expected status: requested.");
         this.status = new Status("confirmed");
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void finish(final String name) {
+        if(!Objects.equals(this.status.getValue(), "confirmed")) throw new InvalidArgumentException("Invalid status! Expected status: confirmed.");
+        this.status = new Status("finished");
+        this.updatedAt = LocalDateTime.now();
+        this.name = name;
     }
 
     public static Route restore(final UUID routeId,
