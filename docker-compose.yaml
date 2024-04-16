@@ -1,16 +1,31 @@
 version: '3'
 services:
+  backend:
+    container_name: route-metrics-backend
+    image: torhugo/route-metrics:0.0.7
+    ports:
+      - "9001:9001"
+    environment:
+      DB: postgres
+      MQ: rabbitmq
+      PORT_DB: 5432
+    restart: always
+    networks:
+      - routes-metrics
+
   postgres:
     container_name: db_route_metrics
     image: postgres:latest
     environment:
       POSTGRES_DB: route_metrics
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: ${PG_ADMIN_PASSWORD}
+      POSTGRES_PASSWORD: 17122020
     ports:
       - "5435:5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - routes-metrics
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -21,3 +36,9 @@ services:
       - "15672:15672"
     volumes:
       - ./data:/var/lib/rabbitmq/
+    networks:
+      - routes-metrics
+
+networks:
+  routes-metrics:
+    driver: bridge

@@ -22,6 +22,10 @@ java {
     sourceCompatibility = '17'
 }
 
+bootJar {
+    archiveFileName = 'route-metrics-backend.jar'
+}
+
 repositories {
     mavenCentral()
 }
