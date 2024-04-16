@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://${DB:localhost}:${PORT_DB:5432}/postgres
     username: admin
-    password: 17122020
+    password: ${PASSWORD_DB:17122020}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -18,8 +18,8 @@ spring:
             non_contextual_creation: true
   rabbitmq:
     host: ${MQ:localhost}
-    port: 5672
+    port: ${PORT_MQ:5672}
     username: guest
-    password: guest
+    password: ${PASSWORD_MQ:guest}
   main:
     allow-bean-definition-overriding: true

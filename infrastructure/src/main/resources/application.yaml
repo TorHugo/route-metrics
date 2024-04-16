@@ -2,7 +2,7 @@
 ## APPLICATION ##
 #################
 server:
-  port: 9000
+  port: ${PORT_APPLICATION:9000}
   servlet:
     context-path: /v1/api
 
