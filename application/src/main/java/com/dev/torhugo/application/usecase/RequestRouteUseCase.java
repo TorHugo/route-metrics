@@ -23,6 +23,7 @@ public class RequestRouteUseCase extends DefaultUseCase {
         this.positionRepository = positionRepository;
     }
 
+    // TODO: passar a receber o e-mail ao invés do account_id via body.
     public UUID execute(final UcRouteDTO input){
         logger.info("Executing use-case: CreateRoute.");
         final var account = accountRepository.findByAccountId(input.accountId());

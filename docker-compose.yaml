@@ -17,6 +17,26 @@ services:
     networks:
       - routes-metrics
 
+  queue-worker:
+    container_name: queue-worker-mail
+    image: torhugo/queue-worker-mail:0.0.2
+    ports:
+      - "9001:9001"
+    environment:
+      PORT_APPLICATION: 9001
+      USER_NAME_SMTP:
+      USER_PASSWORD_SMTP:
+      DEFAULT_EMAIL: contato.arrudavictor@gmail.com
+      DB: postgres
+      MQ: rabbitmq
+      PORT_DB: 5432
+      PORT_MQ: 5672
+      PASSWORD_DB: 17122020
+      PASSWORD_MQ: guest
+    restart: always
+    networks:
+      - routes-metrics
+
   postgres:
     container_name: db_route_metrics
     image: postgres:latest
