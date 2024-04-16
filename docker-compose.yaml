@@ -2,9 +2,9 @@ version: '3'
 services:
   backend:
     container_name: route-metrics-backend
-    image: torhugo/route-metrics:0.0.7
+    image: torhugo/route-metrics:0.0.8
     ports:
-      - "9001:9001"
+      - "9000:9000"
     environment:
       DB: postgres
       MQ: rabbitmq
