@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.time.LocalDateTime;
+
 import static mock.DefaultMockIT.createAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static util.MessageUtils.*;
@@ -40,6 +42,7 @@ class UpdatePositionUseCaseIT {
     @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdatePositionWithSuccess(){
         final var account = createAccount();
+        final var dateNow = LocalDateTime.now();
         accountRepository.save(account);
         final var startLatitude = -22.9067;
         final var startLongitude = -43.1729;
@@ -49,7 +52,7 @@ class UpdatePositionUseCaseIT {
 
         final var newLatitude = -22.90016;
         final var newLongitude = -43.1729;
-        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude));
+        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude, dateNow));
         final var oldPosition = positionRepository.findPositionByRoute(routeId);
         updatePositionUseCase.execute(updatePosition);
         final var actualPosition = positionRepository.findPositionByRoute(routeId);
@@ -76,6 +79,7 @@ class UpdatePositionUseCaseIT {
     @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdatePositionWhenThreeValidPointsAndStraightLine(){
         final var account = createAccount();
+        final var dateNow = LocalDateTime.now();
         accountRepository.save(account);
         final var startLatitude = -22.9067;
         final var startLongitude = -43.1729;
@@ -85,14 +89,14 @@ class UpdatePositionUseCaseIT {
 
         final var newLatitude = -22.90016;
         final var newLongitude = -43.1729;
-        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude));
+        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude, dateNow));
         final var oldPosition = positionRepository.findPositionByRoute(routeId);
         updatePositionUseCase.execute(updatePosition);
         final var newPosition = positionRepository.findPositionByRoute(routeId);
 
         final var endLatitude = -22.8942;
         final var endLongitude = -43.1729;
-        final var newUpdatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(endLatitude, endLongitude));
+        final var newUpdatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(endLatitude, endLongitude, dateNow));
         updatePositionUseCase.execute(newUpdatePosition);
         final var actualPosition = positionRepository.findPositionByRoute(routeId);
 
@@ -127,6 +131,7 @@ class UpdatePositionUseCaseIT {
     @Sql(scripts = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdatePositionWhenThreeValidPointsAndNotStraightLine(){
         final var account = createAccount();
+        final var dateNow = LocalDateTime.now();
         accountRepository.save(account);
         final var startLatitude = -22.9067;
         final var startLongitude = -43.1729;
@@ -136,14 +141,14 @@ class UpdatePositionUseCaseIT {
 
         final var newLatitude = -22.9112;
         final var newLongitude = -43.1729;
-        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude));
+        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude, dateNow));
         final var oldPosition = positionRepository.findPositionByRoute(routeId);
         updatePositionUseCase.execute(updatePosition);
         final var newPosition = positionRepository.findPositionByRoute(routeId);
 
         final var endLatitude = -22.9157;
         final var endLongitude = -43.1750;
-        final var newUpdatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(endLatitude, endLongitude));
+        final var newUpdatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(endLatitude, endLongitude, dateNow));
         updatePositionUseCase.execute(newUpdatePosition);
         final var actualPosition = positionRepository.findPositionByRoute(routeId);
 
@@ -178,6 +183,7 @@ class UpdatePositionUseCaseIT {
     void shouldThrowExceptionWhenInvalidStatus(){
         final var expectedException = "Invalid route status!";
         final var account = createAccount();
+        final var dateNow = LocalDateTime.now();
         accountRepository.save(account);
         final var startLatitude = -22.9067;
         final var startLongitude = -43.1729;
@@ -186,7 +192,7 @@ class UpdatePositionUseCaseIT {
 
         final var newLatitude = -22.9112;
         final var newLongitude = -43.1729;
-        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude));
+        final var updatePosition = new UcUpdatePositionDTO(routeId, new UcCoordinateDTO(newLatitude, newLongitude, dateNow));
 
         final var exception = assertThrows(InvalidArgumentException.class, () -> updatePositionUseCase.execute(updatePosition));
 

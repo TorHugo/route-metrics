@@ -38,6 +38,11 @@ out/
 
 ### PG-DATA ###
 /postgres-data/
+/postgres-data-new/
+/postgres-data-prd-1/
 
 ### MQ-DATA ###
 /data/
+
+# Docker-Compose
+docker-compose.yml
