@@ -22,6 +22,11 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      - name: Start RabbitMQ container
+        uses: docker/setup-qemu-action@v2
+        with:
+          dockerfile: rabbitmq:latest
+
       - name: Build with Gradle (using flags)
         run: gradle -b infrastructure/build.gradle -DprojectDir=infrastructure build
 

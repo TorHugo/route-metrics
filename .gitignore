@@ -40,6 +40,7 @@ out/
 /postgres-data/
 /postgres-data-new/
 /postgres-data-prd-1/
+/postgres-data-prd/
 
 ### MQ-DATA ###
 /data/
