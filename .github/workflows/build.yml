@@ -23,7 +23,7 @@ jobs:
           cache: gradle
 
       - name: Change to infrastructure directory
-        run: cd route_metrics/infrastructure
+        run: cd ws-develop/route_metrics/infrastructure
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
@@ -51,6 +51,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: route_metrics/infrastructura/Dockerfile
+          file: ws-develop/route_metrics/infrastructure/Dockerfile
           push: true
           tags: torhugo/route-metrics:latest
