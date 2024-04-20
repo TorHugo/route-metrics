@@ -48,6 +48,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: route_metrics/infrastructure/Dockerfile
+          file: Dockerfile
           push: true
           tags: torhugo/route-metrics:latest
