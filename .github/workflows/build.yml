@@ -11,6 +11,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      rabbitmq:
+        image: rabbitmq:3
+        ports:
+          - 5672:5672
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,11 +27,6 @@ jobs:
           java-version: 17
           distribution: 'adopt'
           cache: gradle
-
-      - name: Start RabbitMQ container
-        uses: docker/setup-qemu-action@v2
-        with:
-          dockerfile: rabbitmq:latest
 
       - name: Build with Gradle (using flags)
         run: gradle -b infrastructure/build.gradle -DprojectDir=infrastructure build
