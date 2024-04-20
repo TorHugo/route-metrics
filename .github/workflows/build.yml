@@ -69,3 +69,5 @@ jobs:
           file: Dockerfile
           push: true
           tags: torhugo/route-metrics:latest
+
+# TODO: Criar JOB para atualizar a imagem na VPS. | Criar WorkFlow para QueueWorkerMail que atualmente está off.
