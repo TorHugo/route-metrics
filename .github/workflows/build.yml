@@ -31,6 +31,12 @@ jobs:
       - name: Build with Gradle (using flags)
         run: gradle -b infrastructure/build.gradle -DprojectDir=infrastructure build
 
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-artifacts
+          path: infrastructure/build/libs/route-metrics-backend.jar
+
   deploy:
     runs-on: ubuntu-latest
 
@@ -39,6 +45,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: app-artifacts
+          path: infrastructure/build/libs/
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
