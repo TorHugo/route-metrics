@@ -73,7 +73,7 @@ jobs:
   deploy-oracle-vps:
     runs-on: ubuntu-latest
 
-    needs: deploy
+    needs: deploy-docker-hub
 
     steps:
       - name: Checkout code
