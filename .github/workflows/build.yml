@@ -86,6 +86,10 @@ jobs:
 
       - name: Pull Docker images
         run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && sudo docker-compose pull"
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Restart containers
         run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && sudo docker-compose restart"
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
