@@ -43,8 +43,6 @@ jobs:
     needs: build
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
@@ -76,8 +74,6 @@ jobs:
     needs: deploy
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: SSH into Oracle VPS
         uses: appleboy/ssh-action@master
