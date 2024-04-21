@@ -70,4 +70,28 @@ jobs:
           push: true
           tags: torhugo/route-metrics:latest
 
-# TODO: Criar JOB para atualizar a imagem na VPS. | Criar WorkFlow para QueueWorkerMail que atualmente está off.
+  oracle-vps:
+    runs-on: ubuntu-latest
+
+    needs: deploy
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SSH into Oracle VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Update containers.
+        run: |
+          sshpass -p ${{ secrets.VPS_PASSWORD }} scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:~/
+
+      - name: Restart containers.
+        run: |
+          sshpass -p ${{ secrets.VPS_PASSWORD }} ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && docker-compose pull && docker-compose restart"
