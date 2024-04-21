@@ -79,17 +79,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: SSH into Oracle VPS
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Pull Docker images
-        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && sudo docker-compose pull"
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Restart containers
-        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && sudo docker-compose restart"
+      - name: SSH into Oracle VPS, Pull Docker images, Restart containers
+        run: |
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && \
+          sudo docker-compose pull && \
+          sudo docker-compose restart"
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
