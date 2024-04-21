@@ -79,13 +79,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: SSH into Oracle VPS, Pull Docker images, Restart containers
+      - name: SSH into Oracle VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Update containers.
         run: |
-          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && \
-          sudo docker-compose pull && \
-          sudo docker-compose restart"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && sudo docker-compose pull"
+
+      - name: Restart containers.
+        run: |                    
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/ && sudo docker-compose restart"
