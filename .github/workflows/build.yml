@@ -92,6 +92,8 @@ jobs:
   discord-notification:
     runs-on: ubuntu-latest
 
+    needs: deploy-oracle-vps
+
     steps:
     - name: Discord Notification
       uses: sarisia/actions-status-discord@v1.9.0
