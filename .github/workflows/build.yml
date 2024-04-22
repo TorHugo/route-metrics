@@ -88,3 +88,16 @@ jobs:
           port: 22
           script: |
             ./script.sh
+            
+  discord-notification:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Discord Notification
+      uses: sarisia/actions-status-discord@v1.9.0
+      if: always()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        title: "Backend Route Metrics"
+        description: "Build and Deploy to Server"
+        username: GitHub Actions
