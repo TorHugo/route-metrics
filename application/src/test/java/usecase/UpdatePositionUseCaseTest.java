@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.MessageUtil;
 
+import java.time.LocalDateTime;
+
 import static mock.UseCaseMock.createPosition;
 import static mock.UseCaseMock.createRoute;
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,6 +44,7 @@ class UpdatePositionUseCaseTest extends MessageUtil {
         final var startLongitude = -43.1729;
         final var newLatitude = -22.9112;
         final var newLongitude = -43.1729;
+        final var dateNow = LocalDateTime.now();
 
         final var route = createRoute(startLatitude, startLongitude);
         route.confirm();
@@ -51,7 +54,7 @@ class UpdatePositionUseCaseTest extends MessageUtil {
         when(positionRepository.findPositionByRoute(any())).thenReturn(position);
         doNothing().when(routeRepository).save(any());
         doNothing().when(positionRepository).save(any());
-        final var input = new UcUpdatePositionDTO(route.getRouteId(), new UcCoordinateDTO(newLatitude, newLongitude));
+        final var input = new UcUpdatePositionDTO(route.getRouteId(), new UcCoordinateDTO(newLatitude, newLongitude, dateNow));
 
         final var result = updatePositionUseCase.execute(input);
 
@@ -77,13 +80,14 @@ class UpdatePositionUseCaseTest extends MessageUtil {
         final var startLongitude = -43.1729;
         final var newLatitude = -22.9112;
         final var newLongitude = -43.1729;
+        final var dateNow = LocalDateTime.now();
 
         final var route = createRoute(startLatitude, startLongitude);
         final var position = createPosition(startLatitude, startLongitude);
 
         when(routeRepository.findById(any())).thenReturn(route);
         when(positionRepository.findPositionByRoute(any())).thenReturn(position);
-        final var input = new UcUpdatePositionDTO(route.getRouteId(), new UcCoordinateDTO(newLatitude, newLongitude));
+        final var input = new UcUpdatePositionDTO(route.getRouteId(), new UcCoordinateDTO(newLatitude, newLongitude, dateNow));
 
         final var result = assertThrows(InvalidArgumentException.class, () -> updatePositionUseCase.execute(input));
 

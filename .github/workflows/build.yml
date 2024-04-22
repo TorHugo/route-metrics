@@ -57,6 +57,9 @@ jobs:
       - name: Run domain tests.
         run: gradle -b domain/build.gradle -DprojectDir=domain build
 
+      - name: Run application tests.
+        run: gradle -b application/build.gradle -DprojectDir=application build
+
   deploy-docker-hub:
     runs-on: ubuntu-latest
 
