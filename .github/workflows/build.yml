@@ -53,7 +53,7 @@ jobs:
           cache: gradle
 
       - name: Run domain tests.
-        run: gradle -b domain/build.gradle domain:testClasses
+        run: gradle -b domain/build.gradle -DprojectDir=domain build
 #
 #  deploy-docker-hub:
 #    runs-on: ubuntu-latest
