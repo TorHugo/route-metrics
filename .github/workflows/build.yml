@@ -87,7 +87,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo ola
+            pwd
 
 #      - name: SSH into Oracle VPS
 #        uses: webfactory/ssh-agent@v0.9.0
