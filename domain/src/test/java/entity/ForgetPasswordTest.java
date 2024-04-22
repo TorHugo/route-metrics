@@ -93,6 +93,7 @@ class ForgetPasswordTest extends MessageUtil {
         final var forgetPassword = ForgetPassword.create(expectedAccountId);
 
         // When
+        forgetPassword.confirmed();
         forgetPassword.inactived();
 
         // Then

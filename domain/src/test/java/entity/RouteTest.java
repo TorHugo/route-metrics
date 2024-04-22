@@ -46,7 +46,7 @@ class RouteTest extends MessageUtil {
         final var expectedAccountId = UUID.randomUUID();
         final var expectedLatitude = Math.random();
         final var expectedLongitude = Math.random();
-        final var expectedStatus = "requested";
+        final var expectedStatus = "finished";
         final var expectedRoute = Route.create(
                 expectedAccountId,
                 expectedLatitude,
@@ -54,12 +54,14 @@ class RouteTest extends MessageUtil {
         );
 
         // When
+        expectedRoute.confirm();
+        expectedRoute.finish("");
         expectedRoute.inactive();
 
         // Then
         assertNotNull(expectedRoute.getRouteId(), MESSAGE_NOT_NULL);
         assertEquals(expectedAccountId, expectedRoute.getAccountId(), MESSAGE_TO_EQUAL);
-        assertNull(expectedRoute.getName(), MESSAGE_NULL);
+        assertNotNull(expectedRoute.getName(), MESSAGE_NOT_NULL);
         assertEquals(expectedStatus, expectedRoute.getStatus(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLatitude, expectedRoute.getStartCoordinate().latitude(), MESSAGE_TO_EQUAL);
         assertEquals(expectedLongitude, expectedRoute.getStartCoordinate().longitude(), MESSAGE_TO_EQUAL);
@@ -84,6 +86,8 @@ class RouteTest extends MessageUtil {
         );
 
         // When
+        expectedRoute.confirm();
+        expectedRoute.finish("");
         expectedRoute.inactive();
         final var result = assertThrows(InvalidArgumentException.class, expectedRoute::inactive);
 
