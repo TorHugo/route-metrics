@@ -42,6 +42,9 @@ Como citado anteriormente, a API está em processo de desenvolvimento. Aqui est�
 
 Essas seriam apenas algumas features que poderão ser implementadas para o nosso usuário futuramente. Claro, podendo sofrer alterações, inclusões ou até mesmo exclusões.
 
+### ⏱ Wakatime
+Este projéto foi desenvolvido em apróximadamente 47 horas. Confira acessando: [Wakatime](https://wakatime.com/@018ea48c-6b4a-47b7-8e01-9e9ad0e159bd/projects/kdstyplxhz?start=2024-04-18&end=2024-04-24).
+
 ### 👨‍🚀 Team Members
 Developed/ Deployed by `Arruda, Victor Hugo`!
 
