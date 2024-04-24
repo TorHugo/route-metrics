@@ -10,7 +10,7 @@ Desenvolvida com o objetivo de oferecer uma experiência intuitiva e informativa
 - `Estimativas de Percursos`: Em desenvolvimento, a funcionalidade de estimativas de percursos oferecerá aos usuários uma estimativa do consumo de combustível com base no cadastro do veículo. Isso permitirá uma melhor compreensão dos custos associados a viagens planejadas e ajudará os usuários a tomarem decisões informadas sobre suas jornadas.
 
 ### 💻 API
-A aplicação foi desenvolvida utilizando DDD (Domain-Driven Design) como sua principal arquitetura. Enfatizo o uso dessa arquitetura pelos benefícios que ela tráz consigo, como: `testabilidade`, `manutenção` e `escalabilidade`!
+A aplicação foi desenvolvida utilizando DDD (Domain-Driven Design) como sua principal arquitetura. Enfatizo o uso dessa arquitetura pelos benefícios que ela tráz consigo, como: `testabilidade`, `manutenabilidade` e `escalabilidade`!
 ![Domain-Driven Design](/assets/driven-domain-design.png)
 
 ### 📚 Stack
