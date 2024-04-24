@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://${DB:localhost}:${PORT_DB:5432}/postgres
     username: admin
-    password: ${PASSWORD_DB:17122020}
+    password: ${PASSWORD_DB:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
