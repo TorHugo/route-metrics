@@ -6,8 +6,8 @@ Desenvolvida com o objetivo de oferecer uma experiência intuitiva e informativa
 ### 📌 Algumas de nossas funcionalidades:
 - `Registro de Rotas Flexível`: Os usuários podem iniciar uma rota a qualquer momento, sem a necessidade de definir um destino final. Isso proporciona liberdade para explorar e registrar viagens de forma espontânea.
 - `Análise Detalhada da Viagem`: Com base na latitude e longitude do usuário, a aplicação calcula uma variedade de métricas importantes, incluindo velocidade máxima e mínima atingida durante o trajeto, distância percorrida, tempo decorrido e velocidade atual. Essas informações são apresentadas de forma clara e acessível para análise posterior.
-- `Acesso Fácil aos Dados da Rota`: Ao final de cada viagem, todos os dados capturados estão disponíveis para acesso imediato. Isso permite que os usuários revisitem suas viagens e explorem os detalhes da sua jornada sempre que desejarem.
-- `Estimativas de Percursos`: Em desenvolvimento, a funcionalidade de estimativas de percursos oferecerá aos usuários uma estimativa do consumo de combustível com base no cadastro do veículo. Isso permitirá uma melhor compreensão dos custos associados a viagens planejadas e ajudará os usuários a tomarem decisões informadas sobre suas jornadas.
+- `Acesso Fácil aos Dados da Rota`: Ao final de cada viagem, todos os dados capturados estão prontamente disponíveis para acesso. Isso permite que os usuários revisitem suas viagens e explorem os detalhes da sua jornada sempre que desejarem.
+- `Estimativas de Percursos`: Em desenvolvimento, a funcionalidade de estimativas de percursos oferecerá aos usuários uma estimativa do consumo de combustível, com base no cadastro do veículo. Isso permitirá uma melhor compreensão dos custos associados a viagens planejadas e ajudará os usuários a tomarem decisões informadas sobre suas jornadas.
 
 ### 💻 API
 A aplicação foi desenvolvida utilizando DDD (Domain-Driven Design) como sua principal arquitetura. Enfatizo o uso dessa arquitetura pelos benefícios que ela tráz consigo, como: `testabilidade`, `manutenabilidade` e `escalabilidade`!
@@ -22,14 +22,14 @@ A Route-Metrics API, foi desenvolvida utilizando:
 - `Cloud`: Oracle Cloud
 
 Obs.:
-- Como dito anteriormente essa aplicação foi desenvolvida na versão mais alta do SpringBoot(_03/2024_). Ou seja, toda a parte de autenticação e autorização foi desenvolvida utilizando SpringSecurity `v6.2.4`. E, utilizando boas práticas de autenticação, como `Secure` e `Http Only`.
-- O `CI/CD` foi criado utilizando `GitHub Actions`, para automatizar o deploy da aplicação. Ou seja, ele faz o build do projeto, isso inclui a execução dos `testes unitários` e de integração para garantir a consistência do sistema; criação da imagem do projeto utilizando `Docker`, e deploy da mesma no `DockerHub`. Ao acessar a `VPS` externa, executa um script para realizar o pull da imagem, e a reinicialização do `docker-compose`.
-- Para o bom funcionamento desta aplicação, foi desenvolvido um serviço (`worker`) para envios de e-mail (`@gmail`).
+- Como dito anteriormente essa aplicação foi desenvolvida na versão mais alta do SpringBoot(_03/2024_). Ou seja, toda a parte de autenticação e autorização foi desenvolvida utilizando SpringSecurity `v6.2.4`. E, utilizando boas práticas de autenticação, com `Secure` e `Http Only`.
+- O `CI/CD` foi criado utilizando `GitHub Actions`, para automatizar o deploy da aplicação. Ou seja, ele faz o build do projeto, isso inclui a execução dos `testes unitários` e de `integração` para garantir a consistência do sistema; criação da imagem do projeto utilizando `Docker`, e deploy da mesma no `DockerHub`. Ao acessar a `VPS` externa, é executado um script para realizar o `pull` da imagem e, `reinicialização` do `docker-compose`. Ao final do processo, é enviado uma notificação de sucesso para o `Discord`.
+- Para o bom funcionamento desta aplicação, foi desenvolvido um serviço (`worker`) para envios de e-mail (`@gmail`). Este serviço, se encontra neste [repositório](https://github.com/TorHugo/ms-worker-email).
 
 ### 🚧 Features
 Como citado anteriormente, a API está em processo de desenvolvimento. Aqui estão algumas features que ainda serão lançada futuramente:
 
-- `Cadastro de Alerta`: A ideia é que o nosso usuário consiga criar alerta personalizados para critérios da viagem dele. E quando algum dos critérios estabelecidos for atingido, o sistema enviaria uma notificação ou um alerta de fato para chamar a atenção do usuário! Por exemplo:
+- `Cadastro de Alerta`: A ideia é que o nossos usuários consigam criar alertas personalizados para critérios da viagem dele. E quando algum dos critérios estabelecidos for atingido, o sistema enviaria uma notificação ou um alerta de fato para chamar a atenção do usuário! Por exemplo:
   - Velocidade máxima;
   - Distancia percorrida;
   - Tempo percorrido;
